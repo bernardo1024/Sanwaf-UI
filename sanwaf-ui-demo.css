@@ -1,0 +1,105 @@
+
+.table-instructions {
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: Arial;
+    min-width: 1000px;
+    max-width: 1000px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-spacing: 10px; 
+    margin-left: 10px;
+}
+.table-instructions td {
+  vertical-align: top;
+}
+
+.table-instructions-inner {
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: Arial;
+    min-width: 680px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-spacing: 10px; 
+    margin-left: 10px;
+}
+.table-instructions-inner td {
+  vertical-align: top;
+}
+.table-instructions-no-border {
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: Arial;
+    min-width: 680px;
+    border-spacing: 5px; 
+    margin-left: 50px;
+}
+.table-instructions-no-border td {
+  vertical-align: top;
+}
+
+.table-compact-1 {
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-spacing: 10px; 
+    margin-left: 50px;
+}
+.table-compact-1 td {
+  vertical-align: top;
+}
+
+.table-compact {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 50px;
+}
+.table-compact td {
+  vertical-align: top;
+}
+
+.table-compact-normal-font {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: Arial;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 50px;
+}
+.table-compact-normal-font td {
+  vertical-align: top;
+}
+
+.table-instructions-inline-block {
+    margin: 25px 0;
+    font-size: 1em;
+    font-family: Arial;
+    min-width: 400px;
+    border-spacing: 10px; 
+}
+.table-instructions-inline-block td {
+  display: inline-block;
+  vertical-align: top;
+}
+
+
+
+.image{
+  max-width:20%;
+  max-height:20%;
+  margin-left: 50px;
+}
+.image:hover {
+  transition: transform .5s;
+  transform:scale(3);
+
+  position:relative;
+    top:50px;
+    left:300px;
+}
