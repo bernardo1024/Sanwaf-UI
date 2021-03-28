@@ -1,7 +1,4 @@
-Sanwaf-ui.js Demo
-=================
-
-What is Sanwaf & Sanwaf-ui?
+What is Sanwaf-ui & sanwaf-server
 ---------------------------
 
 Sanwaf-server is a Sanitation Web Application Firewall. Sanwaf-server runs on the server
@@ -35,43 +32,31 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
 1. Import sanwaf-ui.js lib
 
-<script src="[sanwaf-ui.js](sanwaf-ui.js)"></script>
-
-this makes the sanwaf-ui code available for use on your page
+    <script src="[sanwaf-ui.js](sanwaf-ui.js)"></script>
+    this makes the sanwaf-ui code available for use on your page
 
 2. import sanwaf-ui CSS (optional)
 
-<link rel="stylesheet" type="text/css" href="[sanwaf-ui.css](sanwaf-ui.css)" media="screen" />
-
-to specify custom classes see the [sanwafuiconfig](#sanwafuiconfig) hidden element
+    <link rel="stylesheet" type="text/css" href="[sanwaf-ui.css](sanwaf-ui.css)" media="screen" />
+    to specify custom classes see the [sanwafuiconfig](#sanwafuiconfig) hidden element
 
 3. Configure sanwaf-ui (optional)
 
-add a hidden element named "[**sanwafuiconfig**](#sanwafuiconfig)" & configure Sanwaf-ui
-
-if you want to override sanwaf-ui defaults, this element must be declared
+    add a hidden element named "[**sanwafuiconfig**](#sanwafuiconfig)" & configure Sanwaf-ui
+    if you want to override sanwaf-ui defaults, this element must be declared
 
 4. Set [sanwaf-ui attributes](#sanwafuitags) to per element
 
-<input
-
-type="text" id="carModel" size="20"
-
-**data-sw-display**\="Car Model"
-
-**data-sw-type**\="s"
-
-**data-sw-max**\="30"
-
-**data-sw-min**\="0"
-
-**data-sw-req**\="true"
-
-**data-sw-related**\="haveCar:Yes"
-
-**data-sw-err-msg**\="Car Model must be entered if you own a car"
-
-/>
+    <input
+      type="text" id="carModel" size="20"
+      **data-sw-display**\="Car Model"
+      **data-sw-type**\="s"
+      **data-sw-max**\="30"
+      **data-sw-min**\="0"
+      **data-sw-req**\="true"
+      **data-sw-related**\="haveCar:Yes"
+      **data-sw-err-msg**\="Car Model must be entered if you own a car"
+    />
 
 <!-- see below for [sanwaf-ui attribute](#sanwafuitags) details -->
 
