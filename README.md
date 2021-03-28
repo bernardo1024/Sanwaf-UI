@@ -87,7 +87,7 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   
 **Optional Control Attributes**  
 
-  	numErrorsToDisplay  			- Number of error messages to display. Specify -1 to display all errors. Defaults to: -1
+  	numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. Defaults to: -1
   	errorActions                  	- Action(s)s to take when an error is found on a submit.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors, showOnPage,showOnPageSanwafTable,alertWithPopup
 	blurActions                  	- Action(s) to take when a field is blurred.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
   	showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. Defaults to: sanwafuierrorwrapper
@@ -97,35 +97,35 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
 
 Use your own CSS classes by setting the following attributes to classes defined in your CSS
 
-	labelClass 					- Sets the color for the label of the error'd element
-	inputClass 					- Sets the color of the input text of the error'd element
-	tooltipClass 				- The tooltip css class applied to the label
-	tooltipTextClass 			- Tooltip text css specification
+	labelClass 			- Sets the color for the label of the error'd element
+	inputClass 			- Sets the color of the input text of the error'd element
+	tooltipClass 			- The tooltip css class applied to the label
+	tooltipTextClass 		- Tooltip text css specification
 	sanwafErrorTableClass 		- When displaying errors on the page, a table in inserted using this css class
 	sanwafErrorTableTdKeyClass 	- The css class for the key section of the sanwaf-ui error table
-	sanwafErrorTableTdDescClass - The css class for the value section of the sanwaf-ui error table
+	sanwafErrorTableTdDescClass 	- The css class for the value section of the sanwaf-ui error table
 
 
 **Optional Error Message Attributes** (default values will be used if not specified)
 
-	errorPopHeader1 				- header line 1 used with pop-up dialog
-	errorPopHeader2 				- header line 2 used with pop-up dialog
-	errorRequired 					- Error message for **Required** violations
-	errorMax 						- Error message for **Max Length** violations
-	errorMin 						- Error message for **Min Length** violations
-	errorMaxMinEqual 				- Error message for when Min & Max length are equal
-	errorMaxValue 					- Error message for **Max Value** violations
-	errorMinValue 					- Error message for **Min Value** violations
-	errorFixedFormat 				- Error message for **Fixed Format** violations
-	errorFormat 					- Error message for **Format** violations
-	errorRelated 					- Error message for **Relationship** violations
-	errorTypeChar 					- Error message for **Character** data type violations
-	errorTypeNumeric 				- Error message for **Numeric** data type violations
-	errorTypeNumericDelimited 		- Error message for **Numeric Delimited** data type violations
-	errorTypeAlphanumeric 			- Error message for **Alphanumeric** data type violations
+	errorPopHeader1 		- header line 1 used with pop-up dialog
+	errorPopHeader2 		- header line 2 used with pop-up dialog
+	errorRequired 			- Error message for **Required** violations
+	errorMax 			- Error message for **Max Length** violations
+	errorMin 			- Error message for **Min Length** violations
+	errorMaxMinEqual 		- Error message for when Min & Max length are equal
+	errorMaxValue 			- Error message for **Max Value** violations
+	errorMinValue 			- Error message for **Min Value** violations
+	errorFixedFormat 		- Error message for **Fixed Format** violations
+	errorFormat 			- Error message for **Format** violations
+	errorRelated 			- Error message for **Relationship** violations
+	errorTypeChar 			- Error message for **Character** data type violations
+	errorTypeNumeric 		- Error message for **Numeric** data type violations
+	errorTypeNumericDelimited 	- Error message for **Numeric Delimited** data type violations
+	errorTypeAlphanumeric 		- Error message for **Alphanumeric** data type violations
 	errorTypeAlphanumericAndMore 	- Error message for **Alphanumeric and more** data type violations
-	errorTypeConstant 				- Error message for **Constant** data type violations
-	errorTypeRegex 					- Error message for **Regex** data type violations
+	errorTypeConstant 		- Error message for **Constant** data type violations
+	errorTypeRegex 			- Error message for **Regex** data type violations
 
   
 
@@ -142,14 +142,14 @@ to set the display type to have the error message hover on the label and change 
 
 **Actions**
 
-	hoverOnLabel 			- Add a hover element to you label that is associated with the 'for=' attribute of the label The hover is configurable via the .sawafuiTooltip elements in the sanwafy-ui.css file
-	hoverShowLabel 			- Include the associated label text in the hover message
-	colorLabel 				- Change the color of the label to the value specified in the .sanwafuiLabel css configuration in the sanwaf-ui.css file
-	colorInput 				- Change the color of the input element to the value specified in the .sanwafinput css configuration in the sanwaf-ui.css file
+	hoverOnLabel 		- Add a hover element to you label that is associated with the 'for=' attribute of the label The hover is configurable via the .sawafuiTooltip elements in the sanwafy-ui.css file
+	hoverShowLabel 		- Include the associated label text in the hover message
+	colorLabel 		- Change the color of the label to the value specified in the .sanwafuiLabel css configuration in the sanwaf-ui.css file
+	colorInput 		- Change the color of the input element to the value specified in the .sanwafinput css configuration in the sanwaf-ui.css file
 	onFocusDisableColors 	- When an element gets focus, remove all error coloring (element & label)
-	showOnPage 				- Element id to be made visible if an error is detected (to provide custom message)
+	showOnPage 		- Element id to be made visible if an error is detected (to provide custom message)
 	showOnPageSanwafTable 	- Element id to insert the Sanwaf-ui table of errors
-	alertWithPopup 			- Show an alert dialog containing the Sanwaf-ui errors
+	alertWithPopup 		- Show an alert dialog containing the Sanwaf-ui errors
 
   
   
@@ -157,17 +157,17 @@ to set the display type to have the error message hover on the label and change 
 Sanwaf-ui Elements Attributes
 -----------------------------
 
-	data-sw-display 		- Name Associated with the widget that will be used for display in error messages.
-	data-sw-type 			- Data type of the element
-	data-sw-req 			- Makes the element a mandatory field
-	data-sw-max 			- Maximum character limit
-	data-sw-min 			- Minimum character limit
-	data-sw-max-value 		- Maximum value for the given type
-	data-sw-min-value 		- Minimum value for the given type
-	data-sw-format	 		- Format: Tries to best fit the data entered into the supplied mask
+	data-sw-display 	- Name Associated with the widget that will be used for display in error messages.
+	data-sw-type 		- Data type of the element
+	data-sw-req 		- Makes the element a mandatory field
+	data-sw-max 		- Maximum character limit
+	data-sw-min 		- Minimum character limit
+	data-sw-max-value 	- Maximum value for the given type
+	data-sw-min-value 	- Minimum value for the given type
+	data-sw-format	 	- Format: Tries to best fit the data entered into the supplied mask
 	data-sw-fixed-format 	- Fixed Format: The user must enter in data in exactly the same mask as indicated
-	data-sw-related 		- Relate fields. format: \[related-to-element:type\] where type is '=' or 'value'
-	data-sw-err-msg 		- Custom error message (overrides global msgs)
+	data-sw-related 	- Relate fields. format: \[related-to-element:type\] where type is '=' or 'value'
+	data-sw-err-msg 	- Custom error message (overrides global msgs)
 
   
   
@@ -175,51 +175,49 @@ Sanwaf-ui Elements Attributes
 data-sw-type (data types)
 -------------------------
 
-	Character (c) 	 					Any single character
-										Format: c
-										Example: y, n, a, b...
+	Character (c) 	 			Any single character
+						Format: c
+						Example: y, n, a, b...
 
-	Numeric (n)							Any positive or negative numeric value
-					  					('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces; one '.' allowed)
-					  					Format: n
-					  					Example: 1000, -321.123, 0.0001
+	Numeric (n)				Any positive or negative numeric value
+					  	('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces; one '.' allowed)
+					  	Format: n
+					  	Example: 1000, -321.123, 0.0001
 
 	Delimited list of numbers (n{}) 	A character separated list of numbers
-										Format: n{<separator char>}  
-										Note: the min & max settings applies per delimited value
-										Example: using n{,}, -321.123,0.000,123,45
+						Format: n{<separator char>}  
+						Note: the min & max settings applies per delimited value
+						Example: using n{,}, -321.123,0.000,123,45
 
-	Alphanumeric (a)					Valid chars are A-Z, a-z, 0-9
-										Format: a
-										Example: abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+	Alphanumeric (a)			Valid chars are A-Z, a-z, 0-9
+						Format: a
+						Example: abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 	Alphanumeric & more chars (a{})		Valid chars are A-Z, a-z, 0-9 \*AND\* the characters you specify in the curly brackets  
-										For \[space\], \[tab\], \[newline\], \[carriage return\] use: \\s \\t \\n \\r respectively
-										Format: a{<characters to allow>}
-										Example: using a{+\\s,}, abcdefghijklm nopqrstuvwxyz+
+						For \[space\], \[tab\], \[newline\], \[carriage return\] use: \\s \\t \\n \\r respectively
+						Format: a{<characters to allow>}
+						Example: using a{+\\s,}, abcdefghijklm nopqrstuvwxyz+
 
-	String (s)							Any string  
-										All regex's in the autoRunPatterns are executed against the string
-										Format: s
-										Example: "Hello this string does not contain a XSS payload"
+	String (s)				Any string  
+						All regex's in the autoRunPatterns are executed against the string
+						Format: s
+						Example: "Hello this string does not contain a XSS payload"
 
-	Constant (k{})						Constant, must be equal to one of the values specified
-										Format: k{<comma separated list of strings>}
-										Example: using k{FOO,BAR,FAR}, FOO, BAR, FAR are valid
+	Constant (k{})				Constant, must be equal to one of the values specified
+						Format: k{<comma separated list of strings>}
+						Example: using k{FOO,BAR,FAR}, FOO, BAR, FAR are valid
 
-	Regex (r{})							Custom Regex Expression in this file (for reuse)
-										Format: r{your-regex}
-										Example: r{ ^\[^\\s@\]+@\[^\\s@\]+$ } 
+	Regex (r{})				Custom Regex Expression in this file (for reuse)
+						Format: r{your-regex}
+						Example: r{ ^\[^\\s@\]+@\[^\\s@\]+$ } 
   
-
-
 
 Special Sanwaf-ui Attributes
 ----------------------------
 
 	data-sw-fixed-format 	- Fixed Format - data entered must be exactly as mask specified
-	data-sw-format			- Format - data entered will be adjusted to fit mask specified, will error if not same as mask
-	data-sw-related			- Relationships - make elements dependent on each other based on values
+	data-sw-format		- Format - data entered will be adjusted to fit mask specified, will error if not same as mask
+	data-sw-related		- Relationships - make elements dependent on each other based on values
 
 ### Sanwaf-ui Attribute 'data-sw-fixed-format' - Fixed Format
 
@@ -273,17 +271,17 @@ Relationships have a 2 part format:
 
 Where "RelatedToElementPart" is the element id of the related field and "RelationshipSpecificationPart" is one of:
 
-	none 			- ":relationshipSpecificationPart" NOT specified makes the element required if the RelatedToElementPart has any value  
-  						for example: data-sw\_related="someElement"
+	none 		- ":relationshipSpecificationPart" NOT specified makes the element required if the RelatedToElementPart has any value  
+  			  Example: data-sw\_related="someElement"
 
-	\=				- Makes the element required if the RelatedToElementPart is populated; values must equal each other  
-  						for example: data-sw\_related="password **:** ="
+	\=		- Makes the element required if the RelatedToElementPart is populated; values must equal each other  
+  			  Example: data-sw\_related="password **:** ="
 
-	value			- Makes the element required if the RelatedToElementPart.value equals the value specified  
-  						for example: data-sw\_related="someElement **:** someValue"
+	value		- Makes the element required if the RelatedToElementPart.value equals the value specified  
+  			  Example: data-sw\_related="someElement **:** someValue"
 
-	value1||value2 - Makes the element required if the RelatedToElementPart.value equals any of the value specified  
-  						for example: data-sw\_related="someElement **:** value1 || value2"
+	value1||value2	- Makes the element required if the RelatedToElementPart.value equals any of the value specified  
+  			  Example: data-sw\_related="someElement **:** value1 || value2"
 
 For complex relationships, encapsulate the 2 part format with parenthesis's "( RelatedToElementPart **:** RelationshipSpecificationPart )" and specify the && and/or the || operators
 
@@ -301,13 +299,13 @@ Use the sanwaf-ui.css file to configure the look and feel of sanwaf-ui in your a
 You can override all of the classes defined in the sanwaf-ui.css file by overriding them in the [sanwafuiconfig](#sanwafuiconfig) hidden element
 
 
-	sanwafuiLabel 						- Sets the color for the label of the error'd element
-	sanwafinput 						- Sets the color of the input text of the error'd element
-	sanwafuiErrorTable 					- When displaying errors on the page, a table in inserted using this css class
-	sanwafuiErrorTableTdKey 			- The <td> css class for the key section of the sanwaf-ui error table
-	sanwafuiErrorTableTdDesc 			- The <td> css class for the value section of the sanwaf-ui error table
-	sawafuiTooltip 						- The tooltip css class applied to the label
+	sanwafuiLabel 				- Sets the color for the label of the error'd element
+	sanwafinput 				- Sets the color of the input text of the error'd element
+	sanwafuiErrorTable 			- When displaying errors on the page, a table in inserted using this css class
+	sanwafuiErrorTableTdKey 		- The <td> css class for the key section of the sanwaf-ui error table
+	sanwafuiErrorTableTdDesc 		- The <td> css class for the value section of the sanwaf-ui error table
+	sawafuiTooltip 				- The tooltip css class applied to the label
 	sawafuiTooltip .tooltiptext 		- Tooltip text css specification
-	sawafuiTooltip .tooltiptext::after 	- Tooltip after specification
+	sawafuiTooltip .tooltiptext::after	- Tooltip after specification
 	sawafuiTooltip:hover .tooltiptext 	- Tooltip hover specification
 
