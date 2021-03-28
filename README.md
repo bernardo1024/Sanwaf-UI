@@ -11,7 +11,7 @@ when used together, they provide a code-free declarative validation system on bo
 
 ![](sanwaf-ui.png)  
   
-See the sanwaf-ui-demo.html for examples...
+See the [create an anchor](#sanwaf-ui-demo.html) for examples...
 
 Implementing Sanwaf-ui & Sanwaf-server
 ===============================
