@@ -71,10 +71,10 @@
     <h1 id="top" style="text-align: center;">Sanwaf-ui.js Demo</h1>
     <h2 id="whatissanwaf">What is Sanwaf &amp; Sanwaf-ui?</h2>
     <table class="table-instructions">
-      <tr><td>Sanwaf is a Sanitation Web Application Firewall. Sanwaf runs on the server</td></tr>
+      <tr><td>Sanwaf-server is a Sanitation Web Application Firewall. Sanwaf-server runs on the server</td></tr>
       <tr><td>Sanwaf-ui is a Sanitation Web Application Firewall that runs on the browser</td></tr>
-      <tr><td>Sanwaf &amp; Sanwaf-ui can be used independently or together</td></tr>
-      <tr><td>when used together, they provide a code-free validation system on both the client &amp; server</td></tr>
+      <tr><td>Sanwaf-server &amp; Sanwaf-ui can be used independently or together</td></tr>
+      <tr><td>when used together, they provide a code-free declarative validation system on both the client &amp; server</td></tr>
       <tr><td></td></tr>
     </table>
     <img src="sanwaf-ui.png" class="image"> 
@@ -227,13 +227,13 @@
     <h1>Implementing Sanwaf &amp; Sanwaf-ui</h1>
     <table class="table-instructions">
       <tr><td>1.</td><td>Developer/designer configures Sanwaf-ui on html pages</td></tr>
-      <tr><td>2.</td><td><a href="">Run the Sanwaf-gen-server-xml script</a>.  The file generated is used to configure Sanwaf on the server</td></tr>
+      <tr><td>2.</td><td><a href="">Run the Sanwaf-ui-2-server script</a> to generate the server file used by Sanwaf-server to perform server-side validation</td></tr>
       <tr><td>3.</td><td>On your server, <a href="https://github.com/bernardo1024/SanWaf">add Sanwaf to your application</a> filter chain</td></tr>
     </table>
     <br/>
     <br/>
     <h2>Configuring Sanwaf-ui</h2>
-    View the source of this page to see examples of configuring sanwaf-ui that match the 6 points listed in the image below
+    View the source of this page to and search for "Sanwaf-ui code - STEP" to see examples of configuring sanwaf-ui (all 6 steps) 
     <br/>
     <br/>
     <img src="sanwaf-ui-components.png" class="image"> 
@@ -531,7 +531,6 @@
     </form>
 
     <h2 id="sanwafspecialdatatypes">Special Sanwaf-ui Attributes</h2>
-    The following sanwaf-ui attributes will all use the data-sw-type of string (s)
     <table class="table-instructions">
       <tr><td>data-sw-fixed-format</td><td>Fixed Format - data entered must be exactly as mask specified</td></tr>
       <tr><td>data-sw-format</td><td>Format - data entered will be adjusted to fit mask specified, will error if not same as mask</td></tr>
@@ -564,7 +563,12 @@
     <table class="table-instructions-inline-block">
       <tr><td>The "data-sw-format" attribute sets the element to use a Format</td><td></td></tr>
       <tr><td>A Format is way to best fit a user's entry into a mask</td><td></td></tr>
-      <tr><td>use the oninput event and call the "sanwafoUiOnInput(element) method to have the element formatted as the user enters data</td><td></td></tr>
+      <tr><td>Sanwaf-ui automatically sets an oninput event handler to elements that have the data-ww-format attribute.  the event handler formats as the user enters data</td><td></td></tr>
+      <tr><td>Three special characters are provided to be used in formats:</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;# - represents a number</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;A - represents an Uppercase character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;a - represents an lowercase character</td><td></td></tr>
+      <tr><td>Use a combination of the special and non-special characters to create formats</td><td></td></tr>
       <tr><td>For example, if you want the end user to enter a telephone number formatted in a specific way:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b>data-sw-format="(###) ###-####"</b></td><td></td></tr>
       <tr><td>&nbsp;&nbsp;this specifies to best fist a user's entry into the specified mask.</td><td></td></tr>
@@ -688,22 +692,6 @@
     </table>
 
     <br/>
-    <h2>Using Sanwaf-ui with Dynamic forms</h2>
-    To use Sanwaf-ui where you dont have a form to submit, but rather create the form dynamically:
-    <br/>
-    <table class="table-instructions">
-      <tr><td></td><td></td></tr>
-      <tr><td></td><td></td></tr>
-      <tr><td></td><td></td></tr>
-      <tr><td></td><td></td></tr>
-      <tr><td></td><td></td></tr>
-      <tr><td></td><td></td></tr>
-      <tr><td></td><td></td></tr>
-      <tr><td></td><td></td></tr>
-    </table>
-    <br/>
-    
-    <br/>
     <h2>Configuring how Sanwaf-ui Looks: Sanwaf-ui.css</h2>
     Use the sanwaf-ui.css file to configure the look and feel of sanwaf-ui in your application
     <br/>
@@ -721,8 +709,9 @@
       <tr><td>sawafuiTooltip:hover .tooltiptext</td><td>Tooltip hover specification</td></tr>
     </table>
     <br/>
-    <b><font face="tahoma" size="1" style="text-align: center;">Version: 0.0.1<BR>&copy; 2021 Bernardo Sanchez (bernardo.toronto@owasp.org)</font></b>
 
+    <h6 id="top" style="text-align: center;">Version: 0.0.1<BR>&copy; 2021 Bernardo Sanchez (bernardo.toronto@owasp.org)</h6>
+    
     <!-- sanwaf-ui code - STEP 6. initialize sanwaf-ui (sets event listeners) -->
     <script> initSanwafui(); </script>
     
