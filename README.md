@@ -11,7 +11,7 @@ when used together, they provide a code-free declarative validation system on bo
 
 ![](sanwaf-ui.png)  
   
-See [sanwaf-ui-demo.html](https://github.com/bernardo1024/Sanwaf-ui/blob/main/sanwaf-ui-demo.html) for examples...
+See [sanwaf-ui-demo.html](https://bernardo1024.github.io/) for examples...
 
 Implementing Sanwaf-ui & Sanwaf-server
 ===============================
@@ -20,7 +20,7 @@ Implementing Sanwaf-ui & Sanwaf-server
 
 2. Run the Sanwaf-ui-2-server script to generate the server file used by Sanwaf-server to perform server-side validation
 
-3. On your server, [add Sanwaf to your application](https://bernardo1024.github.io/) filter chain
+3. On your server, [add Sanwaf to your application](https://github.com/bernardo1024/Sanwaf-Server) filter chain
 
 
 Configuring Sanwaf-ui
