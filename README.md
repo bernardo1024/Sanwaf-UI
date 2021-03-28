@@ -6,6 +6,7 @@ Sanwaf-ui is a Sanitation Web Application Firewall that runs on the browser
 Sanwaf-server is a Sanitation Web Application Firewall. Sanwaf-server runs on the server
 
 Sanwaf-server & Sanwaf-ui can be used independently or together
+
 when used together, they provide a code-free declarative validation system on both the client & server
 
 ![](sanwaf-ui.png)  
