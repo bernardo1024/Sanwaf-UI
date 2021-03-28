@@ -86,51 +86,35 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   
 **Optional Control Attributes**  
 
-numErrorsToDisplay  Number of error messages to display. Specify -1 to display all errors. Defaults to: -1
+  numErrorsToDisplay  Number of error messages to display. Specify -1 to display all errors. Defaults to: -1
 
-[errorActions]                  Action(s)s to take when an error is found on a submit.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,  
+  [errorActions]                  Action(s)s to take when an error is found on a submit.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,  
 showOnPage,showOnPageSanwafTable,alertWithPopup
 
-[blurActions]                   Action(s) to take when a field is blurred.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
+  [blurActions]                   Action(s) to take when a field is blurred.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
 
-showOnPageElementId             Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. Defaults to: sanwafuierrorwrapper
+  showOnPageElementId             Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. Defaults to: sanwafuierrorwrapper
 
-showOnPageSanwafTableElementId  Optional element to set a table of sanwaf-ui errors (configurable by css).  Defaults to: sanwafuierrortable
+  showOnPageSanwafTableElementId  Optional element to set a table of sanwaf-ui errors (configurable by css).  Defaults to: sanwafuierrortable
 
 **Optional CSS Class Overrides**  
+
 Use your own CSS classes by setting the following attributes to classes defined in your CSS
 
-**Attribute**
+  labelClass - Sets the color for the label of the error'd element
 
-**Description**
+  inputClass - Sets the color of the input text of the error'd element
 
-labelClass
+  tooltipClass - The tooltip css class applied to the label
 
-Sets the color for the label of the error'd element
+  tooltipTextClass -  Tooltip text css specification
 
-inputClass
+  sanwafErrorTableClass - When displaying errors on the page, a table in inserted using this css class
 
-Sets the color of the input text of the error'd element
+  sanwafErrorTableTdKeyClass - The css class for the key section of the sanwaf-ui error table
 
-tooltipClass
+  sanwafErrorTableTdDescClass - The css class for the value section of the sanwaf-ui error table
 
-The tooltip css class applied to the label
-
-tooltipTextClass
-
-Tooltip text css specification
-
-sanwafErrorTableClass
-
-When displaying errors on the page, a table in inserted using this css class
-
-sanwafErrorTableTdKeyClass
-
-The css class for the key section of the sanwaf-ui error table
-
-sanwafErrorTableTdDescClass
-
-The css class for the value section of the sanwaf-ui error table
 
 **Optional Error Message Attributes** (default values will be used if not specified)
 
