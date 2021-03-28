@@ -48,14 +48,14 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 4. Set [sanwaf-ui attributes](#sanwafuitags) to per element
 
         <input
-          type="text" id="carModel" size="20"
-          **data-sw-display**\="Car Model"
-          **data-sw-type**\="s"
-          **data-sw-max**\="30"
-          **data-sw-min**\="0"
-          **data-sw-req**\="true"
-          **data-sw-related**\="haveCar:Yes"
-          **data-sw-err-msg**\="Car Model must be entered if you own a car"
+          type="text" id="carModel"
+          data-sw-display="Car Model"
+          data-sw-type="s"
+          data-sw-max="30"
+          data-sw-min="0"
+          data-sw-req="true"
+          data-sw-related="haveCar:Yes"
+          data-sw-err-msg="Car Model must be entered if you own a car"
         />
 
     see below for [sanwaf-ui attribute](#sanwafuitags) details
@@ -86,35 +86,16 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   
 **Optional Control Attributes**  
 
-**Attribute**
+numErrorsToDisplay  Number of error messages to display. Specify -1 to display all errors. Defaults to: -1
 
-**Description**
-
-numErrorsToDisplay
-
-Number of error messages to display. Specify -1 to display all errors  
-**Defaults to:** -1
-
-[errorActions](#sanwafuiactions)
-
-Action(s)s to take when an error is found on a submit  
-**Defaults to:** hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,  
+[errorActions]                  Action(s)s to take when an error is found on a submit.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,  
 showOnPage,showOnPageSanwafTable,alertWithPopup
 
-[blurActions](#sanwafuiactions)
+[blurActions]                   Action(s) to take when a field is blurred.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
 
-Action(s) to take when a field is blurred  
-**Defaults to:** hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors
+showOnPageElementId             Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. Defaults to: sanwafuierrorwrapper
 
-showOnPageElementId
-
-Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected  
-**Defaults to:** sanwafuierrorwrapper
-
-showOnPageSanwafTableElementId
-
-Optional element to set a table of sanwaf-ui errors (configurable by css)  
-**Defaults to:** sanwafuierrortable
+showOnPageSanwafTableElementId  Optional element to set a table of sanwaf-ui errors (configurable by css).  Defaults to: sanwafuierrortable
 
 **Optional CSS Class Overrides**  
 Use your own CSS classes by setting the following attributes to classes defined in your CSS
