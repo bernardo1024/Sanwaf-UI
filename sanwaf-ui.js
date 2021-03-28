@@ -15,7 +15,6 @@ function getElementByIdOrName(idOrName){
   var names = document.getElementsByName(idOrName);
   if(names.length == 1){ return names[0]; }
   
-  //TODO*************************************** fix this - which one to return???
   return names[0];
 }
 
