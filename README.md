@@ -30,12 +30,14 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
 1. Import sanwaf-ui.js lib
 
-    <script src="[sanwaf-ui.js](sanwaf-ui.js)"></script>
-    this makes the sanwaf-ui code available for use on your page
+        <script src="[sanwaf-ui.js](sanwaf-ui.js)"></script>
+        
+      this makes the sanwaf-ui code available for use on your page
 
 2. import sanwaf-ui CSS (optional)
 
-    <link rel="stylesheet" type="text/css" href="[sanwaf-ui.css](sanwaf-ui.css)" media="screen" />
+        <link rel="stylesheet" type="text/css" href="[sanwaf-ui.css](sanwaf-ui.css)" media="screen" />
+        
     to specify custom classes see the [sanwafuiconfig](#sanwafuiconfig) hidden element
 
 3. Configure sanwaf-ui (optional)
@@ -45,32 +47,32 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
 4. Set [sanwaf-ui attributes](#sanwafuitags) to per element
 
-    <input
-      type="text" id="carModel" size="20"
-      **data-sw-display**\="Car Model"
-      **data-sw-type**\="s"
-      **data-sw-max**\="30"
-      **data-sw-min**\="0"
-      **data-sw-req**\="true"
-      **data-sw-related**\="haveCar:Yes"
-      **data-sw-err-msg**\="Car Model must be entered if you own a car"
-    />
+        <input
+          type="text" id="carModel" size="20"
+          **data-sw-display**\="Car Model"
+          **data-sw-type**\="s"
+          **data-sw-max**\="30"
+          **data-sw-min**\="0"
+          **data-sw-req**\="true"
+          **data-sw-related**\="haveCar:Yes"
+          **data-sw-err-msg**\="Car Model must be entered if you own a car"
+        />
 
-<!-- see below for [sanwaf-ui attribute](#sanwafuitags) details -->
+    see below for [sanwaf-ui attribute](#sanwafuitags) details
 
 5. Call Sanwaf-ui method to validate form
 
-isSanwafUiFormValid()
+        isSanwafUiFormValid()
 
 checks the elements on a form for errors. returns true/false
 
-sanwafUiBlurElement(element)
+        sanwafUiBlurElement(element)
 
 performs validate on the element specified
 
 6. Initialize sanwaf-ui
 
-<script> initSanwafui(); </script>
+        <script> initSanwafui(); </script>
 
 script scans page for sanwaf-ui attributes setting events on elements
 
