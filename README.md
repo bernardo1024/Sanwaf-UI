@@ -20,7 +20,7 @@ Implementing Sanwaf-ui & Sanwaf-server
 
 2. Run the Sanwaf-ui-2-server script to generate the server file used by Sanwaf-server to perform server-side validation
 
-3. On your server, [add Sanwaf to your application](https://github.com/bernardo1024/SanWaf) filter chain
+3. On your server, [add Sanwaf to your application](https://bernardo1024.github.io/) filter chain
 
 
 Configuring Sanwaf-ui
