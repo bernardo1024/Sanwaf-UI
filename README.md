@@ -11,7 +11,7 @@ when used together, they provide a code-free declarative validation system on bo
 
 ![](sanwaf-ui.png)  
   
-See [sanwaf-ui-demo.html](#https://github.com/bernardo1024/Sanwaf-ui/blob/main/sanwaf-ui-demo.html) for examples...
+See [sanwaf-ui-demo.html](#https://github.com/bernardo1024/Sanwaf-ui/main/sanwaf-ui-demo.html) for examples...
 
 Implementing Sanwaf-ui & Sanwaf-server
 ===============================
