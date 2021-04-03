@@ -80,7 +80,7 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
         <script> initSanwafui(); </script>
 
-script scans page for sanwaf-ui attributes setting events on elements
+	script scans page for sanwaf-ui attributes setting events on elements
 
   
   
