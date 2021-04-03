@@ -32,7 +32,7 @@ Implementing Sanwaf-ui & Sanwaf-server
 
 2. Run the Sanwaf-ui-2-server script to generate the server file used by Sanwaf-server to perform server-side validation
 
-3. On your server, [add Sanwaf to your application](https://github.com/bernardo1024/Sanwaf-Server) filter chain
+3. On your server, [add Sanwaf to your application](https://github.com/bernardo1024/Sanwaf-Server)
 
 
 Configuring Sanwaf-ui
@@ -57,42 +57,42 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 3. Configure sanwaf-ui (optional)
 
     add a hidden element named "[**sanwafuiconfig**](#sanwaf-ui-config)" & configure Sanwaf-ui
-    if you want to override sanwaf-ui defaults, this element must be declared
 
-4. Set [sanwaf-ui attributes](#sanwaf-ui-tags) to per element
+4. Set [sanwaf-ui attributes](#sanwaf-ui-tags) to your html elements requiring validation
 
         <input
-          	type="text" id="carModel" name="carModel"
-          	data-sw-display="Car Model"
-          	data-sw-type="s"
-          	data-sw-max="30"
-			data-sw-max-value="100"
-          	data-sw-min="0"
-	  		data-sw-min-value="0"
-          	data-sw-req="true"
-	  		data-sw-format="###"
-          	data-sw-related="haveCar:Yes"
-          	data-sw-err-msg="Car Model must be entered if you own a car"
+		type="text" id="carModel" name="carModel"
+		data-sw-display="Car Model"
+		data-sw-type="s"
+		data-sw-max="30"
+		data-sw-max-value="100"
+		data-sw-min="0"
+		data-sw-min-value="0"
+		data-sw-req="true"
+		data-sw-format="###"
+		data-sw-related="haveCar:Yes"
+		data-sw-err-msg="Car Model must be entered if you own a car"
         />
 
-    see below for [sanwaf-ui attribute](#sanwaf-ui-tags) details
+    see [sanwaf-ui attribute](#sanwaf-ui-tags) for details
 
-5. Call Sanwaf-ui method to validate form
+5. Call Sanwaf-ui method to validate a form
 
-	checks the elements on a form for errors. returns true/false
+	To check all elements on a form for errors, use:
 
         isSanwafUiFormValid(form)
 
-	performs validate on the element specified
+	To perform validation on a single element, use:
 
         sanwafUiBlurElement(element)
-
+	
+	**See [sanwaf-ui-demo.html](https://bernardo1024.github.io/) for examples**
 
 6. Initialize sanwaf-ui
 
         <script> initSanwafui(); </script>
 
-	script scans page for sanwaf-ui attributes setting events on elements
+	The script scans HTML for sanwaf-ui attributes setting events on elements
 
   
   
@@ -107,9 +107,9 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
 
   	numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
 					  Defaults to: -1
-  	errorActions                  	- Action(s)s to take when an error is found on a submit.  
+  	[errorActions](## ErrorActions & BlurActions)                  	- Action(s)s to take when an error is found on a submit.  
 					  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,showOnPage,showOnPageSanwafTable,alertWithPopup
-	blurActions                  	- Action(s) to take when a field is blurred.  
+	[blurActions](## ErrorActions & BlurActions)                  	- Action(s) to take when a field is blurred.  
 	 				  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
   	showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. 
 					  Defaults to: sanwafuierrorwrapper
@@ -152,7 +152,7 @@ Use your own CSS classes by setting the following attributes to classes defined 
 
   
 
-ErrorActions & BlurActions
+## ErrorActions & BlurActions
 --------------------------
 
 The following error actions can be used individually or cumulatively.
