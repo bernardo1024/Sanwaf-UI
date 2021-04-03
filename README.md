@@ -5,19 +5,19 @@ Isn't it about time that HTML validation code is standardized, tested, and simpl
 
 Why are we writing custom validation code over and over again in 2021?
 
-Wouldnt it be better to use a standardized mechanism to do this for you without writing any code?
+Wouldn't it be better to use a standardized mechanism to do this for you without writing any code?
 
-Wouldnt it be even better if this standardized mechanism extends to the server level as well?
+Wouldn't it be even better if this standardized mechanism extends to the server level as well?
 
-Sanwaf-ui & Sanwaf-server aim to solve these issues.
+**Sanwaf-ui & Sanwaf-server** aim to solve these issues.
 
-Sanwaf-ui is a Sanitation Web Application Firewall that runs on the **Browser**.  Sanwaf-ui uses a declarative mechanism to add validation to HTML pages that doesnt requried custom code to be written to perform validation on web pages.
+	Sanwaf-ui is a Sanitation Web Application Firewall that runs on the **Browser**.  Sanwaf-ui uses a declarative mechanism to add validation to HTML pages that doesnt requried custom code to be written to perform validation on web pages.
 
-Sanwaf-server is a Sanitation Web Application Firewall that runs on the **Server**
+	Sanwaf-server is a Sanitation Web Application Firewall that runs on the **Server**
 
-Sanwaf-server & Sanwaf-ui can be used independently or together
+	Sanwaf-server & Sanwaf-ui can be used independently or together
 
-when used together, they provide a code-free declarative validation system on both the client & server
+	when used together, they provide a code-free declarative validation system on both the client & server
 
 ![](sanwaf-ui.png)  
   
