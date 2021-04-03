@@ -11,11 +11,11 @@ Wouldn't it be even better if this standardized mechanism extends to the server 
 
 **Sanwaf-ui & Sanwaf-server** aim to solve these issues.
 
-	Sanwaf-ui is a Sanitation Web Application Firewall that runs on the Browser.  
-	Sanwaf-ui uses a declarative mechanism to add validation to HTML pages.
-	No custom code is required to perform validation on web pages.
+	- Sanwaf-ui is a Sanitation Web Application Firewall that runs on the Browser
+	  Sanwaf-ui uses a declarative mechanism to add validation to HTML pages
+	  No custom code is required to perform validation on web pages
 
-	Sanwaf-server is a Sanitation Web Application Firewall that runs on the Server
+	- Sanwaf-server is a Sanitation Web Application Firewall that runs on the Server
 
 Sanwaf-server & Sanwaf-ui can be used independently or together
 
