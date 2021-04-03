@@ -58,7 +58,7 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
     add a hidden element named "[**sanwafuiconfig**](#sanwaf-ui-config)" & configure Sanwaf-ui
 
-4. Set [sanwaf-ui attributes](#sanwaf-ui-tags) to your html elements requiring validation
+4. Set [sanwaf-ui attributes](#sanwaf-ui-attributes) to your html elements requiring validation
 
         <input
 		type="text" id="carModel" name="carModel"
@@ -74,7 +74,7 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 		data-sw-err-msg="Car Model must be entered if you own a car"
         />
 
-    see [sanwaf-ui attribute](#sanwaf-ui-tags) for details
+    see [sanwaf-ui attribute](#sanwaf-ui-attributes) for details
 
 5. Call Sanwaf-ui method to validate a form
 
@@ -176,7 +176,7 @@ to set the display type to have the error message hover on the label and change 
 
   
   
-# sanwaf-ui-tags
+# sanwaf-ui-attributes
 
 Sanwaf-ui Elements Attributes
 -----------------------------
