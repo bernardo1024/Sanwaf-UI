@@ -1,9 +1,9 @@
 What is Sanwaf-ui & sanwaf-server
 ---------------------------
 
-Sanwaf-ui is a Sanitation Web Application Firewall that runs on the browser
+Sanwaf-ui is a Sanitation Web Application Firewall that runs on the **Browser**
 
-Sanwaf-server is a Sanitation Web Application Firewall. Sanwaf-server runs on the server
+Sanwaf-server is a Sanitation Web Application Firewall that runs on the **Server**
 
 Sanwaf-server & Sanwaf-ui can be used independently or together
 
@@ -50,12 +50,15 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 4. Set [sanwaf-ui attributes](#sanwafuitags) to per element
 
         <input
-          type="text" id="carModel"
+          type="text" id="carModel" name="carModel"
           data-sw-display="Car Model"
           data-sw-type="s"
           data-sw-max="30"
+	  data-sw-max-value="100"
           data-sw-min="0"
+	  data-sw-min-value="0"
           data-sw-req="true"
+	  data-sw-format="###"
           data-sw-related="haveCar:Yes"
           data-sw-err-msg="Car Model must be entered if you own a car"
         />
@@ -66,7 +69,7 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
 	checks the elements on a form for errors. returns true/false
 
-        isSanwafUiFormValid()
+        isSanwafUiFormValid(form)
 
 	performs validate on the element specified
 
@@ -89,11 +92,16 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   
 **Optional Control Attributes**  
 
-  	numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. Defaults to: -1
-  	errorActions                  	- Action(s)s to take when an error is found on a submit.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors, showOnPage,showOnPageSanwafTable,alertWithPopup
-	blurActions                  	- Action(s) to take when a field is blurred.  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
-  	showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. Defaults to: sanwafuierrorwrapper
-  	showOnPageSanwafTableElementId  - Optional element to set a table of sanwaf-ui errors (configurable by css).  Defaults to: sanwafuierrortable
+  	numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
+					  Defaults to: -1
+  	errorActions                  	- Action(s)s to take when an error is found on a submit.  
+					  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,showOnPage,showOnPageSanwafTable,alertWithPopup
+	blurActions                  	- Action(s) to take when a field is blurred.  
+	 				  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
+  	showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. 
+					  Defaults to: sanwafuierrorwrapper
+  	showOnPageSanwafTableElementId  - Optional element to set a table of sanwaf-ui errors (configurable by css).  
+					  Defaults to: sanwafuierrortable
 
 **Optional CSS Class Overrides**  
 
@@ -201,7 +209,7 @@ data-sw-type (data types)
 						Example: using a{+\\s,}, abcdefghijklm nopqrstuvwxyz+
 
 	String (s)				Any string  
-						All regex's in the autoRunPatterns are executed against the string
+						All server side regex's in the autoRunPatterns are executed against the string
 						Format: s
 						Example: "Hello this string does not contain a XSS payload"
 
@@ -217,9 +225,12 @@ data-sw-type (data types)
 Special Sanwaf-ui Attributes
 ----------------------------
 
-	data-sw-fixed-format 	- Fixed Format - data entered must be exactly as mask specified
-	data-sw-format		- Format - data entered will be adjusted to fit mask specified, will error if not same as mask
-	data-sw-related		- Relationships - make elements dependent on each other based on values
+	data-sw-fixed-format 	- Fixed Format 
+				  Data entered must be exactly as mask specified
+	data-sw-format		- Format 
+				  Data entered will be adjusted to fit mask specified, will error if not same as mask
+	data-sw-related		- Relationships 
+				  make elements dependent on each other based on values
 
 ### Sanwaf-ui Attribute 'data-sw-fixed-format' - Fixed Format
 
@@ -274,22 +285,22 @@ Relationships have a 2 part format:
 Where "RelatedToElementPart" is the element id of the related field and "RelationshipSpecificationPart" is one of:
 
 	none 		- ":relationshipSpecificationPart" NOT specified makes the element required if the RelatedToElementPart has any value  
-  			  Example: data-sw\_related="someElement"
+  			  Example: data-sw-related="someElement"
 
-	\=		- Makes the element required if the RelatedToElementPart is populated; values must equal each other  
-  			  Example: data-sw\_related="password **:** ="
+	=		- Makes the element required if the RelatedToElementPart is populated; values must equal each other  
+  			  Example: data-sw-related="password : ="
 
 	value		- Makes the element required if the RelatedToElementPart.value equals the value specified  
-  			  Example: data-sw\_related="someElement **:** someValue"
+  			  Example: data-sw-related="someElement : someValue"
 
 	value1||value2	- Makes the element required if the RelatedToElementPart.value equals any of the value specified  
-  			  Example: data-sw\_related="someElement **:** value1 || value2"
+  			  Example: data-sw-related="someElement : value1 || value2"
 
-For complex relationships, encapsulate the 2 part format with parenthesis's "( RelatedToElementPart **:** RelationshipSpecificationPart )" and specify the && and/or the || operators
+For complex relationships, encapsulate the 2 part format with parenthesis's "( RelatedToElementPart : RelationshipSpecificationPart )" and specify the && and/or the || operators
 
 For example:   
 
-	data-sw-type="( element1 **:** value1 || value2 ) || ( element2 **:** value1 || value2 ) && ( element3 **:** value1 || value2 )..."
+	data-sw-type="( element1 : value1 || value2 ) || ( element2 : value1 || value2 ) && ( element3 : value1 || value2 )..."
 
  
 
