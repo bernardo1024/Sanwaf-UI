@@ -85,7 +85,7 @@ script scans page for sanwaf-ui attributes setting events on elements
   
   
 
-The "sanwafuiconfig" Hidden Element
+The "[sanwafuiconfig][sanwafuiconfig]" Hidden Element
 -----------------------------------
 
 A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavior  
