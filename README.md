@@ -50,17 +50,17 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 4. Set [sanwaf-ui attributes](#sanwafuitags) to per element
 
         <input
-          type="text" id="carModel" name="carModel"
-          data-sw-display="Car Model"
-          data-sw-type="s"
-          data-sw-max="30"
-	  data-sw-max-value="100"
-          data-sw-min="0"
-	  data-sw-min-value="0"
-          data-sw-req="true"
-	  data-sw-format="###"
-          data-sw-related="haveCar:Yes"
-          data-sw-err-msg="Car Model must be entered if you own a car"
+          	type="text" id="carModel" name="carModel"
+          	data-sw-display="Car Model"
+          	data-sw-type="s"
+          	data-sw-max="30"
+		data-sw-max-value="100"
+          	data-sw-min="0"
+	  	data-sw-min-value="0"
+          	data-sw-req="true"
+	  	data-sw-format="###"
+          	data-sw-related="haveCar:Yes"
+          	data-sw-err-msg="Car Model must be entered if you own a car"
         />
 
     see below for [sanwaf-ui attribute](#sanwafuitags) details
@@ -152,10 +152,10 @@ to set the display type to have the error message hover on the label and change 
 
 **Actions**
 
-	hoverOnLabel 		- Add a hover element to you label that is associated with the 'for=' attribute of the label The hover is configurable via the .sawafuiTooltip elements in the sanwafy-ui.css file
+	hoverOnLabel 		- Add a hover element to you label that is associated with the 'for=' attribute of the label.
 	hoverShowLabel 		- Include the associated label text in the hover message
-	colorLabel 		- Change the color of the label to the value specified in the .sanwafuiLabel css configuration in the sanwaf-ui.css file
-	colorInput 		- Change the color of the input element to the value specified in the .sanwafinput css configuration in the sanwaf-ui.css file
+	colorLabel 		- Change the color of the label 
+	colorInput 		- Change the color of the input element 
 	onFocusDisableColors 	- When an element gets focus, remove all error coloring (element & label)
 	showOnPage 		- Element id to be made visible if an error is detected (to provide custom message)
 	showOnPageSanwafTable 	- Element id to insert the Sanwaf-ui table of errors
@@ -296,7 +296,8 @@ Where "RelatedToElementPart" is the element id of the related field and "Relatio
 	value1||value2	- Makes the element required if the RelatedToElementPart.value equals any of the value specified  
   			  Example: data-sw-related="someElement : value1 || value2"
 
-For complex relationships, encapsulate the 2 part format with parenthesis's "( RelatedToElementPart : RelationshipSpecificationPart )" and specify the && and/or the || operators
+For complex relationships, encapsulate the 2 part format with parenthesis's "( RelatedToElementPart : RelationshipSpecificationPart )" 
+and specify the && and/or the || operators
 
 For example:   
 
