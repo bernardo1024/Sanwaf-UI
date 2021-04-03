@@ -152,7 +152,7 @@ Use your own CSS classes by setting the following attributes to classes defined 
 
   
 
-## ErrorActions & BlurActions
+ErrorActions & BlurActions
 --------------------------
 
 The following error actions can be used individually or cumulatively.
