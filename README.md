@@ -84,7 +84,7 @@ script scans page for sanwaf-ui attributes setting events on elements
 
   
   
-[#sanwafuiconfig]:foobar
+#sanwafuiconfig
 
 The "sanwafuiconfig" Hidden Element
 -----------------------------------
