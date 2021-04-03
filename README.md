@@ -40,14 +40,14 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
         <link rel="stylesheet" type="text/css" href="[sanwaf-ui.css](sanwaf-ui.css)" media="screen" />
         
-    to specify custom classes see the [sanwafuiconfig](#sanwafuiconfig) hidden element
+    to specify custom classes see the [sanwafuiconfig](#sanwaf-ui-config) hidden element
 
 3. Configure sanwaf-ui (optional)
 
-    add a hidden element named "[**sanwafuiconfig**](#sanwafuiconfig)" & configure Sanwaf-ui
+    add a hidden element named "[**sanwafuiconfig**](#sanwaf-ui-config)" & configure Sanwaf-ui
     if you want to override sanwaf-ui defaults, this element must be declared
 
-4. Set [sanwaf-ui attributes](#sanwafuitags) to per element
+4. Set [sanwaf-ui attributes](#sanwaf-ui-tags) to per element
 
         <input
           	type="text" id="carModel" name="carModel"
@@ -63,7 +63,7 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
           	data-sw-err-msg="Car Model must be entered if you own a car"
         />
 
-    see below for [sanwaf-ui attribute](#sanwafuitags) details
+    see below for [sanwaf-ui attribute](#sanwaf-ui-tags) details
 
 5. Call Sanwaf-ui method to validate form
 
@@ -84,7 +84,7 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
   
   
-# sanwafuiconfig
+# sanwaf-ui-config
 
 The "sanwafuiconfig" Hidden Element
 -----------------------------------
@@ -164,7 +164,7 @@ to set the display type to have the error message hover on the label and change 
 
   
   
-# sanwafuitags
+# sanwaf-ui-tags
 
 Sanwaf-ui Elements Attributes
 -----------------------------
