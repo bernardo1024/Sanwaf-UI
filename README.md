@@ -40,11 +40,11 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
         <link rel="stylesheet" type="text/css" href="[sanwaf-ui.css](sanwaf-ui.css)" media="screen" />
         
-    to specify custom classes see the [sanwafuiconfig](#sanwafuiconfig) hidden element
+    to specify custom classes see the [sanwafuiconfig](sanwafuiconfig) hidden element
 
 3. Configure sanwaf-ui (optional)
 
-    add a hidden element named "[**sanwafuiconfig**](#sanwafuiconfig)" & configure Sanwaf-ui
+    add a hidden element named "[**sanwafuiconfig**](sanwafuiconfig)" & configure Sanwaf-ui
     if you want to override sanwaf-ui defaults, this element must be declared
 
 4. Set [sanwaf-ui attributes](#sanwafuitags) to per element
@@ -85,7 +85,7 @@ script scans page for sanwaf-ui attributes setting events on elements
   
   
 
-The "[sanwafuiconfig][sanwafuiconfig]" Hidden Element
+[sanwafuiconfig]: The "sanwafuiconfig" Hidden Element
 -----------------------------------
 
 A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavior  
