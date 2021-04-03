@@ -2,8 +2,11 @@ What is Sanwaf-ui & sanwaf-server
 ---------------------------
 
 Isn't it about time that HTML validation code is standardized, tested, and simple to implement?
+
 Why are we writing custom validation code over and over again in 2021?
+
 Wouldnt it be better to use a standardized mechanism to do this for you without writing any code?
+
 Wouldnt it be even better if this standardized mechanism extends to the server level as well?
 
 Sanwaf-ui & Sanwaf-server aim to solve these issues.
