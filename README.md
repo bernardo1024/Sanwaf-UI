@@ -1,7 +1,14 @@
 What is Sanwaf-ui & sanwaf-server
 ---------------------------
 
-Sanwaf-ui is a Sanitation Web Application Firewall that runs on the **Browser**
+Isn't it about time that HTML validation code is standardized, tested, and simple to implement?
+Why are we writing custom validation code over and over again in 2021?
+Wouldnt it be better to use a standardized mechanism to do this for you without writing any code?
+Wouldnt it be even better if this standardized mechanism extends to the server level as well?
+
+Sanwaf-ui & Sanwaf-server aim to solve these issues.
+
+Sanwaf-ui is a Sanitation Web Application Firewall that runs on the **Browser**.  Sanwaf-ui uses a declarative mechanism to add validation to HTML pages that doesnt requried custom code to be written to perform validation on web pages.
 
 Sanwaf-server is a Sanitation Web Application Firewall that runs on the **Server**
 
