@@ -107,9 +107,9 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
 
   	numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
 					  Defaults to: -1
-  	[errorActions](## ErrorActions & BlurActions)                  	- Action(s)s to take when an error is found on a submit.  
+  	errorActions                  	- Action(s)s to take when an error is found on a submit.  
 					  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,showOnPage,showOnPageSanwafTable,alertWithPopup
-	[blurActions](## ErrorActions & BlurActions)                  	- Action(s) to take when a field is blurred.  
+	blurActions                  	- Action(s) to take when a field is blurred.  
 	 				  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
   	showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. 
 					  Defaults to: sanwafuierrorwrapper
