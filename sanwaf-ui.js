@@ -19,6 +19,9 @@ function insertVarInString(msg, s1, s2) {
 }
 
 function getElementByIdOrName(idOrName) {
+  if(!idOrName){
+    return;
+  }
   var e = document.getElementById(idOrName);
   if (e) {
     return e;
@@ -79,9 +82,10 @@ function cleanAllErrorElements(err) {
 }
 
 function cleanErrorElement(e, err) {
-  var labeltxt = e.label.getAttribute("sanwafuilabeltxt");
+  var label = getLabel(e);
+  var labeltxt = label.getAttribute("sanwafuilabeltxt");
   if (labeltxt) {
-    e.label.innerHTML = labeltxt;
+    label.innerHTML = labeltxt;
   }
 
   if (e.classList.contains(err.inputClass)) {
@@ -101,6 +105,14 @@ function buildMsgFromArray(msgs, linesep) {
   return out;
 }
 
+function getLabel(e){
+  if(e.swLabelId){
+    return e.swLabelId;
+  }
+  else{
+    return e.label;
+  }
+}
 function doLabelAndHover(e, err, msgs, actions) {
   var label;
   var labeltxt = "";
@@ -109,10 +121,11 @@ function doLabelAndHover(e, err, msgs, actions) {
   if (e.getAttribute("id")) {
     field = getElementByIdOrName(e.getAttribute("id"));
   } else {
-    return;
+    field = getElementByIdOrName(e.getAttribute("name"));
   }
+  
+  label = getLabel(field);
 
-  label = field.label;
   if (label) {
     labeltxt = label.getAttribute("sanwafuilabeltxt");
     if (!labeltxt) {
@@ -247,7 +260,7 @@ function buildErrorItemsArray(e, err, actions) {
       setErrorItem(e, err, errorItem, err.type_aa, true, renderSpecialChars(extra), "");
     } else if (type == "k{") {
       setErrorItem(e, err, errorItem, err.type_k, true, extra.replace(",", "\" or \""), "");
-    } else if (type == "r{") {
+    } else if (type == "r{" || type == "x{") {
       setErrorItem(e, err, errorItem, err.type_r, true, extra, "");
     }
   }
@@ -369,6 +382,8 @@ function getAttribute(config, att, def) {
 
 function loadTags(e) {
   e.swDisplay = getAttribute(e, "data-sw-display", "");
+  e.swLabelId = getElementByIdOrName(getAttribute(e, "data-sw-label-id", ""));
+  
   e.swErrMsg = getAttribute(e, "data-sw-err-msg", "");
   e.swType = getAttribute(e, "data-sw-type", "");
   e.swTypeIsInError = false;
@@ -384,10 +399,12 @@ function loadTags(e) {
     e.swReq = true;
   }
   e.swReqIsInError = false;
-  e.swFormat = getAttribute(e, "data-sw-format", "");
+  if(e.swType.startsWith('f{')){
+    e.swFormat = e.swType.substring(2, e.swType.length -1);
+  }
   e.swFormatIsInError = false;
-  e.swFixedFormat = getAttribute(e, "data-sw-fixed-format", "");
-  e.swFixedFormatIsInError = false;
+//  e.swFixedFormat = getAttribute(e, "data-sw-fixed-format", "");
+//  e.swFixedFormatIsInError = false;
   e.swMaxValue = getAttribute(e, "data-sw-max-value", "");
   e.swMaxValueIsInError = false;
   e.swMinValue = getAttribute(e, "data-sw-min-value", "");
@@ -403,56 +420,56 @@ function loadGlobalErrorSettings(forElementOnly) {
   err.elements = [];
   err.msgarray = [];
 
-  err.numErrorsToDisplay = getAttribute(config, "numErrorsToDisplay");
+  err.numErrorsToDisplay = getAttribute(config, "data-numErrorsToDisplay");
   if (err.numErrorsToDisplay == "") {
     err.numErrorsToDisplay = -1;
   }
 
-  err.errorActions = getAttribute(config, "errorActions", "");
+  err.errorActions = getAttribute(config, "data-errorActions", "");
   if (err.errorActions == "") {
     err.errorActions = "hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup";
   }
 
-  err.blurActions = getAttribute(config, "blurActions", "");
+  err.blurActions = getAttribute(config, "data-blurActions", "");
   if (err.blurActions == "") {
     err.blurActions = "hoverOnLabel,hoverShowLabel,colorLabel,colorInput";
   }
 
-  err.labelClass = getAttribute(config, "labelClass", "sanwafuiLabel");
-  err.inputClass = getAttribute(config, "inputClass", "sanwafuiInput");
-  err.tooltipClass = getAttribute(config, "tooltipClass", "sawafuiTooltip");
-  err.tooltipTextClass = getAttribute(config, "tooltipTextClass", "tooltiptext");
-  err.sanwafErrorTableClass = getAttribute(config, "sanwafErrorTableClass", "sanwafuiErrorTable");
-  err.sanwafErrorTableTdKeyClass = getAttribute(config, "sanwafErrorTableTdKeyClass", "sanwafuiErrorTableTdKey");
-  err.sanwafErrorTableTdDescClass = getAttribute(config, "sanwafErrorTableTdDescClass", "sanwafuiErrorTableTdDesc");
+  err.labelClass = getAttribute(config, "data-labelClass", "sanwafuiLabel");
+  err.inputClass = getAttribute(config, "data-inputClass", "sanwafuiInput");
+  err.tooltipClass = getAttribute(config, "data-tooltipClass", "sawafuiTooltip");
+  err.tooltipTextClass = getAttribute(config, "data-tooltipTextClass", "tooltiptext");
+  err.sanwafErrorTableClass = getAttribute(config, "data-sanwafErrorTableClass", "sanwafuiErrorTable");
+  err.sanwafErrorTableTdKeyClass = getAttribute(config, "data-sanwafErrorTableTdKeyClass", "sanwafuiErrorTableTdKey");
+  err.sanwafErrorTableTdDescClass = getAttribute(config, "data-sanwafErrorTableTdDescClass", "sanwafuiErrorTableTdDesc");
 
-  err.showOnPageElementId = getAttribute(config, "showOnPageElementId", "sanwafuierrorwrapper");
-  err.showOnPageSanwafTableElementId = getAttribute(config, "showOnPageSanwafTableElementId", "sanwafuierrortable");
+  err.showOnPageElementId = getAttribute(config, "data-showOnPageElementId", "sanwafuierrorwrapper");
+  err.showOnPageSanwafTableElementId = getAttribute(config, "data-showOnPageSanwafTableElementId", "sanwafuierrortable");
   if (err.errorActions.includes("hoverShowLabel")) {
     err.showlabel = true;
   } else {
     err.showlabel = false;
   }
 
-  err.popheader1 = getAttribute(config, "errorPopHeader1", "Please correct the following errors");
-  err.popheader2 = getAttribute(config, "errorPopHeader2", "---------------------------------------------------------------------------");
-  err.min = getAttribute(config, "errorMin", "Must be between %1 and %2 chars");
-  err.max = getAttribute(config, "errorMax", "Must be between %1 and %2 chars");
-  err.maxMinEqualMsg = getAttribute(config, "errorMaxMinEqual", "Must be %1 chars");
-  err.required = getAttribute(config, "errorRequired", "Is a Required Field");
-  err.fixedFormat = getAttribute(config, "errorFixedFormat", "Must have the format: %1");
-  err.format = getAttribute(config, "errorFormat", "Must have the format: %1 ");
-  err.minVal = getAttribute(config, "errorMinValue", "Must be between %1 and %2");
-  err.maxVal = getAttribute(config, "errorMaxValue", "Must be between %1 and %2");
-  err.rel = getAttribute(config, "errorRelated", "Is required when %1 is entered");
-  err.relNotEqual = getAttribute(config, "errorRelatedNotEqual", "%1 must have the same value as %2");
-  err.type_c = getAttribute(config, "errorTypeChar", "Must be a single character");
-  err.type_n = getAttribute(config, "errorTypeNumeric", "Must be numeric");
-  err.type_nn = getAttribute(config, "errorTypeNumericDelimited", "Must be a list of numeric value(s) delimted by %1");
-  err.type_a = getAttribute(config, "errorTypeAlphanumeric", "Must be alphanumeric");
-  err.type_aa = getAttribute(config, "errorTypeAlphanumericAndMore", "Must be alphanumeric or the following: %1");
-  err.type_k = getAttribute(config, "errorTypeConstant", "Must be must be one of the following: \"%1\"");
-  err.type_r = getAttribute(config, "errorTypeRegex", "Must be must match the regex: \"%1\"");
+  err.popheader1 = getAttribute(config, "data-errorPopHeader1", "Please correct the following errors");
+  err.popheader2 = getAttribute(config, "data-errorPopHeader2", "---------------------------------------------------------------------------");
+  err.min = getAttribute(config, "data-errorMin", "Must be between %1 and %2 chars");
+  err.max = getAttribute(config, "data-errorMax", "Must be between %1 and %2 chars");
+  err.maxMinEqualMsg = getAttribute(config, "data-errorMaxMinEqual", "Must be %1 chars");
+  err.required = getAttribute(config, "data-errorRequired", "Is a Required Field");
+  err.fixedFormat = getAttribute(config, "data-errorFixedFormat", "Must have the format: %1");
+  err.format = getAttribute(config, "data-errorFormat", "Must have the format: %1 ");
+  err.minVal = getAttribute(config, "data-errorMinValue", "Must be between %1 and %2");
+  err.maxVal = getAttribute(config, "data-errorMaxValue", "Must be between %1 and %2");
+  err.rel = getAttribute(config, "data-errorRelated", "Is required when %1 is entered");
+  err.relNotEqual = getAttribute(config, "data-errorRelatedNotEqual", "%1 must have the same value as %2");
+  err.type_c = getAttribute(config, "data-errorTypeChar", "Must be a single character");
+  err.type_n = getAttribute(config, "data-errorTypeNumeric", "Must be numeric");
+  err.type_nn = getAttribute(config, "data-errorTypeNumericDelimited", "Must be a list of numeric value(s) delimted by %1");
+  err.type_a = getAttribute(config, "data-errorTypeAlphanumeric", "Must be alphanumeric");
+  err.type_aa = getAttribute(config, "data-errorTypeAlphanumericAndMore", "Must be alphanumeric or the following: %1");
+  err.type_k = getAttribute(config, "data-errorTypeConstant", "Must be must be one of the following: \"%1\"");
+  err.type_r = getAttribute(config, "data-errorTypeRegex", "Must be must match the regex: \"%1\"");
 
   associateLabels();
   if (!forElementOnly) {
@@ -848,6 +865,16 @@ function isAlphanumericAndAdditionalValid(e, err) {
     }
   }
 
+  if (hasSpace){
+    more = more.replaceAll("\\s", "");
+  } else if (hasTab){
+    more = more.replaceAll("\\t", "");
+  } else if (hasNewline){
+    more = more.replaceAll("\\n", "");
+  } else if (hasCarriage){
+    more = more.replaceAll("\\r", "");
+  }
+
   for (var j = 0; j < e.value.length; j++) {
     c = e.value.charCodeAt(j);
     if (!isAlphanumeric(c)) {
@@ -929,20 +956,26 @@ function isElementValid(e, err) {
     isAlphanumericAndAdditionalValid(e, err);
   } else if (type == 'k{') {
     isConstantValid(e, err);
-  } else if (type == 'r{') {
+  } else if (type == 'r{' || type == 'x{') {
     isRegexValid(e, err);
   }
 
-  if (e.swFormat.length > 0) {
+  else if(type == 'f{') {
     if (!isFormat(e, err, 'positive')) {
       e.swFormatIsInError = true;
     }
   }
-  if (e.swFixedFormat.length > 0) {
-    if (!isFormat(e, err, 'absolute')) {
-      e.swFixedFormatIsInError = true;
-    }
-  }
+  
+//  if (e.swFormat.length > 0) {
+//    if (!isFormat(e, err, 'positive')) {
+//      e.swFormatIsInError = true;
+//    }
+//  }
+//  if (e.swFixedFormat.length > 0) {
+//    if (!isFormat(e, err, 'absolute')) {
+//      e.swFixedFormatIsInError = true;
+//    }
+//  }
   if (e.swRelated) {
     isRelateValid(e);
   }
