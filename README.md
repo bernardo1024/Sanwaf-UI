@@ -186,11 +186,9 @@ Sanwaf-ui Elements Attributes
 	data-sw-min 		- Minimum character limit
 	data-sw-max-value 	- Maximum value for the given type
 	data-sw-min-value 	- Minimum value for the given type
-	data-sw-related 	- Relate fields. format: \[related-to-element:type\] where type is '=' or 'value'
+	data-sw-related		- Relate fields. format: \[related-to-element:type\] where type is '=' or 'value'
 	data-sw-err-msg 	- Custom error message (overrides global msgs)
-
-  
-  
+ 
 
 data-sw-type (data types)
 -------------------------
@@ -235,6 +233,7 @@ data-sw-type (data types)
 						Format	f{(###) ###-####}
 						Example	using f{(###) ###-####, (555) 123-4567 is valid
 
+# format
 
 ### Sanwaf-ui Format Data Type
 --------------------------
@@ -258,6 +257,8 @@ For example, if you want the end user to enter a telephone number formatted in a
 
   this specifies to best fist a user's entry into the specified mask.
 
+
+# related
 
 ### Sanwaf-ui Attribute 'data-sw-related' - Element Relationships
 --------------------------
