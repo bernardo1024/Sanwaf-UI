@@ -28,11 +28,11 @@ when used together, they provide a code-free declarative validation system on bo
 Implementing Sanwaf-ui & Sanwaf-server
 ===============================
 
-1. Developer/designer configures Sanwaf-ui on html pages
+1. Configure Sanwaf-ui on html pages
 
-2. Run the Sanwaf-ui-2-server script to generate the server file used by Sanwaf-server to perform server-side validation
+2. Run the Sanwaf-ui-2-server script to generate XML consumed by Sanwaf-Server for server-side validation
 
-3. On your server, [add Sanwaf to your application](https://github.com/bernardo1024/Sanwaf-Server)
+3. [Add Sanwaf-Server](https://github.com/bernardo1024/Sanwaf-Server) to your application
 
 
 Configuring Sanwaf-ui
@@ -69,7 +69,6 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 		data-sw-min="0"
 		data-sw-min-value="0"
 		data-sw-req="true"
-		data-sw-format="###"
 		data-sw-related="haveCar:Yes"
 		data-sw-err-msg="Car Model must be entered if you own a car"
         />
@@ -131,24 +130,23 @@ Use your own CSS classes by setting the following attributes to classes defined 
 
 **Optional Error Message Attributes** (default values will be used if not specified)
 
-	errorPopHeader1 		- header line 1 used with pop-up dialog
-	errorPopHeader2 		- header line 2 used with pop-up dialog
-	errorRequired 			- Error message for **Required** violations
-	errorMax 			- Error message for **Max Length** violations
-	errorMin 			- Error message for **Min Length** violations
-	errorMaxMinEqual 		- Error message for when Min & Max length are equal
-	errorMaxValue 			- Error message for **Max Value** violations
-	errorMinValue 			- Error message for **Min Value** violations
-	errorFixedFormat 		- Error message for **Fixed Format** violations
-	errorFormat 			- Error message for **Format** violations
-	errorRelated 			- Error message for **Relationship** violations
-	errorTypeChar 			- Error message for **Character** data type violations
-	errorTypeNumeric 		- Error message for **Numeric** data type violations
-	errorTypeNumericDelimited 	- Error message for **Numeric Delimited** data type violations
-	errorTypeAlphanumeric 		- Error message for **Alphanumeric** data type violations
-	errorTypeAlphanumericAndMore 	- Error message for **Alphanumeric and more** data type violations
-	errorTypeConstant 		- Error message for **Constant** data type violations
-	errorTypeRegex 			- Error message for **Regex** data type violations
+	data-errorPopHeader1 		- header line 1 used with pop-up dialog
+	data-errorPopHeader2 		- header line 2 used with pop-up dialog
+	data-errorRequired 			- Error message for **Required** violations
+	data-errorMax 			- Error message for **Max Length** violations
+	data-errorMin 			- Error message for **Min Length** violations
+	data-errorMaxMinEqual 		- Error message for when Min & Max length are equal
+	data-errorMaxValue 			- Error message for **Max Value** violations
+	data-errorMinValue 			- Error message for **Min Value** violations
+	data-errorRelated 			- Error message for **Relationship** violations
+	data-errorTypeChar 			- Error message for **Character** data type violations
+	data-errorTypeNumeric 		- Error message for **Numeric** data type violations
+	data-errorTypeNumericDelimited 	- Error message for **Numeric Delimited** data type violations
+	data-errorTypeAlphanumeric 		- Error message for **Alphanumeric** data type violations
+	data-errorTypeAlphanumericAndMore 	- Error message for **Alphanumeric and more** data type violations
+	data-errorTypeConstant 		- Error message for **Constant** data type violations
+	data-errorTypeRegex 			- Error message for **Regex** data type violations
+	data-errorTypeFormat 			- Error message for **Format** violations
 
   
 
@@ -188,8 +186,6 @@ Sanwaf-ui Elements Attributes
 	data-sw-min 		- Minimum character limit
 	data-sw-max-value 	- Maximum value for the given type
 	data-sw-min-value 	- Minimum value for the given type
-	data-sw-format	 	- Format: Tries to best fit the data entered into the supplied mask
-	data-sw-fixed-format 	- Fixed Format: The user must enter in data in exactly the same mask as indicated
 	data-sw-related 	- Relate fields. format: \[related-to-element:type\] where type is '=' or 'value'
 	data-sw-err-msg 	- Custom error message (overrides global msgs)
 
@@ -234,34 +230,15 @@ data-sw-type (data types)
 	Regex (r{})				Custom Regex Expression in this file (for reuse)
 						Format: r{your-regex}
 						Example: r{ ^\[^\\s@\]+@\[^\\s@\]+$ } 
-  
-
-Special Sanwaf-ui Attributes
-----------------------------
-
-	data-sw-fixed-format 	- Fixed Format 
-				  Data entered must be exactly as mask specified
-	data-sw-format		- Format 
-				  Data entered will be adjusted to fit mask specified, will error if not same as mask
-	data-sw-related		- Relationships 
-				  make elements dependent on each other based on values
-
-### Sanwaf-ui Attribute 'data-sw-fixed-format' - Fixed Format
-
-The "data-sw-fixed-format" attribute sets the element to use an Fixed Format
-
-An Fixed Format is way to force the end user to match your mask
-
-For example, if you want the end user to enter a 3 digit code and require them to enter parentheses:
-
-	  data-sw-fixed-format="(###)"
-
-  this specifies that the element must have a parenthesis, then 3 digits, then a closing parenthesis
+	
+	Format (f{}) 				Tries to best fit the data entered into the supplied mask
+						Format	f{(###) ###-####}
+						Example	using f{(###) ###-####, (555) 123-4567 is valid
 
 
-### Sanwaf-ui Attribute 'data-sw-format'- Format
+### Sanwaf-ui Format Data Type
 
-The "data-sw-format" attribute sets the element to use a Format
+The Format data type sets the element to use a Format
 
 A Format is way to best fit a user's entry into a mask
 
@@ -277,7 +254,7 @@ Use a combination of the special and non-special characters to create formats
 
 For example, if you want the end user to enter a telephone number formatted in a specific way:
 
-	data-sw-format="(###) ###-####"
+	data-sw-type="f{(###) ###-####}"
 
   this specifies to best fist a user's entry into the specified mask.
 
