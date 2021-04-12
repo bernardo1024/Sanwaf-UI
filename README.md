@@ -130,21 +130,21 @@ Use your own CSS classes by setting the following attributes to classes defined 
 
 **Optional Error Message Attributes** (default values will be used if not specified)
 
-	data-errorPopHeader1 		- header line 1 used with pop-up dialog
-	data-errorPopHeader2 		- header line 2 used with pop-up dialog
+	data-errorPopHeader1 			- header line 1 used with pop-up dialog
+	data-errorPopHeader2 			- header line 2 used with pop-up dialog
 	data-errorRequired 			- Error message for **Required** violations
-	data-errorMax 			- Error message for **Max Length** violations
-	data-errorMin 			- Error message for **Min Length** violations
-	data-errorMaxMinEqual 		- Error message for when Min & Max length are equal
+	data-errorMax 				- Error message for **Max Length** violations
+	data-errorMin 				- Error message for **Min Length** violations
+	data-errorMaxMinEqual 			- Error message for when Min & Max length are equal
 	data-errorMaxValue 			- Error message for **Max Value** violations
 	data-errorMinValue 			- Error message for **Min Value** violations
 	data-errorRelated 			- Error message for **Relationship** violations
 	data-errorTypeChar 			- Error message for **Character** data type violations
-	data-errorTypeNumeric 		- Error message for **Numeric** data type violations
-	data-errorTypeNumericDelimited 	- Error message for **Numeric Delimited** data type violations
+	data-errorTypeNumeric 			- Error message for **Numeric** data type violations
+	data-errorTypeNumericDelimited 		- Error message for **Numeric Delimited** data type violations
 	data-errorTypeAlphanumeric 		- Error message for **Alphanumeric** data type violations
 	data-errorTypeAlphanumericAndMore 	- Error message for **Alphanumeric and more** data type violations
-	data-errorTypeConstant 		- Error message for **Constant** data type violations
+	data-errorTypeConstant 			- Error message for **Constant** data type violations
 	data-errorTypeRegex 			- Error message for **Regex** data type violations
 	data-errorTypeFormat 			- Error message for **Format** violations
 
@@ -237,7 +237,7 @@ data-sw-type (data types)
 
 
 ### Sanwaf-ui Format Data Type
-
+--------------------------
 The Format data type sets the element to use a Format
 
 A Format is way to best fit a user's entry into a mask
@@ -260,7 +260,7 @@ For example, if you want the end user to enter a telephone number formatted in a
 
 
 ### Sanwaf-ui Attribute 'data-sw-related' - Element Relationships
-
+--------------------------
 The "data-sw-related" attribute sets element relationships. Use this attribute to specify which fields are mandatory based on other related elements
 
 For example, if you want 2 password fields, pass1 & pass2, to equal each other, you would set the "data-sw-related" attribute in pass2 as such:
