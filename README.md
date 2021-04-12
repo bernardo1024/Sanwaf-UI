@@ -233,7 +233,6 @@ data-sw-type (data types)
 						Format	f{(###) ###-####}
 						Example	using f{(###) ###-####, (555) 123-4567 is valid
 
-# format
 
 ### Sanwaf-ui Format Data Type
 --------------------------
@@ -258,7 +257,6 @@ For example, if you want the end user to enter a telephone number formatted in a
   this specifies to best fist a user's entry into the specified mask.
 
 
-# related
 
 ### Sanwaf-ui Attribute 'data-sw-related' - Element Relationships
 --------------------------
