@@ -30,7 +30,6 @@ function getElementByIdOrName(idOrName) {
   if (names.length == 1) {
     return names[0];
   }
-
   return names[0];
 }
 
@@ -123,9 +122,7 @@ function doLabelAndHover(e, err, msgs, actions) {
   } else {
     field = getElementByIdOrName(e.getAttribute("name"));
   }
-  
   label = getLabel(field);
-
   if (label) {
     labeltxt = label.getAttribute("sanwafuilabeltxt");
     if (!labeltxt) {
@@ -284,9 +281,6 @@ function buildErrorItemsArray(e, err, actions) {
   if (e.swFormatIsInError) {
     setErrorItem(e, err, errorItem, err.format, false, e.swFormat, "");
   }
-  if (e.swFixedFormatIsInError) {
-    setErrorItem(e, err, errorItem, err.fixedFormat, false, e.swFixedFormat, "");
-  }
 
   if (e.swRelatedIsInError) {
     var labeltxt;
@@ -364,7 +358,6 @@ function handleErrors(err, doBlurActions) {
       e.innerHTML = buildErrorMsg(e, err, "html");
     }
   }
-
   if (err.msgarray.length > 0 && actions.includes("alertWithPopup")) {
     alert(buildErrorMsg(e, err, "alertWithPopup"));
   }
@@ -403,8 +396,6 @@ function loadTags(e) {
     e.swFormat = e.swType.substring(2, e.swType.length -1);
   }
   e.swFormatIsInError = false;
-//  e.swFixedFormat = getAttribute(e, "data-sw-fixed-format", "");
-//  e.swFixedFormatIsInError = false;
   e.swMaxValue = getAttribute(e, "data-sw-max-value", "");
   e.swMaxValueIsInError = false;
   e.swMinValue = getAttribute(e, "data-sw-min-value", "");
@@ -457,7 +448,6 @@ function loadGlobalErrorSettings(forElementOnly) {
   err.max = getAttribute(config, "data-errorMax", "Must be between %1 and %2 chars");
   err.maxMinEqualMsg = getAttribute(config, "data-errorMaxMinEqual", "Must be %1 chars");
   err.required = getAttribute(config, "data-errorRequired", "Is a Required Field");
-  err.fixedFormat = getAttribute(config, "data-errorFixedFormat", "Must have the format: %1");
   err.format = getAttribute(config, "data-errorFormat", "Must have the format: %1 ");
   err.minVal = getAttribute(config, "data-errorMinValue", "Must be between %1 and %2");
   err.maxVal = getAttribute(config, "data-errorMaxValue", "Must be between %1 and %2");
@@ -470,6 +460,7 @@ function loadGlobalErrorSettings(forElementOnly) {
   err.type_aa = getAttribute(config, "data-errorTypeAlphanumericAndMore", "Must be alphanumeric or the following: %1");
   err.type_k = getAttribute(config, "data-errorTypeConstant", "Must be must be one of the following: \"%1\"");
   err.type_r = getAttribute(config, "data-errorTypeRegex", "Must be must match the regex: \"%1\"");
+  err.type_f = getAttribute(config, "data-errorTypeFormat", "Must have the format: %1");
 
   associateLabels();
   if (!forElementOnly) {
@@ -522,31 +513,24 @@ function trimSpaces(e) {
   }
 }
 
-function isFormat(e, err, type) {
-  var formatlen = -1;
-  var format = "";
-  if (type == 'positive') {
-    formatlen = e.swFormat.length;
-    format = e.swFormat;
-  } else {
-    formatlen = e.swFixedFormat.length;
-    format = e.swFixedFormat;
-  }
+function isFormatValid(e, err) {
+  var formatlen = e.swFormat.length;
+  
   if (e.value.length == 0 && formatlen > 0 && e.swReq == true) {
-    return false;
+    e.swFormatIsInError = true;
+    return;
   }
   if (e.value.length == 0 && e.swReq == false) {
-    return true;
+    return;
   }
-
   for (var i = 0; i < e.value.length; i++) {
     if (e.value.length > formatlen) {
       e.value = e.value.substring(0, formatlen);
       break;
     }
-    var f = format.charAt(i);
+    var f = e.swFormat.charAt(i);
     var c = e.value.charAt(i);
-    if (type == 'positive' && f != '#' && f != 'A' && f != 'a' && c != f) {
+    if (f != '#' && f != 'A' && f != 'a' && c != f) {
       e.value = e.value.substring(0, i) + f + e.value.substring(i, e.value.length);
       continue;
     }
@@ -565,17 +549,12 @@ function isFormat(e, err, type) {
     } else if ((f == '#' && !(c >= '0' && c <= '9')) || ((f == 'A' || f == 'a') && !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))) {
       e.value = e.value.substring(0, i) + e.value.substring(i + 1, e.value.length);
     }
-    if (type != "positive") {
-      if (c != f) {
-        return false;
-      }
-    }
   }
   if (e.value.length != formatlen) {
-    return false;
+    e.swFormatIsInError = true;
+    return;
   }
   cleanErrorElement(e, err);
-  return true;
 }
 
 function parseBlocks(s, start, andOr, match, reverseMatch, forwardMatch) {
@@ -903,8 +882,6 @@ function isAlphanumericAndAdditionalValid(e, err) {
 }
 
 function isConstantValid(e, err) {
-  // need to do if from a ddlb or list... the constant values are defined in
-  // html
   if (!e || e.value.length == 0) {
     return;
   }
@@ -958,24 +935,10 @@ function isElementValid(e, err) {
     isConstantValid(e, err);
   } else if (type == 'r{' || type == 'x{') {
     isRegexValid(e, err);
-  }
-
-  else if(type == 'f{') {
-    if (!isFormat(e, err, 'positive')) {
-      e.swFormatIsInError = true;
-    }
+  } else if(type == 'f{') {
+    isFormatValid(e, err);
   }
   
-//  if (e.swFormat.length > 0) {
-//    if (!isFormat(e, err, 'positive')) {
-//      e.swFormatIsInError = true;
-//    }
-//  }
-//  if (e.swFixedFormat.length > 0) {
-//    if (!isFormat(e, err, 'absolute')) {
-//      e.swFixedFormatIsInError = true;
-//    }
-//  }
   if (e.swRelated) {
     isRelateValid(e);
   }
@@ -1004,7 +967,7 @@ function isElementValid(e, err) {
     }
   }
 
-  if (e.swTypeIsInError || e.swMaxIsInError || e.swMinIsInError || e.swReqIsInError || e.swFormatIsInError || e.swFixedFormatIsInError || e.swMaxValueIsInError
+  if (e.swTypeIsInError || e.swMaxIsInError || e.swMinIsInError || e.swReqIsInError || e.swFormatIsInError || e.swMaxValueIsInError
       || e.swMinValueIsInError || e.swRelatedIsInError) {
     err.elements.push(e);
     err.count += 1;
@@ -1086,9 +1049,6 @@ function initSanwafui() {
   for (var i = 0; i < document.forms.length; i++) {
     for (var j = 0; j < document.forms[i].length; j++) {
       var e = document.forms[i].elements[j];
-
-      // test for rel and set listener on parent - might have the the
-      // data-sw-type set
       var related = getAttribute(e, "data-sw-related", "");
       if (related) {
         loadTags(e);
