@@ -236,7 +236,7 @@ function getRelatedError(e) {
   return msg;
 }
 
-function buildErrorItemsArray(e, err, actions) {
+function buildErrorItemsArray(e, err, actions, suppressRender) {
   var errorItem = new Object();
   errorItem.disp = e.swDisplay;
   errorItem.msgs = [];
@@ -287,12 +287,14 @@ function buildErrorItemsArray(e, err, actions) {
     if (!e.swRelated.startsWith("(")) {
       var kv = e.swRelated.split(":");
       var rel = getElementByIdOrName(kv[0]);
-      if (rel) {
-        if (rel.getAttribute("id")) {
-          var label = getElementByIdOrName(rel.getAttribute("id")).label;
-          labeltxt = label.getAttribute("sanwafuilabeltxt");
-          if (!labeltxt) {
-            labeltxt = label.innerHTML;
+      if(!suppressRender) {
+        if (rel) {
+          if (rel.getAttribute("id")) {
+            var label = getElementByIdOrName(rel.getAttribute("id")).label;
+            labeltxt = label.getAttribute("sanwafuilabeltxt");
+            if (!labeltxt) {
+              labeltxt = label.innerHTML;
+            }
           }
         }
       }
@@ -311,7 +313,9 @@ function buildErrorItemsArray(e, err, actions) {
   }
 
   err.msgarray.push(errorItem);
-  doLabelAndHover(e, err, errorItem.msgs, actions)
+  if(!suppressRender) {
+    doLabelAndHover(e, err, errorItem.msgs, actions)
+  }
 }
 
 function buildErrorMsg(e, err, type) {
@@ -340,16 +344,21 @@ function buildErrorMsg(e, err, type) {
   return out;
 }
 
-function handleErrors(err, doBlurActions) {
+function handleErrors(err, doBlurActions, suppressRender) {
   var actions = err.errorActions;
   if (doBlurActions) {
     actions = err.blurActions;
   }
-
+  
   for (var i = 0; i < err.elements.length; i++) {
     // NOTE: labels & hover are handled in buildErrorItemsArray method
-    buildErrorItemsArray(err.elements[i], err, actions);
+    buildErrorItemsArray(err.elements[i], err, actions, suppressRender);
   }
+
+  if(suppressRender){
+    return;
+  }
+
   if (actions.includes("showOnPage")) {
     var d = getElementByIdOrName(err.showOnPageElementId);
     d.style.display = "block";
@@ -400,7 +409,7 @@ function loadTags(e) {
   e.swMaxValueIsInError = false;
   e.swMinValue = getAttribute(e, "data-sw-min-value", "");
   e.swMinValueIsInError = false;
-  e.swRelated = getAttribute(e, "data-sw-related", "");
+  e.swRelated = removeRelatedSpace(getAttribute(e, "data-sw-related", ""));
   e.swRelatedIsInError = false;
 }
 
@@ -607,6 +616,16 @@ function parseBlocks(s, start, andOr, match, reverseMatch, forwardMatch) {
     }
   }
   return blocks;
+}
+
+function removeRelatedSpace(related){
+  related = related.trim();
+  related = related.replaceAll(/\)\s+&&\s+\(/g, ")&&(");
+  related = related.replaceAll(/\s+\|\|\s+/g, "||");
+  related = related.replaceAll(/\s+:\s+/g, ":");
+  related = related.replaceAll(/\(\s+/g, "(");
+  related = related.replaceAll(/\s+\)/g, ")");
+  return related;
 }
 
 function isRelateValid(e) {
@@ -993,10 +1012,8 @@ function isElementValid(e, err) {
   return true;
 }
 
-function formIsValid(thisForm, doBlurActions) {
+function formIsValid(thisForm, doBlurActions, err, suppressRender) {
   var flag = true
-  var err = loadGlobalErrorSettings();
-
   for (var i = 0; i < thisForm.length; i++) {
     var e = thisForm.elements[i];
     if (e.type == "text" || e.type == "textarea" || e.type == "password" || e.type == "hidden" || e.type == "checkbox" || e.type == "select-one") {
@@ -1012,10 +1029,8 @@ function formIsValid(thisForm, doBlurActions) {
     }
   }
   if (flag == false) {
-    handleErrors(err, doBlurActions);
+    handleErrors(err, doBlurActions, suppressRender);
   }
-
-  // json = JSON.stringify(err.msgarray);
   return flag;
 }
 
@@ -1066,7 +1081,7 @@ function initSanwafui() {
   for (var i = 0; i < document.forms.length; i++) {
     for (var j = 0; j < document.forms[i].length; j++) {
       var e = document.forms[i].elements[j];
-      var related = getAttribute(e, "data-sw-related", "");
+      var related = removeRelatedSpace(getAttribute(e, "data-sw-related", ""));
       if (related) {
         loadTags(e);
         var parents = [];
@@ -1107,7 +1122,7 @@ function initSanwafui() {
         e.addEventListener("focusout", function(e) {
           var err = loadGlobalErrorSettings(true);
           if (!isElementValid(e.target, err)) {
-            handleErrors(err, true);
+            handleErrors(err, true, false);
           } else {
             cleanErrorElement(e.target, err);
           }
@@ -1118,12 +1133,32 @@ function initSanwafui() {
 }
 
 function isSanwafUiFormValid(form) {
-  return formIsValid(form, false);
+  var err = loadGlobalErrorSettings();
+  return formIsValid(form, false, err, false);
 }
-function sanwafUiBlurElement(e) {
+
+function sanwafUiBlurElement(elem) {
   var err = loadGlobalErrorSettings(true);
-  cleanErrorElement(e, err);
-  if (!isElementValid(e, err)) {
-    handleErrors(err, true);
+  cleanErrorElement(elem, err);
+  if (!isElementValid(elem, err)) {
+    handleErrors(err, true, false);
   }
+}
+
+function getFormErrors(form){
+  var err = loadGlobalErrorSettings(true);
+  cleanAllErrorElements(err);
+  if(!formIsValid(form, false, err, true)){
+    return JSON.stringify(err.msgarray);
+  }
+  return "";
+}
+
+function getElementErrors(elem) {
+  cleanErrorElement(elem, err);
+  cleanAllErrorElements(err);
+  if (!isElementValid(elem, err)) {
+    return JSON.stringify(err.msgarray);
+  }
+  return "";
 }

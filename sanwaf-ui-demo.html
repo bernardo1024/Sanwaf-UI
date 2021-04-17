@@ -24,12 +24,14 @@
     </style> 
   </head>
 
-    <!-- Sanwaf-ui code - STEP 3. configure sanwaf-ui -->
-    <!-- Sanwaf-ui code - 1st block below - override sanwaf-ui actions -->
-    <!-- Sanwaf-ui code - 2nd block below - override class's used by sanwaf-ui -->
-    <!-- Sanwaf-ui code - 3rd block below - override sanwaf-ui attribute error messages -->
-    <!-- Sanwaf-ui code - 4th block below - override data type error messages -->
-<!--    
+    <!-- Sanwaf-ui code - STEP 3. optional. configure sanwaf-ui -->
+    <!-- NOTE that if you uncomment the following div block, the CSS specified in 'Sanwaf-ui code - STEP 2a.' (above) 
+         and the div id wrapper & div id for the sanwaf errors specified in 'Sanwaf-ui code - STEP 2a.' (below)  will be used -->
+    <!-- Sanwaf-ui code - 1st block below - override sanwaf-ui default actions -->
+    <!-- Sanwaf-ui code - 2nd block below - override default class's used by sanwaf-ui -->
+    <!-- Sanwaf-ui code - 3rd block below - override sanwaf-ui default attribute error messages -->
+    <!-- Sanwaf-ui code - 4th block below - override default data type error messages -->
+	<!--    
     <div id="sanwafUiConfig" style="display:none"
       data-numErrorsToDisplay="-1" 
       data-errorActions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup"
@@ -49,12 +51,12 @@
       data-errorPopHeader2="------------------------------------------------------------------------------------ (local)"
       data-errorMax = "Must be less than %1 characters (local)"
       data-errorMin = "Must be more than %1 characters (local)"
-      data-errorMaxMinEqual = "Must be %1 chars";
+      data-errorMaxMinEqual = "Must be %1 chars (local)";
       data-errorRequired = "Is a Required Field (local)"
       data-errorMinValue = "Must be more than %1 (local)"
       data-errorMaxValue = "Must be less than %1 (local)"
       data-errorRelated = "Must be entered when %1 is entered (local)"
-      data-errorRelatedNotEqual = "%1 must have the same value as %2"
+      data-errorRelatedNotEqual = "%1 must have the same value as %2 (local)"
       
       data-errorTypeChar = "Character (local)";
       data-errorTypeNumeric = "Must be numeric (local)";
@@ -65,7 +67,7 @@
       data-errorTypeRegex = "Must match the regex (local)";
       data-errorTypeFormat = "Must match the format (local)";
     ></div>
--->
+	-->
     
   <body>
     <h1 id="top" style="text-align: center;">Sanwaf-ui.js Demo</h1>
@@ -90,7 +92,7 @@
     </div>
     
     <!-- Sanwaf-ui code - STEP 2a. Part 2. See <div id="sanwafUiConfig" .../> above for how to override settings in the 1st block
-    							   This allows you to specify any div id wrapper and div for the sanwaf errors to be displayed
+    							   This allows you to specify any div id wrapper and div id for the sanwaf errors to be displayed
     							   The following div will be used if you uncomment the div sanwafUiConfig above -->
     <div id="pageErrors" style="display: none;">
       <b>Some Heading</b>
@@ -164,7 +166,9 @@
           <td>Must be numeric value between 10-1000 </td>
         </tr>
         <!-- Sanwaf-ui code - STEP 5. call sanwaf-ui to validate form: isSanwafUiFormValid(testform)  -->
-        <tr><td></td><td><input type="button" value="Validate" onClick="return isSanwafUiFormValid(testform)"/></td><td></td></tr>
+        <tr>
+        	<td></td><td><input type="button" value="Validate" onClick="return isSanwafUiFormValid(testform)"/></td>
+        	<td>To custom manage errors,<br/>call the '<b>getFormErrors(form)</b>' method: <input type="button" value="get errors" onClick="alert(getFormErrors(testform))"/><br/>A json string of errors will be returned &amp; no UI rendering will occur<br/>Use the '<b>getElementErrors(elem)</b>' method to retrieve the json errors for an element</td></tr>
       </table>
     </form>
     
@@ -296,12 +300,22 @@
         </td>
       </tr>
       <tr>
-        <td>5.</td>
+        <td>5a.</td>
         <td>Call Sanwaf-ui method to validate form</td>
         <td>
           <table  class="table-instructions-inner">
-            <tr><td>isSanwafUiFormValid()</td><td>checks the elements on a form for errors. returns true/false</td></tr>
-            <tr><td>sanwafUiBlurElement(element)</td><td>performs validate on the element specified</td></tr>
+            <tr><td>isSanwafUiFormValid(form)</td><td>checks the elements on a form for errors. returns true/false</td></tr>
+            <tr><td>sanwafUiBlurElement(element)</td><td>performs validate on the element specified. returns true/false</td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>5b.</td>
+        <td>OR Call Sanwaf-ui method to get errors in JSON format</td>
+        <td>
+          <table  class="table-instructions-inner">
+            <tr><td>getFormErrors(form)</td><td>checks the elements on a form for errors. returns all errors found in JSON format</td></tr>
+            <tr><td>getElementErrors(element)</td><td>performs validate on the element specified, returns errors found in JSON format</td></tr>
           </table>
         </td>
       </tr>
@@ -679,7 +693,8 @@
                 <input type="checkbox" id="hobby" name="hobby"/><label for="hobby">hobbies:</label>,&nbsp;&nbsp;
                 <input type="checkbox" id="sports" name="sports"/><label for="sports">Sports</label>,&nbsp;&nbsp;
                 <input type="checkbox" id="music" name="music"/><label for="music">Music</label>,&nbsp;&nbsp;
-                <label for="duration1">Duration</label><input type="text" id="duration1" nameid="duration1" data-sw-display="Duration" data-sw-type="n" data-sw-related="(sports:true)||(music:true)&&(hobby:true)"/>&nbsp;&nbsp;
+                <label for="duration1">Duration</label><input type="text" id="duration1" nameid="duration1" data-sw-display="Duration" data-sw-type="n" data-sw-related=" ( sports : true ) || ( music : true ) && ( hobby : true ) "/>&nbsp;&nbsp;
+                
                 <input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemoOrOrAndCondition)"/>
                 </td>
               </tr>
