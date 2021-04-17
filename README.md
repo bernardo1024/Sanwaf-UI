@@ -15,13 +15,17 @@
         - Can be used independently of Sanwaf-UI
         - No custom code is required to perform validation on the server
 
-- [Sanwaf-UI-2-Server](https://github.com/bernardo1024/Sanwaf-UI-2-Server) Utility converts the Sanwaf-UI declarative validation into the server XML format
+- [Sanwaf-UI-2-Server](https://github.com/bernardo1024/Sanwaf-UI-2-Server) utility converts the Sanwaf-UI declarative validation into the server XML format
         
         - Provides for effortless Sanwaf-Server configuration using Sanwaf-UI attributes
         - Converts the Sanwaf-UI declarative Attributes into a Sanwaf-Server consumable form
         - Automate Sanwaf-Server configuration using this utility
   
-See the [Sanwaf-Sample](https://github.com/bernardo1024/Sanwaf-Sample) project for an end-2-end sample of using Sanwaf-UI & Sanwaf-Server
+- [Sanwaf-Sample](https://github.com/bernardo1024/Sanwaf-Sample) project is a sample implementation of Sanwaf-UI and Sanwaf Server
+
+	- End-2-end sample of using Sanwaf-UI & Sanwaf-Server
+	- Dynamically configure and test Sanwaf-UI 
+	- Dynamically disable Browser Validation and run against Server (uses embedded Jetty)
 
 # Sanwaf-UI
 
