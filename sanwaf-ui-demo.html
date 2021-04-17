@@ -558,11 +558,14 @@
       <tr><td>The Format data type sets the element to use a Format</td><td></td></tr>
       <tr><td>A Format is way to best fit a user's entry into a mask</td><td></td></tr>
       <tr><td>Sanwaf-ui automatically sets an oninput event handler to elements that have the format data type.  the event handler formats as the user enters data</td><td></td></tr>
-      <tr><td>Three special characters are provided to be used in formats:</td><td></td></tr>
+      <tr><td>Four special characters are provided to be used in formats:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;# - represents a number</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;A - represents an Uppercase character</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;a - represents an lowercase character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;c - represents a character of any case</td><td></td></tr>
       <tr><td>Use a combination of the special and non-special characters to create formats</td><td></td></tr>
+      <tr><td>To use the four special characters in the format itself, you will need to escape them:</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;\#  \A  \a  \c</td><td></td></tr>
       <tr><td>For example, if you want the end user to enter a telephone number formatted in a specific way:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{(###) ###-####}"</b></td><td></td></tr>
       <tr><td>&nbsp;&nbsp;this specifies to best fist a user's entry into the specified mask.</td><td></td></tr>

@@ -513,8 +513,27 @@ function trimSpaces(e) {
   }
 }
 
+//  \f - formfeed
+//  \b - backspace
+function handleEscapedChars(s, forFormat){
+  if(forFormat){
+    s = s.replaceAll(/\\#/g, "\t");
+    s = s.replaceAll(/\\A/g, "\n");
+    s = s.replaceAll(/\\a/g, "\r");
+    s = s.replaceAll(/\\c/g, "\f");
+  }
+  else{
+    s = s.replaceAll("\t", "#");
+    s = s.replaceAll("\n", "A");
+    s = s.replaceAll("\r", "a");
+    s = s.replaceAll("\f", "c");
+  }
+  return s;
+}
+
 function isFormatValid(e, err) {
-  var formatlen = e.swFormat.length;
+  var format = handleEscapedChars(e.swFormat, true);
+  var formatlen = format.length;
   
   if (e.value.length == 0 && formatlen > 0 && e.swReq == true) {
     e.swFormatIsInError = true;
@@ -528,25 +547,25 @@ function isFormatValid(e, err) {
       e.value = e.value.substring(0, formatlen);
       break;
     }
-    var f = e.swFormat.charAt(i);
+    var f = format.charAt(i);
     var c = e.value.charAt(i);
-    if (f != '#' && f != 'A' && f != 'a' && c != f) {
-      e.value = e.value.substring(0, i) + f + e.value.substring(i, e.value.length);
+    if (f != '#' && f != 'A' && f != 'a' && f != 'c' && c !=  handleEscapedChars(f, false)) {
+      e.value = e.value.substring(0, i) + handleEscapedChars(f, false) + e.value.substring(i, e.value.length);
       continue;
     }
     if (f == '#' && c >= '0' && c <= '9') {
       continue;
     }
 
-    if ((f == 'A' || f == 'a') && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
+    if ((f == 'A' || f == 'a' || f == 'c') && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
       if (f == 'A') {
         c = c.toUpperCase();
-      } else {
+      } else if( f == 'a'){
         c = c.toLowerCase();
       }
       e.value = e.value.substring(0, i) + c + e.value.substring(i + 1, e.value.length);
       continue;
-    } else if ((f == '#' && !(c >= '0' && c <= '9')) || ((f == 'A' || f == 'a') && !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))) {
+    } else if ((f == '#' && !(c >= '0' && c <= '9')) || ((f == 'A' || f == 'a' || f == 'c') && !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))) {
       e.value = e.value.substring(0, i) + e.value.substring(i + 1, e.value.length);
     }
   }
