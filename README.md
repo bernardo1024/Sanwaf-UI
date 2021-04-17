@@ -83,17 +83,27 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
     see [sanwaf-ui attribute](#sanwaf-ui-attributes) for details
 
-5. Call Sanwaf-ui method to validate a form
+5a. Call Sanwaf-ui method to validate a form
 
 	To check all elements on a form for errors, use:
 
-        isSanwafUiFormValid(form)
+		isSanwafUiFormValid(form)
 
 	To perform validation on a single element, use:
 
-        sanwafUiBlurElement(element)
+        	sanwafUiBlurElement(element)
 	
 	**See [sanwaf-ui-demo.html](https://bernardo1024.github.io/) for examples**
+
+5b. OR Call Sanwaf-ui method to get errors in JSON format
+
+	To get all errors found for a given form in JSON format, use:
+
+        	getFormErrors(form)
+
+	To get errors for a given element in JSON format, use: 
+
+        	getElementErrors(element)
 
 6. Initialize sanwaf-ui
 
