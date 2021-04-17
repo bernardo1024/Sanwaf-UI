@@ -474,7 +474,7 @@ function trimAlpha(e) {
     return;
   }
 
-  for (var i = 0; i != e.value.length; i++) {
+  for (var i = 0; i < e.value.length; i++) {
     if (!isNumber(e.value.charAt(i))) {
       if (i == 0) {
         e.value = e.value.substring(1, e.value.length);
@@ -496,7 +496,7 @@ function trimSpaces(e) {
     return;
   }
 
-  for (var i = 0; i != e.value.length; i++) {
+  for (var i = 0; i < e.value.length; i++) {
     if (e.value.charAt(i) == " ") {
       if (i == 0) {
         e.value = e.value.substring(1, e.value.length);
