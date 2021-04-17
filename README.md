@@ -24,11 +24,10 @@
 See the [Sanwaf-Sample](https://github.com/bernardo1024/Sanwaf-Sample) project for an end-2-end sample of using Sanwaf-UI & Sanwaf-Server
 
 # Sanwaf-UI
----------------------------
 
-Sanwaf-UI provides a standardized, tested, and simple to implement svalidation framework so you dont have to write custom validation code again.  
+Sanwaf-UI provides a standardized, tested, and simple to implement validation framework so you dont have to write custom validation code again.  
 
-when used together, they provide a code-free declarative validation system on both the client & server
+When Sanwaf-UI is used with Sanwaf-Server, they provide a code-free declarative validation system on both the client & server.
 
 ![](sanwaf-ui.png)  
   
