@@ -23,7 +23,7 @@
   
 See the [Sanwaf-Sample](https://github.com/bernardo1024/Sanwaf-Sample) project for an end-2-end sample of using Sanwaf-UI & Sanwaf-Server
 
-What is Sanwaf-ui & sanwaf-server
+# Sanwaf-UI
 ---------------------------
 
 Isn't it about time that HTML validation code is standardized, tested, and simple to implement so developers can focus on more important security issues?
@@ -35,12 +35,6 @@ Wouldn't it be better to use a standardized mechanism to do this for you without
 Wouldn't it be even better if this standardized mechanism extends to the server level as well?
 
 **Sanwaf-ui & Sanwaf-server** aim to solve these issues:
-
-	- Sanwaf-ui is a Sanitation Web Application Firewall that runs on the Browser
-	  Sanwaf-ui uses a declarative mechanism to add validation to HTML pages
-	  No custom code is required to perform validation on web pages
-
-	- Sanwaf-server is a Sanitation Web Application Firewall that runs on the Server
 
 Sanwaf-server & Sanwaf-ui can be used independently or together
 
