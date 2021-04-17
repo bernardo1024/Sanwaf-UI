@@ -513,8 +513,6 @@ function trimSpaces(e) {
   }
 }
 
-//  \f - formfeed
-//  \b - backspace
 function handleEscapedChars(s, forFormat){
   if(forFormat){
     s = s.replaceAll(/\\#/g, "\t");
