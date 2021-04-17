@@ -250,6 +250,7 @@ Four special characters are provided to be used in formats:
 	  c - represents a character of any case
 
 Use a combination of the special and non-special characters to create formats
+
 To use the four special characters in the format itself, you will need to escape them:
 
 	\#  \A  \a  \c
