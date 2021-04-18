@@ -238,6 +238,8 @@ function getRelatedError(e) {
 
 function buildErrorItemsArray(e, err, actions, suppressRender) {
   var errorItem = new Object();
+  errorItem.id = e.id;
+  errorItem.name = e.name;
   errorItem.disp = e.swDisplay;
   errorItem.msgs = [];
 
