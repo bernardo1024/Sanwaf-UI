@@ -267,7 +267,7 @@ Sanwaf-ui automatically sets an oninput event handler to elements that have the 
 Four special characters are provided to be used in formats:
 
 	  #   - represents a number
-	  #[] - represents a number within a specified range, for example: #[1-12
+	  #[] - represents a number within a specified range, for example: #[1-12]
 	  A   - represents an Uppercase character
 	  a   - represents an lowercase character
 	  c   - represents a character of any case
