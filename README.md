@@ -266,21 +266,26 @@ Sanwaf-ui automatically sets an oninput event handler to elements that have the 
 
 Four special characters are provided to be used in formats:
 
-	  # - represents a number
-	  A - represents an Uppercase character
-	  a - represents an lowercase character
-	  c - represents a character of any case
+	  #   - represents a number
+	  #[] - represents a number within a specified range, for example: #[1-12
+	  A   - represents an Uppercase character
+	  a   - represents an lowercase character
+	  c   - represents a character of any case
 
 Use a combination of the special and non-special characters to create formats
 
 To use the four special characters in the format itself, you will need to escape them:
 
-	\#  \A  \a  \c
+	\#  \A  \a  \c  \[  \]
 
 For example, if you want the end user to enter a telephone number formatted in a specific way:
 
 	data-sw-type="f{(###) ###-####}"
 
+Or, if you want the end user to enter a credit card expiry date limited to the years ending in 21 - 35:	
+  	
+	data-sw-type="f{#[1-12] / #[21-35]}"	
+  
   this specifies to best fist a user's entry into the specified mask.
 
 
