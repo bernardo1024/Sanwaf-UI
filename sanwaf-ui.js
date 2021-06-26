@@ -19,7 +19,7 @@ function insertVarInString(msg, s1, s2) {
 }
 
 function getElementByIdOrName(idOrName) {
-  if(!idOrName){
+  if (!idOrName) {
     return;
   }
   var e = document.getElementById(idOrName);
@@ -104,11 +104,10 @@ function buildMsgFromArray(msgs, linesep) {
   return out;
 }
 
-function getLabel(e){
-  if(e.swLabelId){
+function getLabel(e) {
+  if (e.swLabelId) {
     return e.swLabelId;
-  }
-  else{
+  } else {
     return e.label;
   }
 }
@@ -161,12 +160,17 @@ function doLabelAndHover(e, err, msgs, actions) {
 function setErrorItem(e, err, errorItem, defaultmsg, forceDefault, more1, more2) {
   var len = errorItem.msgs.length;
   if (e.swErrMsg && !forceDefault) {
-    errorItem.msgs[len] = e.swErrMsg;
+    if (len == 0) {
+      errorItem.msgs[len] = e.swErrMsg;
+      if (more1 || more2) {
+        errorItem.msgs[len] = insertVarInString(errorItem.msgs[len], more1, more2);
+      }
+    }
   } else {
     errorItem.msgs[len] = defaultmsg;
-  }
-  if (more1 || more2) {
-    errorItem.msgs[len] = insertVarInString(errorItem.msgs[len], more1, more2);
+    if (more1 || more2) {
+      errorItem.msgs[len] = insertVarInString(errorItem.msgs[len], more1, more2);
+    }
   }
 }
 
@@ -245,22 +249,26 @@ function buildErrorItemsArray(e, err, actions, suppressRender) {
 
   if (e.swTypeIsInError) {
     if (e.swType == "c") {
-      setErrorItem(e, err, errorItem, err.type_c, true, "", "");
+      setErrorItem(e, err, errorItem, err.type_c, false, "", "");
     } else if (e.swType == "n") {
-      setErrorItem(e, err, errorItem, err.type_n, true, "", "");
+      setErrorItem(e, err, errorItem, err.type_n, false, "", "");
+    } else if (e.swType == "i") {
+      setErrorItem(e, err, errorItem, err.type_i, false, "", "");
     } else if (e.swType == "a") {
-      setErrorItem(e, err, errorItem, err.type_a, true, "", "");
+      setErrorItem(e, err, errorItem, err.type_a, false, "", "");
     }
     var type = e.swType.substring(0, 2);
     var extra = parse(e.swType, "{", "}");
     if (type == "n{") {
-      setErrorItem(e, err, errorItem, err.type_nn, true, renderSpecialChars(extra), "");
+      setErrorItem(e, err, errorItem, err.type_nn, false, renderSpecialChars(extra), "");
+    } else if (type == "i{") {
+        setErrorItem(e, err, errorItem, err.type_ii, false, renderSpecialChars(extra), "");
     } else if (type == "a{") {
-      setErrorItem(e, err, errorItem, err.type_aa, true, renderSpecialChars(extra), "");
+      setErrorItem(e, err, errorItem, err.type_aa, false, renderSpecialChars(extra), "");
     } else if (type == "k{") {
-      setErrorItem(e, err, errorItem, err.type_k, true, extra.replace(",", "\" or \""), "");
+      setErrorItem(e, err, errorItem, err.type_k, false, extra.replace(",", "\" or \""), "");
     } else if (type == "r{" || type == "x{") {
-      setErrorItem(e, err, errorItem, err.type_r, true, extra, "");
+      setErrorItem(e, err, errorItem, err.type_r, false, extra, "");
     }
   }
 
@@ -269,7 +277,7 @@ function buildErrorItemsArray(e, err, actions, suppressRender) {
   }
   if (e.swMaxIsInError || e.swMinIsInError) {
     if (e.swMax == e.swMin) {
-      setErrorItem(e, err, errorItem, err.maxMinEqualMsg, true, e.swMin, e.swMax);
+      setErrorItem(e, err, errorItem, err.maxMinEqualMsg, false, e.swMin, e.swMax);
       if (e.swErrMsg) {
         setErrorItem(e, err, errorItem, "", false, e.swMin, e.swMax);
       }
@@ -289,7 +297,7 @@ function buildErrorItemsArray(e, err, actions, suppressRender) {
     if (!e.swRelated.startsWith("(")) {
       var kv = e.swRelated.split(":");
       var rel = getElementByIdOrName(kv[0]);
-      if(!suppressRender) {
+      if (!suppressRender) {
         if (rel) {
           if (rel.getAttribute("id")) {
             var label = getElementByIdOrName(rel.getAttribute("id")).label;
@@ -315,7 +323,7 @@ function buildErrorItemsArray(e, err, actions, suppressRender) {
   }
 
   err.msgarray.push(errorItem);
-  if(!suppressRender) {
+  if (!suppressRender) {
     doLabelAndHover(e, err, errorItem.msgs, actions)
   }
 }
@@ -351,13 +359,13 @@ function handleErrors(err, doBlurActions, suppressRender) {
   if (doBlurActions) {
     actions = err.blurActions;
   }
-  
+
   for (var i = 0; i < err.elements.length; i++) {
     // NOTE: labels & hover are handled in buildErrorItemsArray method
     buildErrorItemsArray(err.elements[i], err, actions, suppressRender);
   }
 
-  if(suppressRender){
+  if (suppressRender) {
     return;
   }
 
@@ -387,7 +395,7 @@ function getAttribute(config, att, def) {
 function loadTags(e) {
   e.swDisplay = getAttribute(e, "data-sw-display", "");
   e.swLabelId = getElementByIdOrName(getAttribute(e, "data-sw-label-id", ""));
-  
+
   e.swErrMsg = getAttribute(e, "data-sw-err-msg", "");
   e.swType = getAttribute(e, "data-sw-type", "");
   e.swTypeIsInError = false;
@@ -403,9 +411,15 @@ function loadTags(e) {
     e.swReq = true;
   }
   e.swReqIsInError = false;
-  if(e.swType.startsWith('f{')){
-    e.swFormat = e.swType.substring(2, e.swType.length -1);
+  if (e.swType.startsWith('f{')) {
+    e.swFormat = e.swType.substring(2, e.swType.length - 1);
   }
+
+  // join with format
+  if (e.swType.startsWith('t{')) {
+    e.swFormat = e.swType.substring(2, e.swType.length - 1);
+  }
+
   e.swFormatIsInError = false;
   e.swMaxValue = getAttribute(e, "data-sw-max-value", "");
   e.swMaxValueIsInError = false;
@@ -467,6 +481,8 @@ function loadGlobalErrorSettings(forElementOnly) {
   err.type_c = getAttribute(config, "data-errorTypeChar", "Must be a single character");
   err.type_n = getAttribute(config, "data-errorTypeNumeric", "Must be numeric");
   err.type_nn = getAttribute(config, "data-errorTypeNumericDelimited", "Must be a list of numeric value(s) delimted by %1");
+  err.type_i = getAttribute(config, "data-errorTypeInteger", "Must be an integer");
+  err.type_ii = getAttribute(config, "data-errorTypeIntegerDelimited", "Must be a list of integer value(s) delimted by %1");
   err.type_a = getAttribute(config, "data-errorTypeAlphanumeric", "Must be alphanumeric");
   err.type_aa = getAttribute(config, "data-errorTypeAlphanumericAndMore", "Must be alphanumeric or the following: %1");
   err.type_k = getAttribute(config, "data-errorTypeConstant", "Must be must be one of the following: \"%1\"");
@@ -524,65 +540,309 @@ function trimSpaces(e) {
   }
 }
 
-function handleEscapedChars(s, forFormat){
-  if(forFormat){
+function handleEscapedChars(s, forFormat) {
+  if (forFormat) {
     s = s.replaceAll(/\\#/g, "\t");
     s = s.replaceAll(/\\A/g, "\n");
     s = s.replaceAll(/\\a/g, "\r");
     s = s.replaceAll(/\\c/g, "\f");
-  }
-  else{
+    s = s.replaceAll("\\[", "\b");
+    s = s.replaceAll("\\]", "\v");
+  } else {
     s = s.replaceAll("\t", "#");
     s = s.replaceAll("\n", "A");
     s = s.replaceAll("\r", "a");
     s = s.replaceAll("\f", "c");
+    s = s.replaceAll("\b", "[");
+    s = s.replaceAll("\v", "]");
   }
   return s;
 }
 
-function isFormatValid(e, err) {
-  var format = handleEscapedChars(e.swFormat, true);
-  var formatlen = format.length;
-  
-  if (e.value.length == 0 && formatlen > 0 && e.swReq == true) {
-    e.swFormatIsInError = true;
-    return;
+function parseFormat(format) {
+  var blocks = [];
+  var pos = 0;
+  var last = 0;
+  var i = 0;
+  var end = 0;
+  var dash = 0;
+
+  while (true) {
+    var block = "";
+    var numDigits = 0;
+
+    pos = format.indexOf("#", last);
+    if (pos < 0) {
+      if (last < format.length) {
+        Array.prototype.push.apply(format.substring(last, format.length).split(''));
+      }
+      break;
+    }
+
+    if (format.charAt(pos + 1) == '[') {
+      dash = format.indexOf("-", pos);
+      end = format.indexOf("]", pos);
+      numDigits = end - (dash + 1);
+      block = format.substring(last, end + 1);
+      last = end + 1;
+    } else {
+      block = format.substring(last, pos + 1);
+      last = pos + 1;
+    }
+
+    if (!block.startsWith("#")) {
+      var x = block.indexOf("#");
+      var s = block.substring(0, x);
+      Array.prototype.push.apply(blocks, s.split(''));
+      i = blocks.length;
+      block = block.substring(x, block.length);
+    }
+
+    blocks[i] = block;
+    i++;
+    for (var j = 0; j < numDigits - 1; j++) {
+      blocks[i] = '';
+      i++;
+    }
   }
+  return blocks;
+}
+
+function isFormatValid(e, err) {
   if (e.value.length == 0 && e.swReq == false) {
     return;
   }
-  for (var i = 0; i < e.value.length; i++) {
-    if (e.value.length > formatlen) {
-      e.value = e.value.substring(0, formatlen);
-      break;
-    }
-    var f = format.charAt(i);
-    var c = e.value.charAt(i);
-    if (f != '#' && f != 'A' && f != 'a' && f != 'c' && c !=  handleEscapedChars(f, false)) {
-      e.value = e.value.substring(0, i) + handleEscapedChars(f, false) + e.value.substring(i, e.value.length);
+
+  var format = handleEscapedChars(e.swFormat, true);
+  var formats = format.split("||");
+  var formatsCurrentValue = [];
+  var formatsInError = [];
+  var formatErrorPos = [];
+  formatErrorPos.length = formats.length;
+  for (var p = 0; p < formatErrorPos.length; p++) {
+    formatErrorPos[p] = Number.MAX_VALUE;
+  }
+
+  for (var formatCount = 0; formatCount < formats.length; formatCount++) {
+    formatsInError[formatCount] = false;
+    formatsCurrentValue[formatCount] = e.value;
+
+    var blocks = parseFormat(formats[formatCount]);
+    var formatlen = blocks.length;
+
+    if (formatsCurrentValue[formatCount].length == 0 && formatlen > 0 && e.swReq == true) {
+      formatsInError[formatCount] = true;
       continue;
     }
-    if (f == '#' && c >= '0' && c <= '9') {
-      continue;
+    if (formatsCurrentValue[formatCount].length > formatlen) {
+      formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, formatlen);
     }
 
-    if ((f == 'A' || f == 'a' || f == 'c') && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
-      if (f == 'A') {
-        c = c.toUpperCase();
-      } else if( f == 'a'){
-        c = c.toLowerCase();
+    var i = 0;
+    for (i = 0; i < formatsCurrentValue[formatCount].length; i++) {
+      var c = formatsCurrentValue[formatCount].charAt(i);
+      var f = blocks[i];
+
+      if (f == "" && (c > '9' || c < '0')) {
+        // check if we need to zero pre-pad the number
+        var b = i;
+        var zeroPadCount = 0;
+        while (true) {
+          var cc = formatsCurrentValue[formatCount].charAt(b);
+          if (blocks[b] == "") {
+            formatsCurrentValue[formatCount] = "0" + formatsCurrentValue[formatCount];
+            zeroPadCount++;
+          } else {
+            break;
+          }
+          b--;
+        }
+        continue;
+      } else if (f == "") {
+        continue;
       }
-      e.value = e.value.substring(0, i) + c + e.value.substring(i + 1, e.value.length);
-      continue;
-    } else if ((f == '#' && !(c >= '0' && c <= '9')) || ((f == 'A' || f == 'a' || f == 'c') && !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))) {
-      e.value = e.value.substring(0, i) + e.value.substring(i + 1, e.value.length);
+
+      if (!f) {
+        formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, blocks.length);
+        return;
+      }
+
+      if (f.startsWith("#[")) {
+        doNumRangePart(c, f, blocks, formatsCurrentValue, formatsInError, formatErrorPos, formatCount, i);
+      } else {
+        doNormalFormatPart(c, f, blocks, formatsCurrentValue, formatsInError, formatErrorPos, formatCount, i);
+      }
+    }
+
+    if (formats.length == 1) {
+      // add any next fixed format items
+      while (true) {
+        var nextBlock = blocks[i];
+        if (!nextBlock || nextBlock.startsWith("#") || nextBlock.startsWith("A") || nextBlock.startsWith('a') || nextBlock.startsWith('c')
+            || i > formatsCurrentValue[formatCount].length) {
+          break;
+        }
+        formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, formatsCurrentValue[formatCount].length) + blocks[i];
+        i++
+      }
+    }
+
+    if (formatsCurrentValue[formatCount].length != formatlen) {
+      formatsInError[formatCount] = true;
     }
   }
-  if (e.value.length != formatlen) {
+
+  // which format when the farthest?
+  var formatInError = true;
+  var maxSize = -1;
+  var maxErrorPos = -1;
+  var formatWithMaxSize;
+  for (var j = 0; j < formatErrorPos.length; j++) {
+    if (formatErrorPos[j] > maxErrorPos || formatsCurrentValue[j].length > maxSize) {
+      maxSize = formatsCurrentValue[j].length;
+      maxErrorPos = formatErrorPos[j];
+      formatWithMaxSize = formatsCurrentValue[j];
+      formatInError = formatsInError[j];
+    }
+  }
+
+  if (formatWithMaxSize) {
+    e.value = formatWithMaxSize;
+  } else {
+    e.value = "";
+  }
+
+  if (formatInError) {
     e.swFormatIsInError = true;
     return;
   }
+
   cleanErrorElement(e, err);
+}
+
+function doNumRangePart(c, f, blocks, formatsCurrentValue, formatsInError, formatErrorPos, formatCount, i) {
+  if (c > '9' || c < '0') {
+    formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i)
+        + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+    return;
+  }
+  f = f.substring(2, f.length - 1);
+  var ff = f.split('-');
+  var minNum = parseInt(ff[0]);
+  var maxNum = parseInt(ff[1]);
+  var maxLen = (maxNum + "").length;
+  var maxLenDynamic = maxLen;
+  var numAddedZeros = 0;
+  var minLen = (minNum + "").length;
+  var allowedZeros = maxLen - minLen;
+  var zeroCount = 0;
+  var countZeros = true;
+  var cNewMax = c;
+  var cNewMin = c;
+  if (countZeros && parseInt(c) == 0) {
+    zeroCount++;
+  } else {
+    countZeros = false;
+  }
+
+  if (maxLen > 1) {
+    // check for potential to exceed max allowed value
+    for (var j = 1; j < maxLen; j++) {
+      var n = formatsCurrentValue[formatCount].charAt(i + j);
+      if (isNumber(n)) {
+        if (countZeros && parseInt(n) == 0) {
+          zeroCount++;
+        } else {
+          countZeros = false;
+        }
+        cNewMax += n;
+        cNewMin += n;
+      } else {
+        cNewMax += "9";
+        cNewMin += "0";
+        numAddedZeros++;
+        maxLenDynamic--;
+      }
+    }
+
+    var iNewMax = parseInt(cNewMax);
+    var iNewMin = parseInt(cNewMin);
+
+    if ((iNewMin == 0 && zeroCount <= allowedZeros) || (iNewMin >= minNum && iNewMin <= maxNum)) {
+      i += maxLenDynamic - 1;
+    } else {
+      var numBeforeAddingZeros = parseInt(cNewMin.substring(0, cNewMin.length - numAddedZeros));
+      if (numBeforeAddingZeros < maxNum && numBeforeAddingZeros >= minNum) {
+        formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i + maxLenDynamic - 1) + "0"
+            + formatsCurrentValue[formatCount].substring(i + maxLenDynamic - 1, formatsCurrentValue[formatCount].length);
+      } else {
+        if (iNewMax < minNum || iNewMin > maxNum) {
+          formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i + maxLenDynamic - 1);
+        }
+      }
+      setFormatError(formatsInError, formatErrorPos, formatCount, i);
+      return;
+    }
+  } else {
+    if (parseInt(c) >= minNum && parseInt(c) <= maxNum) {
+      i += maxLen - 1;
+    } else {
+      formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i + maxLen - 1);
+      setFormatError(formatsInError, formatErrorPos, formatCount, i);
+      return;
+      ;
+    }
+  }
+}
+
+function doNormalFormatPart(c, f, blocks, formatsCurrentValue, formatsInError, formatErrorPos, formatCount, i) {
+  if (f != '#' && f != 'A' && f != 'a' && f != 'c' && c != handleEscapedChars(f, false)) {
+    formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i) + handleEscapedChars(f, false)
+        + formatsCurrentValue[formatCount].substring(i, formatsCurrentValue[formatCount].length);
+    return;
+  }
+  if (f == '#' && c >= '0' && c <= '9') {
+    return;
+  }
+  if (f == '#' && (c < '0' || c > '9')) {
+    setFormatError(formatsInError, formatErrorPos, formatCount, i);
+    formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i)
+        + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+    i--;
+    return;
+  }
+
+  if ((f == 'A' || f == 'a' || f == 'c') && ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
+    if (f == 'A') {
+      c = c.toUpperCase();
+    } else if (f == 'a') {
+      c = c.toLowerCase();
+    }
+    formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i) + c
+        + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+  } else if (f == 'A' || f == 'a' || f == 'c') {
+    setFormatError(formatsInError, formatErrorPos, formatCount, i);
+    formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i)
+        + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+    i--;
+  } else if (f == '#' && !(c >= '0' && c <= '9')) {
+    setFormatError(formatsInError, formatErrorPos, formatCount, i);
+    formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i)
+        + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+    i--;
+  } else if (f == '#') {
+    setFormatError(formatsInError, formatErrorPos, formatCount, i);
+    formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i)
+        + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+    i--;
+  }
+}
+
+function setFormatError(formatsInError, formatErrorPos, formatCount, i) {
+  if (!formatsInError[formatCount]) {
+    formatsInError[formatCount] = true;
+    formatErrorPos[formatCount] = i;
+  }
 }
 
 function parseBlocks(s, start, andOr, match, reverseMatch, forwardMatch) {
@@ -597,7 +857,6 @@ function parseBlocks(s, start, andOr, match, reverseMatch, forwardMatch) {
         block = s.substring(lastPos, lastIndexOf);
         blocks.push(block);
       }
-
       block = s.substring(lastIndexOf + reverseMatch.length, pos);
       blocks.push(block);
       blocks.push(andOr);
@@ -620,7 +879,7 @@ function parseBlocks(s, start, andOr, match, reverseMatch, forwardMatch) {
   return blocks;
 }
 
-function removeRelatedSpace(related){
+function removeRelatedSpace(related) {
   related = related.trim();
   related = related.replaceAll(/\)\s+&&\s+\(/g, ")&&(");
   related = related.replaceAll(/\s+\|\|\s+/g, "||");
@@ -785,13 +1044,13 @@ function isCharValid(e, err) {
   return true;
 }
 
-function isNumberValid(e, err) {
+function isNumberValid(e, err, isInt) {
   if (!e || e.value.length == 0) {
     return true;
   }
   for (var i = 0; i < e.value.length; i++) {
     var c = e.value.charAt(i);
-    if (c >= '0' && c <= '9' || c == "." || c == "-" || c == ",") {
+    if (c >= '0' && c <= '9' || c == "-" || (!isInt && (c == "."  || c == ","))) {
       continue;
     } else {
       e.value = e.value.substring(0, i) + e.value.substring(i + 1, e.value.length);
@@ -804,7 +1063,7 @@ function isNumberValid(e, err) {
   return true;
 }
 
-function isNumberDelimitedValid(e, err) {
+function isNumberDelimitedValid(e, err, isInt) {
   if (!e || e.value.length == 0) {
     return;
   }
@@ -813,7 +1072,7 @@ function isNumberDelimitedValid(e, err) {
   for (var i = 0; i < nums.length; i++) {
     for (var j = 0; j < e.value.length; j++) {
       var c = e.value.charAt(j);
-      if (c >= '0' && c <= '9' || c == "." || c == "-" || c == "," || c == sep) {
+      if (c >= '0' && c <= '9' || c == "-" || c == sep || (!isInt && (c == "."  || c == ","))) {
         continue;
       } else {
         e.value = e.value.substring(0, j + i) + e.value.substring(j + i + 1, e.value.length);
@@ -882,13 +1141,13 @@ function isAlphanumericAndAdditionalValid(e, err) {
     }
   }
 
-  if (hasSpace){
+  if (hasSpace) {
     more = more.replaceAll("\\s", "");
-  } else if (hasTab){
+  } else if (hasTab) {
     more = more.replaceAll("\\t", "");
-  } else if (hasNewline){
+  } else if (hasNewline) {
     more = more.replaceAll("\\n", "");
-  } else if (hasCarriage){
+  } else if (hasCarriage) {
     more = more.replaceAll("\\r", "");
   }
 
@@ -962,9 +1221,13 @@ function isElementValid(e, err) {
   if (type == 'c') {
     isCharValid(e, err);
   } else if (type == 'n') {
-    isNumberValid(e, err);
+    isNumberValid(e, err, false);
   } else if (type == 'n{') {
-    isNumberDelimitedValid(e, err);
+    isNumberDelimitedValid(e, err, false);
+  } else if (type == 'i') {
+    isNumberValid(e, err, true);
+  } else if (type == 'i{') {
+    isNumberDelimitedValid(e, err, true);
   } else if (type == 'a') {
     isAlphanumericValid(e, err);
   } else if (type == 'a{') {
@@ -973,10 +1236,10 @@ function isElementValid(e, err) {
     isConstantValid(e, err);
   } else if (type == 'r{' || type == 'x{') {
     isRegexValid(e, err);
-  } else if(type == 'f{') {
+  } else if (type == 'f{') {
     isFormatValid(e, err);
   }
-  
+
   if (e.swRelated) {
     isRelateValid(e);
   }
@@ -1005,8 +1268,8 @@ function isElementValid(e, err) {
     }
   }
 
-  if (e.swTypeIsInError || e.swMaxIsInError || e.swMinIsInError || e.swReqIsInError || e.swFormatIsInError || e.swMaxValueIsInError
-      || e.swMinValueIsInError || e.swRelatedIsInError) {
+  if (e.swTypeIsInError || e.swMaxIsInError || e.swMinIsInError || e.swReqIsInError || e.swFormatIsInError || e.swMaxValueIsInError || e.swMinValueIsInError
+      || e.swRelatedIsInError) {
     err.elements.push(e);
     err.count += 1;
     return false;
@@ -1036,14 +1299,18 @@ function formIsValid(thisForm, doBlurActions, err, suppressRender) {
   return flag;
 }
 
+var deleteKeyDetected = false;
+
 function sanwafUiOnInput(e) {
   e.onkeydown = function() {
     var key = event.keyCode || event.charCode;
     if (key != 8 && key != 46) {
+      deleteKeyDetected = false;
       return true;
     }
+    deleteKeyDetected = true;
   };
-  if (e.onkeydown) {
+  if (!deleteKeyDetected) {
     var err = loadGlobalErrorSettings(true);
     isElementValid(e, err);
   }
@@ -1106,13 +1373,12 @@ function initSanwafui() {
       }
 
       if (e.getAttribute("data-sw-type")) {
-        e.addEventListener("focus", function(e) {
-          var err = loadGlobalErrorSettings(true);
-          if (err.blurActions.includes("onFocusDisableColors")) {
-            cleanErrorElement(e.target, err);
-          }
-        });
-
+        /*
+         * e.addEventListener("focus", function(e) { var err =
+         * loadGlobalErrorSettings(true); if
+         * (err.blurActions.includes("onFocusDisableColors")) {
+         * cleanErrorElement(e.target, err); } });
+         */
         e.addEventListener("input", function(e) {
           sanwafUiOnInput(e.target);
         });
@@ -1129,6 +1395,7 @@ function initSanwafui() {
             cleanErrorElement(e.target, err);
           }
         });
+
       }
     }
   }
@@ -1147,10 +1414,10 @@ function sanwafUiBlurElement(elem) {
   }
 }
 
-function getFormErrors(form){
+function getFormErrors(form) {
   var err = loadGlobalErrorSettings(true);
   cleanAllErrorElements(err);
-  if(!formIsValid(form, false, err, true)){
+  if (!formIsValid(form, false, err, true)) {
     return JSON.stringify(err.msgarray);
   }
   return "";
