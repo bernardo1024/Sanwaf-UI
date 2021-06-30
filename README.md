@@ -304,7 +304,7 @@ You can also have multiple formats combined into one format field. For example t
   	
 	data-sw-type="f{##### || #####-#### || A#A-#A#}"	
   
-    
+    the above formats will accept 3 different formats as well as assisting the user in data entry.
 
 ### Sanwaf-ui Attribute 'data-sw-related' - Element Relationships
 --------------------------
