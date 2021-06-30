@@ -164,6 +164,8 @@ Use your own CSS classes by setting the following attributes to classes defined 
 	data-errorTypeChar 			- Error message for **Character** data type violations
 	data-errorTypeNumeric 			- Error message for **Numeric** data type violations
 	data-errorTypeNumericDelimited 		- Error message for **Numeric Delimited** data type violations
+	data-errorTypeInteger 			- Error message for **Integer** data type violations
+	data-errorTypeIntegerDelimited 		- Error message for **Integer Delimited** data type violations
 	data-errorTypeAlphanumeric 		- Error message for **Alphanumeric** data type violations
 	data-errorTypeAlphanumericAndMore 	- Error message for **Alphanumeric and more** data type violations
 	data-errorTypeConstant 			- Error message for **Constant** data type violations
@@ -229,6 +231,16 @@ data-sw-type (data types)
 						Note: the min & max settings applies per delimited value
 						Example: using n{,}, -321.123,0.000,123,45
 
+	Integer (i)				Any positive or negative integer value
+					  	('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces)
+					  	Format: i
+					  	Example: 1000, -321, 10
+
+	Delimited list of integers (i{}) 	A character separated list of integers
+						Format: i{<separator char>}  
+						Note: the min & max settings applies per delimited value
+						Example: using i{,}, -321,0,123,45
+
 	Alphanumeric (a)			Valid chars are A-Z, a-z, 0-9
 						Format: a
 						Example: abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -288,7 +300,11 @@ Or, if you want the end user to enter a credit card expiry date limited to the y
   
   this specifies to best fist a user's entry into the specified mask.
 
-
+You can also have multiple formats combined into one format field. For example to use a single field to capture US Zip codes in short & long form, along with the Canadian Postal Code format	
+  	
+	data-sw-type="f{##### || #####-#### || A#A-#A#}"	
+  
+    
 
 ### Sanwaf-ui Attribute 'data-sw-related' - Element Relationships
 --------------------------
