@@ -171,6 +171,7 @@ Use your own CSS classes by setting the following attributes to classes defined 
 	data-errorTypeConstant 			- Error message for **Constant** data type violations
 	data-errorTypeRegex 			- Error message for **Regex** data type violations
 	data-errorTypeFormat 			- Error message for **Format** violations
+	data-errorTypeDependentFormat 		- Error message for **Dependent Format** violations
 
   
 
@@ -267,6 +268,10 @@ data-sw-type (data types)
 						Format	f{(###) ###-####}
 						Example	using f{(###) ###-####, (555) 123-4567 is valid
 
+	Dependent Format (f{})			Tries to best fit the data entered into the supplied mask that is derived from an elements value
+						Format	d{element:value1=format1;value2=format2;...}
+						Example	using d{countr:USA=#####;Canada=A#A-#A#}, 55555 is valid if the element with id or name is equal to USA
+
 
 ### Sanwaf-ui Format Data Type
 --------------------------
@@ -306,6 +311,33 @@ You can also have multiple formats combined into one format field. For example t
 	data-sw-type="f{##### || #####-#### || A#A-#A#}"	
   
     the above formats will accept 3 different formats as well as assisting the user in data entry.
+
+
+### Sanwaf-ui Dependent Format Data Type
+--------------------------
+The Dependent Format data type sets the element to use a Format when a different element equals a specific value	
+
+Sanwaf-ui automatically sets an oninput event handler to elements that have the dependent format data type. the event handler formats as the user enters data	
+
+See the Format Data type for instructions on creating formats	
+
+The dependent format syntax is as follows 	
+
+d{ element : value1 = format1 ; value2 = format2 }	
+
+where	
+
+element - is the id or name of the element you want to make the format dependent on	
+
+value - is the value of the element for the given format to be used	
+
+format - is any format as specified it the format data type section above	
+
+For example, if you want to use a country element to determine the type of format to apply (zip or postal code):	
+			
+	data-sw-type="d{ country : USA = ##### || #####-#### ; Canada = A#A-#A# }"	
+
+
 
 ### Sanwaf-ui Attribute 'data-sw-related' - Element Relationships
 --------------------------
