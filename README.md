@@ -328,7 +328,7 @@ Where "RelatedToElementPart" is the element id of the related field and "Relatio
 
 	=		- Makes the element required if the RelatedToElementPart is populated; values must equal each other  
   			  Example: data-sw-related="password : ="
-			  Note if you want to disallow cut & paste opperations use the html attribute: onpaste="return false;" ondrop="return false;" 
+			  Note if you want to disallow cut & paste operations use the html attribute: onpaste="return false;" ondrop="return false;" 
 
 	value		- Makes the element required if the RelatedToElementPart.value equals the value specified  
   			  Example: data-sw-related="someElement : someValue"
