@@ -313,6 +313,7 @@ You can also have multiple formats combined into one format field. For example t
     the above formats will accept 3 different formats as well as assisting the user in data entry.
 
 
+
 ### Sanwaf-ui Dependent Format Data Type
 --------------------------
 The Dependent Format data type sets the element to use a Format when a different element equals a specific value	
@@ -323,7 +324,7 @@ See the Format Data type for instructions on creating formats
 
 The dependent format syntax is as follows 	
 
-d{ element : value1 = format1 ; value2 = format2 }	
+	d{ element : value1 = format1 ; value2 = format2; ... }	
 
 where	
 
@@ -336,6 +337,7 @@ format - is any format as specified it the format data type section above
 For example, if you want to use a country element to determine the type of format to apply (zip or postal code):	
 			
 	data-sw-type="d{ country : USA = ##### || #####-#### ; Canada = A#A-#A# }"	
+
 
 
 
