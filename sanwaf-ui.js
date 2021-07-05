@@ -262,13 +262,17 @@ function buildErrorItemsArray(e, err, actions, suppressRender) {
     if (type == "n{") {
       setErrorItem(e, err, errorItem, err.type_nn, false, renderSpecialChars(extra), "");
     } else if (type == "i{") {
-        setErrorItem(e, err, errorItem, err.type_ii, false, renderSpecialChars(extra), "");
+      setErrorItem(e, err, errorItem, err.type_ii, false, renderSpecialChars(extra), "");
     } else if (type == "a{") {
       setErrorItem(e, err, errorItem, err.type_aa, false, renderSpecialChars(extra), "");
     } else if (type == "k{") {
       setErrorItem(e, err, errorItem, err.type_k, false, extra.replace(",", "\" or \""), "");
     } else if (type == "r{" || type == "x{") {
       setErrorItem(e, err, errorItem, err.type_r, false, extra, "");
+    } else if (type == "f{") {
+      setErrorItem(e, err, errorItem, err.type_f, false, extra, "");
+    } else if (type == "d{") {
+      setErrorItem(e, err, errorItem, err.type_d, false, extra, "");
     }
   }
 
@@ -287,9 +291,6 @@ function buildErrorItemsArray(e, err, actions, suppressRender) {
   }
   if (e.swMaxValueIsInError || e.swMinValueIsInError) {
     setErrorItem(e, err, errorItem, err.maxVal, false, e.swMinValue, e.swMaxValue);
-  }
-  if (e.swFormatIsInError) {
-    setErrorItem(e, err, errorItem, err.format, false, e.swFormat, "");
   }
 
   if (e.swRelatedIsInError) {
@@ -413,14 +414,10 @@ function loadTags(e) {
   e.swReqIsInError = false;
   if (e.swType.startsWith('f{')) {
     e.swFormat = e.swType.substring(2, e.swType.length - 1);
+  } else if (e.swType.startsWith('d{')) {
+    e.swDepFormat = e.swType.substring(2, e.swType.length - 1);
   }
 
-  // join with format
-  if (e.swType.startsWith('t{')) {
-    e.swFormat = e.swType.substring(2, e.swType.length - 1);
-  }
-
-  e.swFormatIsInError = false;
   e.swMaxValue = getAttribute(e, "data-sw-max-value", "");
   e.swMaxValueIsInError = false;
   e.swMinValue = getAttribute(e, "data-sw-min-value", "");
@@ -473,7 +470,6 @@ function loadGlobalErrorSettings(forElementOnly) {
   err.max = getAttribute(config, "data-errorMax", "Must be between %1 and %2 chars");
   err.maxMinEqualMsg = getAttribute(config, "data-errorMaxMinEqual", "Must be %1 chars");
   err.required = getAttribute(config, "data-errorRequired", "Is a Required Field");
-  err.format = getAttribute(config, "data-errorFormat", "Must have the format: %1 ");
   err.minVal = getAttribute(config, "data-errorMinValue", "Must be between %1 and %2");
   err.maxVal = getAttribute(config, "data-errorMaxValue", "Must be between %1 and %2");
   err.rel = getAttribute(config, "data-errorRelated", "Is required when %1 is entered");
@@ -488,6 +484,7 @@ function loadGlobalErrorSettings(forElementOnly) {
   err.type_k = getAttribute(config, "data-errorTypeConstant", "Must be must be one of the following: \"%1\"");
   err.type_r = getAttribute(config, "data-errorTypeRegex", "Must be must match the regex: \"%1\"");
   err.type_f = getAttribute(config, "data-errorTypeFormat", "Must have the format: %1");
+  err.type_d = getAttribute(config, "data-errorTypeDependentFormat", "Must have the format: %1");
 
   associateLabels();
   if (!forElementOnly) {
@@ -548,6 +545,8 @@ function handleEscapedChars(s, forFormat) {
     s = s.replaceAll(/\\c/g, "\f");
     s = s.replaceAll("\\[", "\b");
     s = s.replaceAll("\\]", "\v");
+    s = s.replaceAll("\\|", "\0");
+    s = s.replaceAll("\\x", "\1");
   } else {
     s = s.replaceAll("\t", "#");
     s = s.replaceAll("\n", "A");
@@ -555,6 +554,8 @@ function handleEscapedChars(s, forFormat) {
     s = s.replaceAll("\f", "c");
     s = s.replaceAll("\b", "[");
     s = s.replaceAll("\v", "]");
+    s = s.replaceAll("\0", "|");
+    s = s.replaceAll("\1", "x");
   }
   return s;
 }
@@ -608,7 +609,7 @@ function parseFormat(format) {
   return blocks;
 }
 
-function isFormatValid(e, err) {
+function isFormatValid(e, err, isDepFormat) {
   if (e.value.length == 0 && e.swReq == false) {
     return;
   }
@@ -679,7 +680,7 @@ function isFormatValid(e, err) {
       while (true) {
         var nextBlock = blocks[i];
         if (!nextBlock || nextBlock.startsWith("#") || nextBlock.startsWith("A") || nextBlock.startsWith('a') || nextBlock.startsWith('c')
-            || i > formatsCurrentValue[formatCount].length) {
+            || nextBlock.startsWith('x') || i > formatsCurrentValue[formatCount].length) {
           break;
         }
         formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, formatsCurrentValue[formatCount].length) + blocks[i];
@@ -713,7 +714,7 @@ function isFormatValid(e, err) {
   }
 
   if (formatInError) {
-    e.swFormatIsInError = true;
+    e.swTypeIsInError = true;
     return;
   }
 
@@ -796,9 +797,12 @@ function doNumRangePart(c, f, blocks, formatsCurrentValue, formatsInError, forma
 }
 
 function doNormalFormatPart(c, f, blocks, formatsCurrentValue, formatsInError, formatErrorPos, formatCount, i) {
-  if (f != '#' && f != 'A' && f != 'a' && f != 'c' && c != handleEscapedChars(f, false)) {
+  if (f != '#' && f != 'A' && f != 'a' && f != 'x' && f != 'c' && c != handleEscapedChars(f, false)) {
     formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i) + handleEscapedChars(f, false)
         + formatsCurrentValue[formatCount].substring(i, formatsCurrentValue[formatCount].length);
+    return;
+  }
+  if (f == 'x') {
     return;
   }
   if (f == '#' && c >= '0' && c <= '9') {
@@ -888,7 +892,23 @@ function removeRelatedSpace(related) {
   related = related.replaceAll(/\s+\)/g, ")");
   return related;
 }
+function isDependentFormatValid(e, err) {
+  var deps = e.swDepFormat.split(":");
+  var element = deps[0];
+  var deps = deps[1].split(";");
+  value = getElementByIdOrName(element).value;
+  if (!value || value.length == 0) {
+    return;
+  }
+  for (var i = 0; i < deps.length; i++) {
+    if (value == deps[i].split("=")[0]) {
 
+      e.swFormat = deps[i].split("=")[1];
+      isFormatValid(e, err, true);
+      break;
+    }
+  }
+}
 function isRelateValid(e) {
   var blocks = [];
   var andOrBlocks = [];
@@ -1043,46 +1063,103 @@ function isCharValid(e, err) {
   }
   return true;
 }
-
 function isNumberValid(e, err, isInt) {
-  if (!e || e.value.length == 0) {
+  if ((!e || e.value.length == 0) && !e.swReq) {
     return true;
+  }
+  if (e && e.value.length == 0 && e.swReq) {
+    e.swTypeIsInError = true;
+    return false;
+  }
+  var max = Number.MAX_VALUE;
+  if (e.swMaxValue && e.swMaxValue.length > 0) {
+    var temp = parseFloat(e.swMaxValue);
+    if (temp != NaN) {
+      max = temp;
+    }
+  }
+  var min = Number.MIN_VALUE;
+  if (e.swMinValue && e.swMinValue.length > 0) {
+    var temp = parseFloat(e.swMinValue);
+    if (temp != NaN) {
+      min = temp;
+    }
   }
   for (var i = 0; i < e.value.length; i++) {
     var c = e.value.charAt(i);
-    if (c >= '0' && c <= '9' || c == "-" || (!isInt && (c == "."  || c == ","))) {
+    if (c >= '0' && c <= '9' || (c == "-" && i == 0 && (min < 0 || min == Number.MIN_VALUE)) || (!isInt && (c == "." || c == ","))) {
       continue;
     } else {
       e.value = e.value.substring(0, i) + e.value.substring(i + 1, e.value.length);
     }
   }
   if (isNaN(e.value)) {
+    e.value = e.value.substring(0, i) + e.value.substring(i + 1, e.value.length);
     e.swTypeIsInError = true;
     return false;
   }
+  var value = parseFloat(e.value);
+  if (max != Number.MAX_VALUE && value > max) {
+    e.value = e.value.substring(0, e.value.length - 1);
+  }
+  if ((min != Number.MIN_VALUE && value < min) || (max != Number.MAX_VALUE && value > max)) {
+    e.swTypeIsInError = true;
+    return false;
+  }
+  cleanErrorElement(e, err);
   return true;
 }
-
 function isNumberDelimitedValid(e, err, isInt) {
-  if (!e || e.value.length == 0) {
+  if (!e || e.value.length == 0 && !e.swReq) {
     return;
+  }
+  if (e && e.value.length == 0 && e.swReq) {
+    e.swTypeIsInError = true;
+    return false;
   }
   var sep = parse(e.swType, "{", "}");
   var nums = e.value.split(sep);
+  var fullPos = -1;
+  var max = Number.MAX_VALUE;
+  if (e.swMaxValue && e.swMaxValue.length > 0) {
+    var temp = parseFloat(e.swMaxValue);
+    if (temp != NaN) {
+      max = temp;
+    }
+  }
+  var min = Number.MIN_VALUE;
+  if (e.swMinValue && e.swMinValue.length > 0) {
+    var temp = parseFloat(e.swMinValue);
+    if (temp != NaN) {
+      min = temp;
+    }
+  }
   for (var i = 0; i < nums.length; i++) {
-    for (var j = 0; j < e.value.length; j++) {
-      var c = e.value.charAt(j);
-      if (c >= '0' && c <= '9' || c == "-" || c == sep || (!isInt && (c == "."  || c == ","))) {
+    fullPos++;
+    var num = nums[i];
+    for (var j = 0; j < num.length; j++) {
+      fullPos++;
+      var c = num.charAt(j);
+      if (c >= '0' && c <= '9' || (c == "-" && j == 0 && (min < 0 || min == Number.MIN_VALUE)) || (!isInt && (c == "." || c == ","))) {
         continue;
       } else {
-        e.value = e.value.substring(0, j + i) + e.value.substring(j + i + 1, e.value.length);
+        e.value = e.value.substring(0, fullPos - 1);
       }
     }
-    if (isNaN(nums[i])) {
+    if (isNaN(num)) {
+      e.swTypeIsInError = true;
+      return false;
+    }
+    var value = parseFloat(num);
+    if ((min != Number.MIN_VALUE && value < min) || (max != Number.MAX_VALUE && value > max)) {
+      if (value.toString().length >= min.toString().length) {
+        e.value = e.value.substring(0, fullPos - 1);
+      }
       e.swTypeIsInError = true;
       return false;
     }
   }
+  cleanErrorElement(e, err);
   return true;
 }
 function isAlphanumeric(c) {
@@ -1100,7 +1177,6 @@ function isAlphanumericValid(e, err) {
       e.value = e.value.substring(0, i) + e.value.substring(i + 1, e.value.length);
     }
   }
-  // make sure nothing got past
   for (var j = 0; j < e.value.length; j++) {
     if (!isAlphanumeric(e.value.charCodeAt(j))) {
       e.swTypeIsInError = true;
@@ -1109,7 +1185,6 @@ function isAlphanumericValid(e, err) {
   }
   return true;
 }
-
 function isAlphanumericAndAdditionalValid(e, err) {
   if (!e || e.value.length == 0) {
     return true;
@@ -1140,7 +1215,6 @@ function isAlphanumericAndAdditionalValid(e, err) {
       }
     }
   }
-
   if (hasSpace) {
     more = more.replaceAll("\\s", "");
   } else if (hasTab) {
@@ -1150,7 +1224,6 @@ function isAlphanumericAndAdditionalValid(e, err) {
   } else if (hasCarriage) {
     more = more.replaceAll("\\r", "");
   }
-
   for (var j = 0; j < e.value.length; j++) {
     c = e.value.charCodeAt(j);
     if (!isAlphanumeric(c)) {
@@ -1162,7 +1235,6 @@ function isAlphanumericAndAdditionalValid(e, err) {
       }
     }
   }
-  // make sure nothing got past
   for (var k = 0; k < e.value.length; k++) {
     c = e.value.charCodeAt(k);
     if (!isAlphanumeric(c)) {
@@ -1177,23 +1249,51 @@ function isAlphanumericAndAdditionalValid(e, err) {
   }
   return true;
 }
-
 function isConstantValid(e, err) {
-  if (!e || e.value.length == 0) {
+  if (!e || e.value.length == 0 && !e.swReq) {
     return;
   }
+  if (e && e.value.length == 0 && e.swReq) {
+    e.swTypeIsInError = true;
+    return false;
+  }
+
   var found = false;
   var constants = parse(e.swType, "{", "}").split(",");
+  var constantValues = [];
   for (var i = 0; i < constants.length; i++) {
+    constant = constants[i];
+    for (var j = 0; j < e.value.length; j++) {
+      if (e.value.length > constant.length) {
+        constantValues[i] = e.value.substring(0, constant.length);
+        break;
+      }
+      var c = e.value.charAt(j);
+      var k = constant.charAt(j);
+      if (c != k) {
+        constantValues[i] = e.value.substring(0, j);
+        break;
+      } else {
+        constantValues[i] = e.value.substring(0, j + 1);
+      }
+    }
     if (constants[i] == e.value) {
       found = true;
       break;
     }
   }
   if (!found) {
+    var newValue = "";
+    for (var l = 0; l < constantValues.length; l++) {
+      if (constantValues[l].length > newValue.length) {
+        newValue = constantValues[l];
+      }
+    }
+    e.value = newValue;
     e.swTypeIsInError = true;
     return false;
   }
+  cleanErrorElement(e, err);
   return true;
 }
 
@@ -1237,7 +1337,9 @@ function isElementValid(e, err) {
   } else if (type == 'r{' || type == 'x{') {
     isRegexValid(e, err);
   } else if (type == 'f{') {
-    isFormatValid(e, err);
+    isFormatValid(e, err, false);
+  } else if (type == 'd{') {
+    isDependentFormatValid(e, err);
   }
 
   if (e.swRelated) {
@@ -1268,8 +1370,7 @@ function isElementValid(e, err) {
     }
   }
 
-  if (e.swTypeIsInError || e.swMaxIsInError || e.swMinIsInError || e.swReqIsInError || e.swFormatIsInError || e.swMaxValueIsInError || e.swMinValueIsInError
-      || e.swRelatedIsInError) {
+  if (e.swTypeIsInError || e.swMaxIsInError || e.swMinIsInError || e.swReqIsInError || e.swMaxValueIsInError || e.swMinValueIsInError || e.swRelatedIsInError) {
     err.elements.push(e);
     err.count += 1;
     return false;
@@ -1300,7 +1401,6 @@ function formIsValid(thisForm, doBlurActions, err, suppressRender) {
 }
 
 var deleteKeyDetected = false;
-
 function sanwafUiOnInput(e) {
   e.onkeydown = function() {
     var key = event.keyCode || event.charCode;
@@ -1315,7 +1415,6 @@ function sanwafUiOnInput(e) {
     isElementValid(e, err);
   }
 }
-
 function parseComplexRelated(related) {
   var andOrBlocks = [];
   var andBlocks = parseBlocks(related, 0, "AND", ")&&(", "(", ")");
@@ -1405,7 +1504,6 @@ function isSanwafUiFormValid(form) {
   var err = loadGlobalErrorSettings();
   return formIsValid(form, false, err, false);
 }
-
 function sanwafUiBlurElement(elem) {
   var err = loadGlobalErrorSettings(true);
   cleanErrorElement(elem, err);
@@ -1413,7 +1511,6 @@ function sanwafUiBlurElement(elem) {
     handleErrors(err, true, false);
   }
 }
-
 function getFormErrors(form) {
   var err = loadGlobalErrorSettings(true);
   cleanAllErrorElements(err);
@@ -1422,7 +1519,6 @@ function getFormErrors(form) {
   }
   return "";
 }
-
 function getElementErrors(elem) {
   cleanErrorElement(elem, err);
   cleanAllErrorElements(err);

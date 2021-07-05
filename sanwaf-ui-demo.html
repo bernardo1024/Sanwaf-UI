@@ -68,6 +68,7 @@
       data-errorTypeConstant = "Must be one of the following: %1 (local)";
       data-errorTypeRegex = "Must match the regex (local)";
       data-errorTypeFormat = "Must match the format (local)";
+      data-errorTypeDependentFormat = "Must match the dependent format (local)";
     ></div>
 	-->
     
@@ -118,11 +119,11 @@
           <td>Required. Format: "(###) ###-####"</td>
         </tr>
         <tr>
-          <td><label id="postalCodeLabel">Zip/Postal Code</label></td>  
+          <td><label id="zipPostalCodeLabel">Zip/Postal Code</label></td>  
           <!-- Sanwaf-ui code - Note the above label does not use the label's 'for' attribute.  
           						See below the 'data-sw-label-id' attribute that associates a label to the input.
           						Also note the use of using multiple formats in a single format field  -->	
-          <td><input type="text" id="postalcode" name="postalcode" size="20" data-sw-display="Zip or Postal Code" data-sw-type="f{#####||#####-####||A#A-#A#}" data-sw-label-id="postalCodeLabel" data-sw-req="true" /></td>
+          <td><input type="text" id="zippostalcode" name="zippostalcode" size="20" data-sw-display="Zip or Postal Code" data-sw-type="f{#####||#####-####||A#A-#A#}" data-sw-label-id="zipPostalCodeLabel" data-sw-req="true" /></td>
           <td>Required. format: "##### || #####-#### || A#A-#A#"</td>
         </tr>
         <tr>
@@ -153,7 +154,7 @@
         <tr>
           <td><label for="visa">Visa number</label></td>
           <!-- Sanwaf-ui code - Note that a format data type would be better for visa numbers, but here we are illustrating the numeric data type -->  
-          <td><input type="text" id="visa" name="visa" size="20" data-sw-display="Visa Number" data-sw-type="i" data-sw-max="16" data-sw-min="16" data-sw-err-msg="Must be Numeric and expiry must be supplied" /></td>
+          <td><input type="text" id="visa" name="visa" size="20" data-sw-display="Visa Number" data-sw-type="i" data-sw-max="16" data-sw-min="16" data-sw-err-msg="Must be Numeric 16 digits and expiry must be supplied" /></td>
           <td>must be 16 numeric digits</td>
         </tr>
         <tr>
@@ -386,6 +387,7 @@
       <tr><td>data-errorTypeConstant</td><td>Error message for <b>Constant</b> data type violations</td></tr>
       <tr><td>data-errorTypeRegex</td><td>Error message for <b>Regex</b> data type violations</td></tr>
       <tr><td>data-errorTypeFormat</td><td>Error message for <b>Format</b> violations</td></tr>
+      <tr><td>data-errorTypeDependentFormat</td><td>Error message for <b>Dependent Format</b> violations</td></tr>
     </table>
     <br/>
     <h2 id="sanwafuiactions">data-errorActions &amp; data-blurActions</h2>
@@ -536,6 +538,16 @@
           </table>
         </td>
       </tr>
+      <tr>
+        <td><a href="#dependent-format-data-type">Dependent Format (d{})</a></td>
+        <td>
+          <table>
+            <tr><td>Description</td><td>Dependent Format: Tries to best fit the data entered into the supplied mask that is derived from an elements value</td></tr>
+            <tr><td>Format</td><td><b>d{element:value1=format1;value2=format2;...}</b></td></tr>
+            <tr><td>Example</td><td>using d{countr:USA=#####;Canada=A#A-#A#}, 55555 is valid if the element with id or name is equal to USA</td></tr>
+          </table>
+        </td>
+      </tr>
     </table>
     <br/>    
     
@@ -553,22 +565,22 @@
         </tr>
         <tr>
           <td><label for="numeric">Numeric (n)</label></td>
-          <td><input type="text" id="numeric" name="numeric" size="20" data-sw-display="numeric" data-sw-type="n" /></td>
+          <td><input type="text" id="numeric" name="numeric" size="20" data-sw-display="numeric" data-sw-type="n"/></td>
           <td>&nbsp;&nbsp;Only numeric values allowed</td>
         </tr>
         <tr>
           <td><label for="numericdelimited">Numeric Delimited (n){ , }</label></td>
-          <td><input type="text" id="numericdelimited" name="numericdelimited" size="20" data-sw-display="numericdelimited" data-sw-type="n{,}" /></td>
+          <td><input type="text" id="numericdelimited" name="numericdelimited" size="20" data-sw-display="numericdelimited" data-sw-type="n{,}"/></td>
           <td>&nbsp;&nbsp;Only numeric values delimited by a "," allowed</td>
         </tr>
         <tr>
           <td><label for="integer">Integer (i)</label></td>
-          <td><input type="text" id="integer" name="integer" size="20" data-sw-display="integer" data-sw-type="i" /></td>
+          <td><input type="text" id="integer" name="integer" size="20" data-sw-display="integer" data-sw-type="i"/></td>
           <td>&nbsp;&nbsp;Only integer values allowed</td>
         </tr>
         <tr>
           <td><label for="integerdelimited">Integer Delimited (i){ , }</label></td>
-          <td><input type="text" id="integerdelimited" name="integerdelimited" size="20" data-sw-display="integerdelimited" data-sw-type="i{,}" /></td>
+          <td><input type="text" id="integerdelimited" name="integerdelimited" size="20" data-sw-display="integerdelimited" data-sw-type="i{,}"/></td>
           <td>&nbsp;&nbsp;Only integer values delimited by a "," allowed</td>
         </tr>
         <tr>
@@ -583,7 +595,7 @@
         </tr>
         <tr>
           <td><label for="constant">Constant (k{ y, n })</label></td>
-          <td><input type="text" id="constant" name="constant" size="20" data-sw-display="constant" data-sw-type="k{y,n}" /></td>
+          <td><input type="text" id="constant" name="constant" size="20" data-sw-display="constant" data-sw-type="k{yes,no}" /></td>
           <td>&nbsp;&nbsp;Only the values: "y", "n" allowed</td>
         </tr>
         <tr>
@@ -592,7 +604,7 @@
           <td>&nbsp;&nbsp;Only a proper email address allowed</td>
         </tr>
         <tr>
-          <td><label for="format">Format (f{ ###-#### })</label></td>
+          <td><label for="format">Format (f{###-#### })</label></td>
           <td><input type="text" id="format" name="format" size="20" data-sw-display="format" data-sw-type="f{###-####}" /></td>
           <td>&nbsp;&nbsp;Only properly formated data is allowed</td>
         </tr>
@@ -610,12 +622,13 @@
       <tr><td>Four special characters are provided to be used in formats:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;#   - represents a number</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;#[] - represents a number within a specified range, for example: #[1-12]</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;A   - represents an Uppercase character</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;a   - represents an lowercase character</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;c   - represents a character of any case</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;A   - represents an Uppercase Alphabetic character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;a   - represents a lowercase Alphabetic character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;c   - represents an Alphabetic character of any case</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;x   - represents any character of any case</td><td></td></tr>
       <tr><td>Use a combination of the special and non-special characters to create formats</td><td></td></tr>
       <tr><td>To use the four special characters in the format itself, you will need to escape them:</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;\#  \A  \a  \c \[ \]</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;\#  \A  \a  \c \x \[ \] \|</td><td></td></tr>
       <tr><td>For example, if you want the end user to enter a telephone number formatted in a specific way:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{(###) ### - ####}"</b></td><td></td></tr>
       <tr>
@@ -652,11 +665,42 @@
       <tr><td>&nbsp;&nbsp;this specifies to best fist a user's entry into the specified mask.</td><td></td></tr>
       <tr>
         <td>
-          <form id="mskdemo23 method="post" action="./someEndPoint">
+          <form id="mskdemo3" method="post" action="./someEndPoint">
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="zipostal">Zip/Postal Code</label></td>
-                <td><input id="zipostal" name="zipostal" data-sw-display="Zip/Postal Code" size="20" data-sw-type="f{#####||#####-####||A#A-#A#}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo2)"/></td>
+                <td><input id="zipostal" name="zipostal" data-sw-display="Zip/Postal Code" size="20" data-sw-type="f{#####||#####-####||A#A-#A#}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo3)"/></td>
+              </tr>
+            </table>
+          </form>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+	<br/>
+
+    <h3 id="dependent-format-data-type">Dependent Format Data Type</h3>
+    <table class="table-instructions-inline-block">
+      <tr><td>The Dependent Format data type sets the element to use a Format when a different element equals a specific value</td><td></td></tr>
+      <tr><td>Sanwaf-ui automatically sets an oninput event handler to elements that have the dependent format data type.  the event handler formats as the user enters data</td><td></td></tr>
+      <tr><td>See the Format Data type for instructions on creating formats</td><td></td></tr>
+      <tr><td>The dependent format syntax is as follows </td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;d{ element : value1 = format1 ; value2 = format2 }</td><td></td></tr>
+      <tr><td>where</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;element   - is the id or name of the element you want to make the format dependent on</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;value     - is the value of the element for the given format to be used</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;format    - is any format as specified it the format data type section above</td><td></td></tr>
+      <tr><td>For example, if you want to use a country element to determine the type of format to apply (zip or postal code):</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="d{ country : USA = ##### || #####-#### ; Canada = A#A-#A# }"</b></td><td></td></tr>
+      <tr>
+        <td>
+          <form id="depmskdemo" method="post" action="./someEndPoint">
+            <table class="table-compact-normal-font">
+              <tr>
+                <td><label for="country">Country</label></td>
+                <td><select name="country" id="country"><option value="USA">USA</option><option value="Canada">Canada</option></select></td>
+                <td><label for="addresscode">Zip/Postal Code</label></td>
+                <td><input id="addresscode" name="addresscode" data-sw-display="Zip or Postal Code" size="20" data-sw-type="d{country:USA=#####||#####-####;Canada=A#A-#A#}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(depmskdemo)"/></td>
               </tr>
             </table>
           </form>
@@ -679,7 +723,7 @@
     <table class="table-instructions-no-border">
       <tr><td><b>Value</b></td><td><b>Description</b></td></tr>
       <tr><td>none</td><td>":relationshipSpecificationPart" NOT specified makes the element required if the RelatedToElementPart has any value<br/>&nbsp;&nbsp;for example: data-sw_related="someElement"</td></tr>
-      <tr><td>=</td><td>Makes the element required if the RelatedToElementPart is populated; values must equal each other<br/>&nbsp;&nbsp;for example: data-sw_related="password <b>:</b> ="</td></tr>
+      <tr><td>=</td><td>Makes the element required if the RelatedToElementPart is populated; values must equal each other<br/>&nbsp;&nbsp;for example: data-sw_related="password <b>:</b> ="<br/>&nbsp;&nbsp;Note if you want to disallow cut &amp; paste operations use the html attribute: onpaste="return false;" ondrop="return false;"</td></tr>
       <tr><td>value</td><td>Makes the element required if the RelatedToElementPart.value equals the value specified<br/>&nbsp;&nbsp;for example: data-sw_related="someElement <b>:</b> someValue"</td></tr>
       <tr><td>value1||value2</td><td>Makes the element required if the RelatedToElementPart.value equals any of the value specified<br>&nbsp;&nbsp;for example: data-sw_related="someElement <b>:</b> value1 || value2"</td></tr>
     </table>
