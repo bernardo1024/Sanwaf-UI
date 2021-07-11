@@ -152,10 +152,10 @@
           <td>If car model =  &quot;yes&quot;, this element is required</td>
         </tr>
         <tr>
-          <td><label for="visa">Visa number</label></td>
+          <td><label for="creditcard">Credit Card number</label></td>
           <!-- Sanwaf-ui code - Note that a format data type would be better for visa numbers, but here we are illustrating the numeric data type -->  
-          <td><input type="text" id="visa" name="visa" size="20" data-sw-display="Visa Number" data-sw-type="i" data-sw-max="16" data-sw-min="16" data-sw-err-msg="Must be Numeric 16 digits and expiry must be supplied" /></td>
-          <td>must be 16 numeric digits</td>
+          <td><input type="text" id="creditcard" name="creditcard" size="20" data-sw-display="Credit Card Number" data-sw-type="f{#[3,4,5,6]###-####-####-####}" data-sw-err-msg="Must be Numeric 16 digits and expiry must be supplied" /></td>
+          <td>Must have the format: #[3,4,5,6]###-####-####-####</td>
         </tr>
         <tr>
           <td><label for="visaExpirationDate">Expiry</label></td>
@@ -621,7 +621,7 @@
       <tr><td>Sanwaf-ui automatically sets an oninput event handler to elements that have the format data type.  the event handler formats as the user enters data</td><td></td></tr>
       <tr><td>Four special characters are provided to be used in formats:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;#   - represents a number</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;#[] - represents a number within a specified range, for example: #[1-12]</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;#[] - represents a number within a specified range: #[1-12], or a number that must equal one of the specified values: #[4,5,6] </td><td></td></tr>
       <tr><td>&nbsp;&nbsp;A   - represents an Uppercase Alphabetic character</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;a   - represents a lowercase Alphabetic character</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;c   - represents an Alphabetic character of any case</td><td></td></tr>
@@ -644,16 +644,30 @@
         </td>
         <td></td>
       </tr>
-      <tr><td>Or, if you want the end user to enter a credit card expiry date limited to the years ending in 21 - 35:</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{#[1-12] / #[21-35]}"</b></td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;this specifies to best fist a user's entry into the specified mask.</td><td></td></tr>
+      <tr><td>if you want the end user to enter a credit card that begins with a specific number:</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{#[3,4,5,6]###-####-####-####}"</b></td><td></td></tr>
       <tr>
         <td>
           <form id="mskdemo2" method="post" action="./someEndPoint">
             <table class="table-compact-normal-font">
               <tr>
+                <td><label for="cc">Credit Card</label></td>
+                <td><input id="cc" name="cc" data-sw-display="Credit Card" size="20" data-sw-type="f{#[3,4,5,6]###-####-####-####}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo2)"/></td>
+              </tr>
+            </table>
+          </form>
+        </td>
+        <td></td>
+      </tr>
+      <tr><td>Or, if you want the end user to enter a credit card expiry date limited to the years ending in 21 - 35:</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{#[1-12] / #[21-35]}"</b></td><td></td></tr>
+      <tr>
+        <td>
+          <form id="mskdemo3" method="post" action="./someEndPoint">
+            <table class="table-compact-normal-font">
+              <tr>
                 <td><label for="exp">Expiry</label></td>
-                <td><input id="exp" name="exp" data-sw-display="Expiry" size="20" data-sw-type="f{#[1-12] / #[21-35]}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo2)"/></td>
+                <td><input id="exp" name="exp" data-sw-display="Expiry" size="20" data-sw-type="f{#[1-12] / #[21-35]}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo3)"/></td>
               </tr>
             </table>
           </form>
@@ -662,14 +676,13 @@
       </tr>
       <tr><td>You can also have multiple formats combined into one format field. For example to use a single field to capture US Zip codes in short & long form, along with the Canadian Postal Code format</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{##### || #####-#### || A#A-#A#}"</b></td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;this specifies to best fist a user's entry into the specified mask.</td><td></td></tr>
       <tr>
         <td>
-          <form id="mskdemo3" method="post" action="./someEndPoint">
+          <form id="mskdemo4" method="post" action="./someEndPoint">
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="zipostal">Zip/Postal Code</label></td>
-                <td><input id="zipostal" name="zipostal" data-sw-display="Zip/Postal Code" size="20" data-sw-type="f{#####||#####-####||A#A-#A#}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo3)"/></td>
+                <td><input id="zipostal" name="zipostal" data-sw-display="Zip/Postal Code" size="20" data-sw-type="f{#####||#####-####||A#A-#A#}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo4)"/></td>
               </tr>
             </table>
           </form>

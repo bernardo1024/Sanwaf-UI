@@ -581,9 +581,15 @@ function parseFormat(format) {
     }
 
     if (format.charAt(pos + 1) == '[') {
-      dash = format.indexOf("-", pos);
       end = format.indexOf("]", pos);
-      numDigits = end - (dash + 1);
+      
+      if(format.substring(pos + 2, end).includes(',')){
+        numDigits = 0;
+      }
+      else{
+        dash = format.indexOf("-", pos);
+        numDigits = end - (dash + 1);
+      }
       block = format.substring(last, end + 1);
       last = end + 1;
     } else {
@@ -728,7 +734,16 @@ function doNumRangePart(c, f, blocks, formatsCurrentValue, formatsInError, forma
     return;
   }
   f = f.substring(2, f.length - 1);
-  var ff = f.split('-');
+  var ff = [];
+  if(f.includes(',')){
+    ff = f.split(',');
+    if(!ff.includes(c)){
+      formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i)
+      + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+    }
+    return;
+  }
+  ff = f.split('-');
   var minNum = parseInt(ff[0]);
   var maxNum = parseInt(ff[1]);
   var maxLen = (maxNum + "").length;
@@ -902,7 +917,6 @@ function isDependentFormatValid(e, err) {
   }
   for (var i = 0; i < deps.length; i++) {
     if (value == deps[i].split("=")[0]) {
-
       e.swFormat = deps[i].split("=")[1];
       isFormatValid(e, err, true);
       break;
@@ -1472,17 +1486,7 @@ function initSanwafui() {
       }
 
       if (e.getAttribute("data-sw-type")) {
-        /*
-         * e.addEventListener("focus", function(e) { var err =
-         * loadGlobalErrorSettings(true); if
-         * (err.blurActions.includes("onFocusDisableColors")) {
-         * cleanErrorElement(e.target, err); } });
-         */
         e.addEventListener("input", function(e) {
-          sanwafUiOnInput(e.target);
-        });
-
-        e.addEventListener("drop", function(e) {
           sanwafUiOnInput(e.target);
         });
 
