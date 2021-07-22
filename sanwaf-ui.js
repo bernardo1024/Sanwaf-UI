@@ -371,10 +371,14 @@ function handleErrors(err, doBlurActions, suppressRender) {
 
   if (actions.includes("showOnPage")) {
     var d = getElementByIdOrName(err.showOnPageElementId);
-    d.style.display = "block";
+    if(d){
+      d.style.display = "block";
+    }
     if (err.errorActions.includes("showOnPageSanwafTable")) {
       var e = getElementByIdOrName(err.showOnPageSanwafTableElementId);
-      e.innerHTML = buildErrorMsg(e, err, "html");
+      if(e){
+        e.innerHTML = buildErrorMsg(e, err, "html");
+      }
     }
   }
   if (err.msgarray.length > 0 && actions.includes("alertWithPopup")) {
