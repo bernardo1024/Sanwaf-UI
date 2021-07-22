@@ -362,7 +362,6 @@ function handleErrors(err, doBlurActions, suppressRender) {
   }
 
   for (var i = 0; i < err.elements.length; i++) {
-    // NOTE: labels & hover are handled in buildErrorItemsArray method
     buildErrorItemsArray(err.elements[i], err, actions, suppressRender);
   }
 
@@ -547,6 +546,14 @@ function handleEscapedChars(s, forFormat) {
     s = s.replaceAll("\\]", "\v");
     s = s.replaceAll("\\|", "\0");
     s = s.replaceAll("\\x", "\1");
+    s = s.replaceAll("\\:", "\2");
+    s = s.replaceAll("\\=", "\3");
+    s = s.replaceAll("\\(", "\4");
+    s = s.replaceAll("\\)", "\5");
+    s = s.replaceAll("\\+", "\6");
+    s = s.replaceAll("\\-", "\7");
+    s = s.replaceAll("\\;", "\8");
+
   } else {
     s = s.replaceAll("\t", "#");
     s = s.replaceAll("\n", "A");
@@ -556,6 +563,13 @@ function handleEscapedChars(s, forFormat) {
     s = s.replaceAll("\v", "]");
     s = s.replaceAll("\0", "|");
     s = s.replaceAll("\1", "x");
+    s = s.replaceAll("\2", ":");
+    s = s.replaceAll("\3", "=");
+    s = s.replaceAll("\4", "(");
+    s = s.replaceAll("\5", ")");
+    s = s.replaceAll("\6", "+");
+    s = s.replaceAll("\7", "-");
+    s = s.replaceAll("\8", ";");
   }
   return s;
 }
@@ -568,6 +582,8 @@ function parseFormat(format) {
   var end = 0;
   var dash = 0;
 
+  format = resolveDateVariables(format);
+
   while (true) {
     var block = "";
     var numDigits = 0;
@@ -575,7 +591,7 @@ function parseFormat(format) {
     pos = format.indexOf("#", last);
     if (pos < 0) {
       if (last < format.length) {
-        Array.prototype.push.apply(format.substring(last, format.length).split(''));
+        Array.prototype.push.apply(blocks, format.substring(last, format.length).split(''));
       }
       break;
     }
@@ -583,7 +599,8 @@ function parseFormat(format) {
     if (format.charAt(pos + 1) == '[') {
       end = format.indexOf("]", pos);
       
-      if(format.substring(pos + 2, end).includes(',')){
+      var temp = format.substring(pos + 2, end); 
+      if(temp.includes(',')){
         numDigits = 0;
       }
       else{
@@ -615,6 +632,72 @@ function parseFormat(format) {
   return blocks;
 }
 
+function resolveDateVariables(format){
+  var today = new Date();
+  var newMdy;
+  var parsedValue = format;
+  var dateOrder = ['dd','mm','yy','yyyy'];
+  
+  for(var i = 0; i < dateOrder.length; i++){
+    var mdy = dateOrder[i];
+    var last = 0;
+    while(true){
+      var startMdyReplacePos = 0;
+      var endMdyReplacePos = 0;
+      last = parsedValue.indexOf(mdy);
+      if(last < 0){
+        break;
+      }
+      startMdyReplacePos = last;
+      endMdyReplacePos = last + mdy.length;
+      
+      if(mdy == 'yy'){
+        newMdy = parseInt(today.getFullYear().toString().substr(-2));
+        last += 2;
+        newMdy = adjustDate(parsedValue, last, newMdy);
+      } else if(mdy == 'yyyy'){
+        newMdy = parseInt(today.getFullYear());
+        last += 4;
+        newMdy = adjustDate(parsedValue, last, newMdy);
+      } else if(mdy == 'mm'){
+        newMdy = parseInt(today.getMonth()) + 1;
+        last += 2;
+        if(newMdy > 12){
+          newMdy = 12;
+        }
+      } else if(mdy = 'dd'){
+        newMdy = parseInt(today.getDate());
+        last += 2;
+        newMdy = adjustDate(parsedValue, last, newMdy);
+        if(newMdy > 31){
+          newMdy = 31;
+        }
+      }    
+  
+      if(parsedValue.substring(last, last + 1) == "("){
+        var endOfNum = parsedValue.indexOf(")", last);
+        parsedValue = parsedValue.substring(0, startMdyReplacePos) + newMdy + parsedValue.substring(endOfNum + 1, parsedValue.length);
+      } else{
+        parsedValue = parsedValue.substring(0, startMdyReplacePos) + newMdy + parsedValue.substring(endMdyReplacePos, parsedValue.length);
+      }
+    }
+  }
+  return parsedValue;
+}
+function adjustDate(parsedValue, last, newMdy){
+  if(parsedValue.substring(last, last + 1) == "("){
+    var endOfNum = parsedValue.indexOf(")", last);
+    var num = parsedValue.substring(last + 2, endOfNum);
+    var parsedNum = parseInt(num);
+    var arith = parsedValue.substring(last + 1, last + 2); 
+    if(arith == "+"){
+      newMdy += parsedNum;
+    } else if(arith == "-"){
+      newMdy -= parsedNum;
+    }
+  }
+  return newMdy;
+}
 function isFormatValid(e, err, isDepFormat) {
   if (e.value.length == 0 && e.swReq == false) {
     return;
@@ -651,7 +734,6 @@ function isFormatValid(e, err, isDepFormat) {
       var f = blocks[i];
 
       if (f == "" && (c > '9' || c < '0')) {
-        // check if we need to zero pre-pad the number
         var b = i;
         var zeroPadCount = 0;
         while (true) {
@@ -682,7 +764,6 @@ function isFormatValid(e, err, isDepFormat) {
     }
 
     if (formats.length == 1) {
-      // add any next fixed format items
       while (true) {
         var nextBlock = blocks[i];
         if (!nextBlock || nextBlock.startsWith("#") || nextBlock.startsWith("A") || nextBlock.startsWith('a') || nextBlock.startsWith('c')
@@ -699,7 +780,6 @@ function isFormatValid(e, err, isDepFormat) {
     }
   }
 
-  // which format when the farthest?
   var formatInError = true;
   var maxSize = -1;
   var maxErrorPos = -1;
@@ -762,7 +842,6 @@ function doNumRangePart(c, f, blocks, formatsCurrentValue, formatsInError, forma
   }
 
   if (maxLen > 1) {
-    // check for potential to exceed max allowed value
     for (var j = 1; j < maxLen; j++) {
       var n = formatsCurrentValue[formatCount].charAt(i + j);
       if (isNumber(n)) {
@@ -969,7 +1048,6 @@ function isRelateValid(e) {
     }
   }
 
-  // do AND conditions - must be met, else ignore OR conditions
   if (andRequired.length > 0 || andFound == true) {
     if (andRequired.length == 0) {
       return true;
@@ -1019,7 +1097,7 @@ function isRelatedBlockMakingMeRequired(block, e) {
   }
 
   if (tagKeyValuePair[1]) {
-    if (tagKeyValuePair[1] == '=') { // do values need to be equal?
+    if (tagKeyValuePair[1] == '=') {
       if (e.value.length > 0 && e.value == parentValue) {
         return false;
       } else {
@@ -1476,34 +1554,49 @@ function initSanwafui() {
         for (var k = 0; k < parents.length; k++) {
           var parent = getElementByIdOrName(parents[k]);
           if (parent) {
-            (function(passedInCopyOfThisElem) {
-              parent.addEventListener("change", function(elemThatIsChangingEgTheSelectList) {
-                sanwafUiBlurElement(passedInCopyOfThisElem);
-              });
-            })(e);
+            if(setAttributeForEventListener(parent, "sanwaf-change-listener", "true")){
+
+              (function(passedInCopyOfThisElem) {
+                parent.addEventListener("change", function(elemThatIsChangingEgTheSelectList) {
+                  sanwafUiBlurElement(passedInCopyOfThisElem);
+                });
+              })(e);
+            }
           }
         }
       }
 
       if (e.getAttribute("data-sw-type")) {
-        e.addEventListener("input", function(e) {
-          sanwafUiOnInput(e.target);
-        });
+        if(setAttributeForEventListener(e, "sanwaf-input-listener", "true")){
+          e.addEventListener("input", function(e) {
+            sanwafUiOnInput(e.target);
+          });
+        }
 
-        e.addEventListener("focusout", function(e) {
-          var err = loadGlobalErrorSettings(true);
-          if (!isElementValid(e.target, err)) {
-            handleErrors(err, true, false);
-          } else {
-            cleanErrorElement(e.target, err);
-          }
-        });
-
+        if(setAttributeForEventListener(e, "sanwaf-focusout-listener", "true")){
+          e.addEventListener("focusout", function(e) {
+            var err = loadGlobalErrorSettings(true);
+            if (!isElementValid(e.target, err)) {
+              handleErrors(err, true, false);
+            } else {
+              cleanErrorElement(e.target, err);
+            }
+          });
+        }
       }
     }
   }
 }
-
+function setAttributeForEventListener(element, key, value) {
+  var elem = element.getAttribute(key);
+  if (!elem) {
+    var att = document.createAttribute(key);
+    att.value = value;
+    element.setAttributeNode(att);
+    return true;
+  }
+  return false;
+}
 function isSanwafUiFormValid(form) {
   var err = loadGlobalErrorSettings();
   return formIsValid(form, false, err, false);
