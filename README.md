@@ -289,7 +289,7 @@ Sanwaf-ui automatically sets an oninput event handler to elements that have the 
 		or a number bound by date settings: #[yy-yy(+10)]
 		  where supported date variables include: yy, yyyy, mm, dd
 		  Format: #[ variable( <+/-> # ) ]
-		  For example: #[ yy( -10 ) - yy( +10 ) ] - accepts a year in yy format in the range of up to 10 years old and 10 years in the future	
+		  For example: #[ yy( -10 ) - yy( +10 ) ] - accepts a year in 'yy' format in the range of up to 10 years old to 10 years in the future	
 	  A   - represents an uppercase alphabetic character
 	  a   - represents a lowercase alphabetic character
 	  c   - represents an alphabetic character of any case
