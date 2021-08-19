@@ -299,7 +299,7 @@ Use a combination of the special and non-special characters to create formats
 
 To use the four special characters in the format itself, you will need to escape them:
 
-	\#  \A  \a  \c  \x  \[  \] \( \) \| \: \; \= \+ \-
+	\#  \A  \a  \c  \x  \[  \] \| 
 
 For example, if you want the end user to enter a telephone number formatted in a specific way:
 
