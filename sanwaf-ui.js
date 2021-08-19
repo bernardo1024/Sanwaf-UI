@@ -371,12 +371,12 @@ function handleErrors(err, doBlurActions, suppressRender) {
 
   if (actions.includes("showOnPage")) {
     var d = getElementByIdOrName(err.showOnPageElementId);
-    if(d){
+    if (d) {
       d.style.display = "block";
     }
     if (err.errorActions.includes("showOnPageSanwafTable")) {
       var e = getElementByIdOrName(err.showOnPageSanwafTableElementId);
-      if(e){
+      if (e) {
         e.innerHTML = buildErrorMsg(e, err, "html");
       }
     }
@@ -386,9 +386,12 @@ function handleErrors(err, doBlurActions, suppressRender) {
   }
 }
 
-function getAttribute(config, att, def) {
-  if (config) {
-    var s = config.getAttribute(att);
+function getAttribute(elem, att, def) {
+  if(def == undefined){
+    def = "";
+  }
+  if (elem) {
+    var s = elem.getAttribute(att);
     if (s != undefined && s.length > 0) {
       return s;
     }
@@ -397,17 +400,23 @@ function getAttribute(config, att, def) {
 }
 
 function loadTags(e) {
-  e.swDisplay = getAttribute(e, "data-sw-display", "");
-  e.swLabelId = getElementByIdOrName(getAttribute(e, "data-sw-label-id", ""));
+  //loadHtml5Tags(e);
+  e.swDisplay = getAttribute(e, "data-sw-display", e.swDisplay);
+  e.swLabelId = getElementByIdOrName(getAttribute(e, "data-sw-label-id", e.swLabelId));
 
-  e.swErrMsg = getAttribute(e, "data-sw-err-msg", "");
-  e.swType = getAttribute(e, "data-sw-type", "");
+  e.swErrMsg = getAttribute(e, "data-sw-err-msg", e.swErrMsg);
+  e.swType = getAttribute(e, "data-sw-type", e.swType);
   e.swTypeIsInError = false;
-  e.swMax = getAttribute(e, "data-sw-max", "");
+  e.swMax = getAttribute(e, "data-sw-max", e.swMax);
   e.swMaxIsInError = false;
-  e.swMin = getAttribute(e, "data-sw-min", "");
+  e.swMin = getAttribute(e, "data-sw-min", e.swMin);
   e.swMinIsInError = false;
-  e.swReq = getAttribute(e, "data-sw-req", false);
+  
+  //CHECK THIS************************************************************************************************************************************
+  if(!e.swReq || e.swReq == false){
+    e.swReq = getAttribute(e, "data-sw-req", false);
+  }
+  
   var s = e.swReq + "";
   if (s.toLowerCase() == "false") {
     e.swReq = false;
@@ -421,12 +430,52 @@ function loadTags(e) {
     e.swDepFormat = e.swType.substring(2, e.swType.length - 1);
   }
 
-  e.swMaxValue = getAttribute(e, "data-sw-max-value", "");
+  e.swMaxValue = getAttribute(e, "data-sw-max-value", e.swMaxValue);
   e.swMaxValueIsInError = false;
-  e.swMinValue = getAttribute(e, "data-sw-min-value", "");
+  e.swMinValue = getAttribute(e, "data-sw-min-value", e.swMinValue);
   e.swMinValueIsInError = false;
-  e.swRelated = removeRelatedSpace(getAttribute(e, "data-sw-related", ""));
+  e.swRelated = removeRelatedSpace(getAttribute(e, "data-sw-related", e.swRelated));
   e.swRelatedIsInError = false;
+}
+
+function loadHtml5Tags(e) {
+  var pattern = getAttribute(e, "pattern", "");
+  if (pattern && pattern.length > 0) {
+    e.swType = 'r{' + pattern + '}';
+  } else if (e.type == "email") {
+    e.swType = 'r{(\w\.?)+@[\w\.-]+\.\w{2,4}}';
+  } else if (e.type == "number") {
+    e.swType = 'n';
+  } else if (e.type == "url") {
+    //e.swType = 'r{^(?:([A-Za-z]+):)?(\/{0,3})([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$}';
+    e.swType = 'r{\(?(\d{3})\)?[-\.\s]?(\d{3})[-\.\s]?(\d{4})}';
+  } else if (e.type == "tel") {
+    e.swType = 'r{\(?(\d{3})\)?[-\.\s]?(\d{3})[-\.\s]?(\d{4})}';
+  } else {
+    e.swType = 's';
+  }
+  e.swTypeIsInError = false;
+
+  e.swDisplay = getAttribute(e, "title", "");
+
+  e.swMax = getAttribute(e, "maxlength", "");
+  e.swMaxIsInError = false;
+  e.swMin = getAttribute(e, "minlength", "");
+  e.swMinIsInError = false;
+
+  e.swReq = getAttribute(e, "required", false);
+  var s = e.swReq + "";
+  if (s.toLowerCase() == "false") {
+    e.swReq = false;
+  } else {
+    e.swReq = true;
+  }
+  e.swReqIsInError = false;
+
+  e.swMaxValue = getAttribute(e, "max", "");
+  e.swMaxValueIsInError = false;
+  e.swMinValue = getAttribute(e, "min", "");
+  e.swMinValueIsInError = false;
 }
 
 function loadGlobalErrorSettings(forElementOnly) {
@@ -443,7 +492,7 @@ function loadGlobalErrorSettings(forElementOnly) {
 
   err.errorActions = getAttribute(config, "data-errorActions", "");
   if (err.errorActions == "") {
-    err.errorActions = "hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup";
+    err.errorActions = "hoverOnLabel,hoverShowLabel,colorLabel,colorInput";
   }
 
   err.blurActions = getAttribute(config, "data-blurActions", "");
@@ -556,7 +605,7 @@ function handleEscapedChars(s, forFormat) {
     s = s.replaceAll("\\)", "\5");
     s = s.replaceAll("\\+", "\6");
     s = s.replaceAll("\\-", "\7");
-    s = s.replaceAll("\\;", "\8");
+    s = s.replaceAll("\\;", "\016");
 
   } else {
     s = s.replaceAll("\t", "#");
@@ -573,7 +622,7 @@ function handleEscapedChars(s, forFormat) {
     s = s.replaceAll("\5", ")");
     s = s.replaceAll("\6", "+");
     s = s.replaceAll("\7", "-");
-    s = s.replaceAll("\8", ";");
+    s = s.replaceAll("\016", ";");
   }
   return s;
 }
@@ -602,12 +651,11 @@ function parseFormat(format) {
 
     if (format.charAt(pos + 1) == '[') {
       end = format.indexOf("]", pos);
-      
-      var temp = format.substring(pos + 2, end); 
-      if(temp.includes(',')){
+
+      var temp = format.substring(pos + 2, end);
+      if (temp.includes(',')) {
         numDigits = 0;
-      }
-      else{
+      } else {
         dash = format.indexOf("-", pos);
         numDigits = end - (dash + 1);
       }
@@ -636,67 +684,67 @@ function parseFormat(format) {
   return blocks;
 }
 
-function resolveDateVariables(format){
+function resolveDateVariables(format) {
   var today = new Date();
   var newMdy;
   var parsedValue = format;
-  var dateOrder = ['dd','mm','yy','yyyy'];
-  
-  for(var i = 0; i < dateOrder.length; i++){
+  var dateOrder = [ 'dd', 'mm', 'yy', 'yyyy' ];
+
+  for (var i = 0; i < dateOrder.length; i++) {
     var mdy = dateOrder[i];
     var last = 0;
-    while(true){
+    while (true) {
       var startMdyReplacePos = 0;
       var endMdyReplacePos = 0;
       last = parsedValue.indexOf(mdy);
-      if(last < 0){
+      if (last < 0) {
         break;
       }
       startMdyReplacePos = last;
       endMdyReplacePos = last + mdy.length;
-      
-      if(mdy == 'yy'){
+
+      if (mdy == 'yy') {
         newMdy = parseInt(today.getFullYear().toString().substr(-2));
         last += 2;
         newMdy = adjustDate(parsedValue, last, newMdy);
-      } else if(mdy == 'yyyy'){
+      } else if (mdy == 'yyyy') {
         newMdy = parseInt(today.getFullYear());
         last += 4;
         newMdy = adjustDate(parsedValue, last, newMdy);
-      } else if(mdy == 'mm'){
+      } else if (mdy == 'mm') {
         newMdy = parseInt(today.getMonth()) + 1;
         last += 2;
-        if(newMdy > 12){
+        if (newMdy > 12) {
           newMdy = 12;
         }
-      } else if(mdy = 'dd'){
+      } else if (mdy = 'dd') {
         newMdy = parseInt(today.getDate());
         last += 2;
         newMdy = adjustDate(parsedValue, last, newMdy);
-        if(newMdy > 31){
+        if (newMdy > 31) {
           newMdy = 31;
         }
-      }    
-  
-      if(parsedValue.substring(last, last + 1) == "("){
+      }
+
+      if (parsedValue.substring(last, last + 1) == "(") {
         var endOfNum = parsedValue.indexOf(")", last);
         parsedValue = parsedValue.substring(0, startMdyReplacePos) + newMdy + parsedValue.substring(endOfNum + 1, parsedValue.length);
-      } else{
+      } else {
         parsedValue = parsedValue.substring(0, startMdyReplacePos) + newMdy + parsedValue.substring(endMdyReplacePos, parsedValue.length);
       }
     }
   }
   return parsedValue;
 }
-function adjustDate(parsedValue, last, newMdy){
-  if(parsedValue.substring(last, last + 1) == "("){
+function adjustDate(parsedValue, last, newMdy) {
+  if (parsedValue.substring(last, last + 1) == "(") {
     var endOfNum = parsedValue.indexOf(")", last);
     var num = parsedValue.substring(last + 2, endOfNum);
     var parsedNum = parseInt(num);
-    var arith = parsedValue.substring(last + 1, last + 2); 
-    if(arith == "+"){
+    var arith = parsedValue.substring(last + 1, last + 2);
+    if (arith == "+") {
       newMdy += parsedNum;
-    } else if(arith == "-"){
+    } else if (arith == "-") {
       newMdy -= parsedNum;
     }
   }
@@ -819,11 +867,11 @@ function doNumRangePart(c, f, blocks, formatsCurrentValue, formatsInError, forma
   }
   f = f.substring(2, f.length - 1);
   var ff = [];
-  if(f.includes(',')){
+  if (f.includes(',')) {
     ff = f.split(',');
-    if(!ff.includes(c)){
+    if (!ff.includes(c)) {
       formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i)
-      + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
+          + formatsCurrentValue[formatCount].substring(i + 1, formatsCurrentValue[formatCount].length);
     }
     return;
   }
@@ -1478,7 +1526,8 @@ function formIsValid(thisForm, doBlurActions, err, suppressRender) {
   var flag = true
   for (var i = 0; i < thisForm.length; i++) {
     var e = thisForm.elements[i];
-    if (e.type == "text" || e.type == "textarea" || e.type == "password" || e.type == "hidden" || e.type == "checkbox" || e.type == "select-one") {
+    if (e.type == "text" || e.type == "textarea" || e.type == "password" || e.type == "hidden" || e.type == "checkbox" || e.type == "select-one"
+        || e.type == "email" || e.type == "number" || e.type == "url" || e.type == "tel") {
       if (!isElementValid(e, err)) {
         flag = false;
         if (err.numErrorsToDisplay != -1 && err.count >= err.numErrorsToDisplay) {
@@ -1558,8 +1607,7 @@ function initSanwafui() {
         for (var k = 0; k < parents.length; k++) {
           var parent = getElementByIdOrName(parents[k]);
           if (parent) {
-            if(setAttributeForEventListener(parent, "sanwaf-change-listener", "true")){
-
+            if (setAttributeForEventListener(parent, "sanwaf-change-listener", "true")) {
               (function(passedInCopyOfThisElem) {
                 parent.addEventListener("change", function(elemThatIsChangingEgTheSelectList) {
                   sanwafUiBlurElement(passedInCopyOfThisElem);
@@ -1570,14 +1618,18 @@ function initSanwafui() {
         }
       }
 
+//HTML5 input types and elements      
+//      if (e.getAttribute("data-sw-type") || (e.type == "email" || e.type == "number" || e.type == "url" || e.type == "tel" || e.getAttribute("minlength") || e.getAttribute("maxlength")
+//          || e.getAttribute("pattern") || e.getAttribute("required") || e.getAttribute("max") || e.getAttribute("min")) ) {
+
       if (e.getAttribute("data-sw-type")) {
-        if(setAttributeForEventListener(e, "sanwaf-input-listener", "true")){
+        if (setAttributeForEventListener(e, "sanwaf-input-listener", "true")) {
           e.addEventListener("input", function(e) {
             sanwafUiOnInput(e.target);
           });
         }
 
-        if(setAttributeForEventListener(e, "sanwaf-focusout-listener", "true")){
+        if (setAttributeForEventListener(e, "sanwaf-focusout-listener", "true")) {
           e.addEventListener("focusout", function(e) {
             var err = loadGlobalErrorSettings(true);
             if (!isElementValid(e.target, err)) {

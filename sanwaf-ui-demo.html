@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="sanwaf-ui-demo.css" media="screen" />  
 
     <!-- Sanwaf-ui code - STEP 1. import sanwaf-ui.js -->
-    <script src="sanwaf-ui.js"></script>
+    <script src="sanwaf-ui-0.1.0.min.js"></script>
 
     <!-- Sanwaf-ui code - STEP 2. import sanwaf-ui.css (optional see STEP 2a. below) -->
     <link rel="stylesheet" type="text/css" href="sanwaf-ui.css" media="screen" />  
@@ -123,7 +123,7 @@
           <!-- Sanwaf-ui code - Note the above label does not use the label's 'for' attribute.  
           						See below the 'data-sw-label-id' attribute that associates a label to the input.
           						Also note the use of using multiple formats in a single format field  -->	
-          <td><input type="text" id="zippostalcode" name="zippostalcode" size="20" data-sw-display="Zip or Postal Code" data-sw-type="f{#####||#####-####||A#A-#A#}" data-sw-label-id="zipPostalCodeLabel" data-sw-req="true" /></td>
+          <td><input type="text" id="zippostalcode" name="zippostalcode" size="20" data-sw-display="Zip or Postal Code" data-sw-type="f{#####||#####-####||A#A-#A#}" data-sw-label-id="zipPostalCodeLabel" data-sw-req="true" data-sw-err-msg="Format must be 5 digit or 5-4 digit US Zip Code format, or Canadian Postal Code Format"/></td>
           <td>Required. format: "##### || #####-#### || A#A-#A#"</td>
         </tr>
         <tr>
@@ -160,8 +160,8 @@
         <tr>
           <td><label for="visaExpirationDate">Expiry</label></td>
           <!-- Sanwaf-ui code - Note that the expiry date is required if the visa number is entered (see 'data-sw-related' attribute below) -->  
-          <td><input type="text" id="visaExpirationDate" name="visaExpirationDate" size="20" data-sw-display="Expiry" data-sw-type="f{#[1-12] / #[21-35]}" data-sw-related="visa" /></td>
-          <td>Must have a valid format of #[1-12] / #[21-35].  Required if Visa number is entered</td>
+          <td><input type="text" id="visaExpirationDate" name="visaExpirationDate" size="20" data-sw-display="Expiry" data-sw-type="f{#[1-12] / #[yy-yy(+10)]}" data-sw-related="visa" /></td>
+          <td>Must have a valid format of #[1-12] / #[yy-yy(+10)].  Required if Visa number is entered</td>
         </tr>
         <tr>
           <td><label for="amount">Purchase Amount</label></td>
@@ -221,13 +221,13 @@
       <tr>
         <td><input type="checkbox" id="hoverOnLabel" onClick="togleDisplayType(true)" checked/>hover on Label</td>
         <td><input type="checkbox" id="colorLabel" onClick="togleDisplayType(true)" checked/>color label</td>
-        <td><input type="checkbox" id="showOnPage" onClick="togleDisplayType(true)" checked/>Show errors on page</td>
-        <td><input type="checkbox" id="alertWithPopup" onClick="togleDisplayType(false)" checked/>alert with popup <br/></td>
+        <td><input type="checkbox" id="showOnPage" onClick="togleDisplayType(true)" />Show errors on page</td>
+        <td><input type="checkbox" id="alertWithPopup" onClick="togleDisplayType(false)" />alert with popup <br/></td>
       </tr>
       <tr>
         <td><input type="checkbox" id="hoverShowLabel" onClick="togleDisplayType(true)" checked/>hover include label</td>
         <td><input type="checkbox" id="colorInput" onClick="togleDisplayType(true)" checked/>color input</td>
-        <td><input type="checkbox" id="showOnPageSanwafTable" onClick="togleDisplayType(true)" checked/>Show Sanwaf-ui Error Table</td>
+        <td><input type="checkbox" id="showOnPageSanwafTable" onClick="togleDisplayType(true)" />Show Sanwaf-ui Error Table</td>
         <td></td>
       </tr>
       <tr>
@@ -613,19 +613,18 @@
         </tr>
       </table>
     </form>
-
     <h3 id="format-data-type">Format Data Type</h3>
     <table class="table-instructions-inline-block">
       <tr><td>The Format data type sets the element to use a Format</td><td></td></tr>
       <tr><td>A Format is way to best fit a user's entry into a mask</td><td></td></tr>
       <tr><td>Sanwaf-ui automatically sets an oninput event handler to elements that have the format data type.  the event handler formats as the user enters data</td><td></td></tr>
       <tr><td>Four special characters are provided to be used in formats:</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;#   - represents a number</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;#[] - represents a number within a specified range: #[1-12], or a number that must equal one of the specified values: #[4,5,6] </td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;A   - represents an Uppercase Alphabetic character</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;a   - represents a lowercase Alphabetic character</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;c   - represents an Alphabetic character of any case</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;x   - represents any character of any case</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;#</td><td> - accepts a number</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;#[]</td><td> - accepts a number within a range: #[1-12]<br/> - accepts a number meeting a specified set of values: #[4,5,6]<br/> - accepts a number bound by date settings: #[yy-yy(+10)]<br/>&nbsp;&nbsp;&nbsp;Supported date variables include: yy, yyyy, mm, dd<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Format: #[ variable( <+/-> # ) ]<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example: #[ yy( -10 ) - yy( +10 ) ]  - accepts a year in 'yy' format in the range of up to 10 years old to 10 years in the future</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;A</td><td> - accepts an Uppercase Alphabetic character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;a</td><td> - accepts a lowercase Alphabetic character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;c</td><td> - accepts an Alphabetic character of any case</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;x</td><td> - accepts any character of any case</td><td></td></tr>
       <tr><td>Use a combination of the special and non-special characters to create formats</td><td></td></tr>
       <tr><td>To use the four special characters in the format itself, you will need to escape them:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;\#  \A  \a  \c \x \[ \] \|</td><td></td></tr>
@@ -659,22 +658,24 @@
         </td>
         <td></td>
       </tr>
-      <tr><td>Or, if you want the end user to enter a credit card expiry date limited to the years ending in 21 - 35:</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{#[1-12] / #[21-35]}"</b></td><td></td></tr>
+      <tr><td>Or, if you want the end user to enter a credit card expiry date within the range of this year to ten years from now:</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{#[1-12] / #[yy-yy(+10)]}"</b></td><td></td></tr>
       <tr>
         <td>
           <form id="mskdemo3" method="post" action="./someEndPoint">
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="exp">Expiry</label></td>
-                <td><input id="exp" name="exp" data-sw-display="Expiry" size="20" data-sw-type="f{#[1-12] / #[21-35]}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo3)"/></td>
+                <td><input id="exp" name="exp" data-sw-display="Expiry" size="20" data-sw-type="f{#[1-12] / #[yy-yy(+10)]}" /> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(mskdemo3)"/></td>
               </tr>
             </table>
           </form>
         </td>
         <td></td>
       </tr>
-      <tr><td>You can also have multiple formats combined into one format field. For example to use a single field to capture US Zip codes in short & long form, along with the Canadian Postal Code format</td><td></td></tr>
+      <tr><td> </td><td></td></tr>
+      <tr><td>You can also have <b>multiple formats</b> combined into one format field using the 'OR' opperator (||)</td><td></td></tr>
+      <tr><td>For example to use a single field to capture US Zip codes in short & long form, along with the Canadian Postal Code format</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{##### || #####-#### || A#A-#A#}"</b></td><td></td></tr>
       <tr>
         <td>
