@@ -127,15 +127,18 @@
           <td>Required. format: "##### || #####-#### || A#A-#A#"</td>
         </tr>
         <tr>
+          <!-- Sanwaf-ui code - Note that password field does not set the data-sw-display attribute, 
+                                so the associated label will be used instead.  
+                                This also works when using the data-sw-latbel-id attribute (see confirm password below)-->  
           <td><label for="password">Password</label></td>
-          <td><input type="password" id="password" name="password" size="20" data-sw-display="Password" data-sw-type="s" data-sw-max="10" data-sw-min="4" /></td>
+          <td><input type="password" id="password" name="password" size="20" data-sw-type="s" data-sw-max="10" data-sw-min="4" /></td>
           <td>Max = 10 chars, Min = 4 chars. If entered, confirm password must have the same value</td>
         </tr>
         <tr>
-          <td><label for="confirmPassword">Confirm Password</label></td>
+          <td><label id="confirmPasswordLabel">Confirm Password</label></td>
           <!-- Sanwaf-ui code - Note the 'data-sw-related' attribute that makes the 'confirmPassword' required if the password element is entered. 
           					    Additionally, the values must equal each other  as the relationship is "=" -->  
-          <td><input type="password" id="confirmPassword" name="confirmPassword" size="20" data-sw-display="Confirm Password" data-sw-type="s" data-sw-related="password:=" data-sw-max="10" data-sw-min="4" /></td>
+          <td><input type="password" id="confirmPassword" name="confirmPassword" size="20" data-sw-type="s" data-sw-related="password:=" data-sw-max="10" data-sw-min="4" data-sw-label-id="confirmPasswordLabel" /></td>
           <td>Max = 10 chars, Min = 4 chars. Required only if above field entered</td>
         </tr>
         <tr>

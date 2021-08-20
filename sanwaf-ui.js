@@ -135,8 +135,15 @@ function doLabelAndHover(e, err, msgs, actions) {
     }
 
     if (actions.includes("hoverOnLabel")) {
-      if (err.showlabel == true) {
-        hovertxt += '"' + e.swDisplay + '"<br/>';
+      if(err.showlabel){
+        if(e.swDisplay && e.swDisplay.length > 0){
+          hovertxt += '"' + e.swDisplay + '"<br/>';
+        }
+        else{
+          if(label.getAttribute("sanwafuilabeltxt").length > 0){
+            hovertxt += '"' + label.getAttribute("sanwafuilabeltxt") + '"<br/>';
+          }
+        }
       }
       hovertxt += buildMsgFromArray(msgs, "<br/>");
     }
@@ -240,11 +247,37 @@ function getRelatedError(e) {
   return msg;
 }
 
+function getElementLabelValue(e){
+  if(e.swDisplay && e.swDisplay.length > 0){
+    return e.swDisplay;
+  }
+  var label;
+  var labeltxt = "";
+  var field;
+  if (e.getAttribute("id")) {
+    field = getElementByIdOrName(e.getAttribute("id"));
+  } else {
+    field = getElementByIdOrName(e.getAttribute("name"));
+  }
+  label = getLabel(field);
+  if (label) {
+    labeltxt = label.getAttribute("sanwafuilabeltxt");
+    if (!labeltxt) {
+      labeltxt = label.innerHTML;
+      var att = document.createAttribute("sanwafuilabeltxt");
+      att.value = label.innerHTML;
+      label.setAttributeNode(att);
+    }
+    return labeltxt;
+  }
+  return "";
+}
+
 function buildErrorItemsArray(e, err, actions, suppressRender) {
   var errorItem = new Object();
   errorItem.id = e.id;
   errorItem.name = e.name;
-  errorItem.disp = e.swDisplay;
+  errorItem.disp = getElementLabelValue(e);
   errorItem.msgs = [];
 
   if (e.swTypeIsInError) {
@@ -311,9 +344,9 @@ function buildErrorItemsArray(e, err, actions, suppressRender) {
       }
       if (kv[1] == "=") {
         if (e.value != rel.value) {
-          setErrorItem(e, err, errorItem, err.relNotEqual, false, e.swDisplay, rel.swDisplay);
+          setErrorItem(e, err, errorItem, err.relNotEqual, false, getElementLabelValue(e), getElementLabelValue(rel));
         } else {
-          setErrorItem(e, err, errorItem, err.relNotEqual, false, e.swDisplay, parentElement.getAttribute("data-sw-display"));
+          setErrorItem(e, err, errorItem, err.relNotEqual, false, getElementLabelValue(e), getElementLabelValue(parentElement));
         }
       } else {
         setErrorItem(e, err, errorItem, err.rel, false, "'" + labeltxt + "'", "");
@@ -400,7 +433,6 @@ function getAttribute(elem, att, def) {
 }
 
 function loadTags(e) {
-  //loadHtml5Tags(e);
   e.swDisplay = getAttribute(e, "data-sw-display", e.swDisplay);
   e.swLabelId = getElementByIdOrName(getAttribute(e, "data-sw-label-id", e.swLabelId));
 
@@ -412,11 +444,7 @@ function loadTags(e) {
   e.swMin = getAttribute(e, "data-sw-min", e.swMin);
   e.swMinIsInError = false;
   
-  //CHECK THIS************************************************************************************************************************************
-  if(!e.swReq || e.swReq == false){
-    e.swReq = getAttribute(e, "data-sw-req", false);
-  }
-  
+  e.swReq = getAttribute(e, "data-sw-req", false);
   var s = e.swReq + "";
   if (s.toLowerCase() == "false") {
     e.swReq = false;
@@ -688,7 +716,7 @@ function resolveDateVariables(format) {
   var today = new Date();
   var newMdy;
   var parsedValue = format;
-  var dateOrder = [ 'dd', 'mm', 'yy', 'yyyy' ];
+  var dateOrder = [ 'dd', 'mm', 'yyyy', 'yy' ];
 
   for (var i = 0; i < dateOrder.length; i++) {
     var mdy = dateOrder[i];
@@ -1617,10 +1645,6 @@ function initSanwafui() {
           }
         }
       }
-
-//HTML5 input types and elements      
-//      if (e.getAttribute("data-sw-type") || (e.type == "email" || e.type == "number" || e.type == "url" || e.type == "tel" || e.getAttribute("minlength") || e.getAttribute("maxlength")
-//          || e.getAttribute("pattern") || e.getAttribute("required") || e.getAttribute("max") || e.getAttribute("min")) ) {
 
       if (e.getAttribute("data-sw-type")) {
         if (setAttributeForEventListener(e, "sanwaf-input-listener", "true")) {
