@@ -157,7 +157,7 @@ Use your own CSS classes by setting the following attributes to classes defined 
 	data-errorRequired 			- Error message for **Required** violations
 	data-errorMaxLength			- Error message for **Max Length** violations
 	data-errorMinLength			- Error message for **Min Length** violations
-	data-errorMaxMinEqual 			- Error message for when Min & Max length are equal
+	data-errorMaxMinLengthEqual		- Error message for when Min & Max length are equal
 	data-errorMaxValue 			- Error message for **Max Value** violations
 	data-errorMinValue 			- Error message for **Min Value** violations
 	data-errorRelated 			- Error message for **Relationship** violations
