@@ -103,11 +103,11 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
 	To get all errors found for a given form in JSON format, use:
 
-        	getFormErrors(form)
+        	sanwafGetFormErrors(form)
 
 	To get errors for a given element in JSON format, use: 
 
-        	getElementErrors(element)
+        	sanwafGetElementErrors(element)
 
 6. Initialize sanwaf-ui
 
@@ -126,52 +126,52 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   
 **Optional Control Attributes**  
 
-  	numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
-					  Defaults to: -1
-  	errorActions                  	- Action(s)s to take when an error is found on a submit.  
-					  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup
-	blurActions                  	- Action(s) to take when a field is blurred.  
-	 				  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput 
-  	showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. 
-					  Defaults to: sanwafuierrorwrapper
-  	showOnPageSanwafTableElementId  - Optional element to set a table of sanwaf-ui errors (configurable by css).  
-					  Defaults to: sanwafuierrortable
+  	data-sw-numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
+						  Defaults to: -1
+  	data-sw-errorActions                  	- Action(s)s to take when an error is found on a submit.  
+						  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput
+	data-sw-blurActions                  	- Action(s) to take when a field is blurred.  
+	 					  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput 
+  	data-sw-showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. 
+						  Defaults to: sanwafuierrorwrapper
+  	data-sw-showOnPageSanwafTableElementId  - Optional element to set a table of sanwaf-ui errors (configurable by css).  
+						  Defaults to: sanwafuierrortable
 
 **Optional CSS Class Overrides**  
 
 Use your own CSS classes by setting the following attributes to classes defined in your CSS
 
-	labelClass 			- Sets the color for the label of the error'd element
-	inputClass 			- Sets the color of the input text of the error'd element
-	tooltipClass 			- The tooltip css class applied to the label
-	tooltipTextClass 		- Tooltip text css specification
-	sanwafErrorTableClass 		- When displaying errors on the page, a table in inserted using this css class
-	sanwafErrorTableTdKeyClass 	- The css class for the key section of the sanwaf-ui error table
-	sanwafErrorTableTdDescClass 	- The css class for the value section of the sanwaf-ui error table
+	data-sw-labelClass 			- Sets the color for the label of the error'd element
+	data-sw-inputClass 			- Sets the color of the input text of the error'd element
+	data-sw-tooltipClass 			- The tooltip css class applied to the label
+	data-sw-tooltipTextClass 		- Tooltip text css specification
+	data-sw-sanwafErrorTableClass 		- When displaying errors on the page, a table in inserted using this css class
+	data-sw-sanwafErrorTableTdKeyClass 	- The css class for the key section of the sanwaf-ui error table
+	data-sw-sanwafErrorTableTdDescClass 	- The css class for the value section of the sanwaf-ui error table
 
 
 **Optional Error Message Attributes** (default values will be used if not specified)
 
-	data-errorPopHeader1 			- header line 1 used with pop-up dialog
-	data-errorPopHeader2 			- header line 2 used with pop-up dialog
-	data-errorRequired 			- Error message for **Required** violations
-	data-errorMaxLength			- Error message for **Max Length** violations
-	data-errorMinLength			- Error message for **Min Length** violations
-	data-errorMaxMinLengthEqual		- Error message for when Min & Max length are equal
-	data-errorMaxValue 			- Error message for **Max Value** violations
-	data-errorMinValue 			- Error message for **Min Value** violations
-	data-errorRelated 			- Error message for **Relationship** violations
-	data-errorTypeChar 			- Error message for **Character** data type violations
-	data-errorTypeNumeric 			- Error message for **Numeric** data type violations
-	data-errorTypeNumericDelimited 		- Error message for **Numeric Delimited** data type violations
-	data-errorTypeInteger 			- Error message for **Integer** data type violations
-	data-errorTypeIntegerDelimited 		- Error message for **Integer Delimited** data type violations
-	data-errorTypeAlphanumeric 		- Error message for **Alphanumeric** data type violations
-	data-errorTypeAlphanumericAndMore 	- Error message for **Alphanumeric and more** data type violations
-	data-errorTypeConstant 			- Error message for **Constant** data type violations
-	data-errorTypeRegex 			- Error message for **Regex** data type violations
-	data-errorTypeFormat 			- Error message for **Format** violations
-	data-errorTypeDependentFormat 		- Error message for **Dependent Format** violations
+	data-sw-errorPopHeader1 		- header line 1 used with pop-up dialog
+	data-sw-errorPopHeader2 		- header line 2 used with pop-up dialog
+	data-sw-errorRequired 			- Error message for **Required** violations
+	data-sw-errorMaxLength			- Error message for **Max Length** violations
+	data-sw-errorMinLength			- Error message for **Min Length** violations
+	data-sw-errorMaxMinLengthEqual		- Error message for when Min & Max length are equal
+	data-sw-errorMaxValue 			- Error message for **Max Value** violations
+	data-sw-errorMinValue 			- Error message for **Min Value** violations
+	data-sw-errorRelated 			- Error message for **Relationship** violations
+	data-sw-errorTypeChar 			- Error message for **Character** data type violations
+	data-sw-errorTypeNumeric 		- Error message for **Numeric** data type violations
+	data-sw-errorTypeNumericDelimited 	- Error message for **Numeric Delimited** data type violations
+	data-sw-errorTypeInteger 		- Error message for **Integer** data type violations
+	data-sw-errorTypeIntegerDelimited 	- Error message for **Integer Delimited** data type violations
+	data-sw-errorTypeAlphanumeric 		- Error message for **Alphanumeric** data type violations
+	data-sw-errorTypeAlphanumericAndMore 	- Error message for **Alphanumeric and more** data type violations
+	data-sw-errorTypeConstant 		- Error message for **Constant** data type violations
+	data-sw-errorTypeRegex 			- Error message for **Regex** data type violations
+	data-sw-errorTypeFormat 		- Error message for **Format** violations
+	data-sw-errorTypeDependentFormat 	- Error message for **Dependent Format** violations
 
   
 
@@ -182,9 +182,10 @@ The following error actions can be used individually or cumulatively.
 
 For example:
 
-to set the display type to have the error message hover on the label and change the labels color:
+to set the error actions to have the error message hover on the label and change the labels color:
 
-    displayType="hoverlabel,colorlabel"
+    data-sw-errorActions="hoverlabel,colorlabel"
+    data-sw-blurActions="hoverlabel,colorlabel"
 
 **Actions**
 
