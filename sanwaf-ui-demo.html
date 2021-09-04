@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="sanwaf-ui-demo.css" media="screen" />  
 
     <!-- Sanwaf-ui code - STEP 1. import sanwaf-ui.js -->
-    <script src="sanwaf-ui-0.1.0.min.js"></script>
+    <script src="sanwaf-ui-0.1.1.min.js"></script>
 
     <!-- Sanwaf-ui code - STEP 2. import sanwaf-ui.css (optional see STEP 2a. below) -->
     <link rel="stylesheet" type="text/css" href="sanwaf-ui.css" media="screen" />  
@@ -33,42 +33,42 @@
     <!-- Sanwaf-ui code - 4th block below - override default data type error messages -->
 	<!--    
     <div id="sanwafUiConfig" style="display:none"
-      data-numErrorsToDisplay="-1" 
-      data-errorActions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup"
-      data-blurActions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput"
-      data-showOnPageElementId="pageErrors"
-      data-showOnPageSanwafTableElementId="sanwafUiErrors"
+      data-sw-numErrorsToDisplay="-1" 
+      data-sw-errorActions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup"
+      data-sw-blurActions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput"
+      data-sw-showOnPageElementId="pageErrors"
+      data-sw-showOnPageSanwafTableElementId="sanwafUiErrors"
       
-      data-labelClass="customLabel"
-      data-inputClass="customInput"
-      data-tooltipClass="customTooltip"
-      data-tooltipTextClass="customTooltiptext"
-      data-sanwafErrorTableClass="customErrorTable"
-      data-sanwafErrorTableTdKeyClass="customErrorTableTdKey"
-      data-sanwafErrorTableTdDescClass="customErrorTableTdDesc"
+      data-sw-labelClass="customLabel"
+      data-sw-inputClass="customInput"
+      data-sw-tooltipClass="customTooltip"
+      data-sw-tooltipTextClass="customTooltiptext"
+      data-sw-sanwafErrorTableClass="customErrorTable"
+      data-sw-sanwafErrorTableTdKeyClass="customErrorTableTdKey"
+      data-sw-sanwafErrorTableTdDescClass="customErrorTableTdDesc"
 
-      data-errorPopHeader1="Please Correct the Following Items (local)"
-      data-errorPopHeader2="------------------------------------------------------------------------------------ (local)"
-      data-errorMax = "Must be less than %1 characters (local)"
-      data-errorMin = "Must be more than %1 characters (local)"
-      data-errorMaxMinEqual = "Must be %1 chars (local)";
-      data-errorRequired = "Is a Required Field (local)"
-      data-errorMinValue = "Must be more than %1 (local)"
-      data-errorMaxValue = "Must be less than %1 (local)"
-      data-errorRelated = "Must be entered when %1 is entered (local)"
-      data-errorRelatedNotEqual = "%1 must have the same value as %2 (local)"
+      data-sw-errorPopHeader1="Please Correct the Following Items (local)"
+      data-sw-errorPopHeader2="------------------------------------------------------------------------------------ (local)"
+      data-sw-errorMaxLength = "Must be less than %1 characters (local)"
+      data-sw-errorMinLength = "Must be more than %1 characters (local)"
+      data-sw-errorMaxMinLengthEqual = "Must be %1 chars (local)";
+      data-sw-errorRequired = "Is a Required Field (local)"
+      data-sw-errorMinValue = "Must be more than %1 (local)"
+      data-sw-errorMaxValue = "Must be less than %1 (local)"
+      data-sw-errorRelated = "Must be entered when %1 is entered (local)"
+      data-sw-errorRelatedNotEqual = "%1 must have the same value as %2 (local)"
       
-      data-errorTypeChar = "Character (local)";
-      data-errorTypeNumeric = "Must be numeric (local)";
-      data-errorTypeNumericDelimited = "Must be numeric delimited by %1 (local)";
-      data-errorTypeInteger = "Must be an integer (local)";
-      data-errorTypeIntegerDelimited = "Must be an integer delimited by %1 (local)";
-      data-errorTypeAlphanumeric = "Must be alphanumeric (local)";
-      data-errorTypeAlphanumericAndMore = "Must be alphanumeric or one of the following (%1) characters (local)";
-      data-errorTypeConstant = "Must be one of the following: %1 (local)";
-      data-errorTypeRegex = "Must match the regex (local)";
-      data-errorTypeFormat = "Must match the format (local)";
-      data-errorTypeDependentFormat = "Must match the dependent format (local)";
+      data-sw-errorTypeChar = "Character (local)";
+      data-sw-errorTypeNumeric = "Must be numeric (local)";
+      data-sw-errorTypeNumericDelimited = "Must be numeric delimited by %1 (local)";
+      data-sw-errorTypeInteger = "Must be an integer (local)";
+      data-sw-errorTypeIntegerDelimited = "Must be an integer delimited by %1 (local)";
+      data-sw-errorTypeAlphanumeric = "Must be alphanumeric (local)";
+      data-sw-errorTypeAlphanumericAndMore = "Must be alphanumeric or one of the following (%1) characters (local)";
+      data-sw-errorTypeConstant = "Must be one of the following: %1 (local)";
+      data-sw-errorTypeRegex = "Must match the regex (local)";
+      data-sw-errorTypeFormat = "Must match the format (local)";
+      data-sw-errorTypeDependentFormat = "Must match the dependent format (local)";
     ></div>
 	-->
     
@@ -82,14 +82,14 @@
       <tr><td>when used together, they provide a code-free declarative validation system on both the client &amp; server</td></tr>
       <tr><td></td></tr>
     </table>
-    <img src="sanwaf-ui.png" class="image"> 
+    <img src="sanwaf-ui.png" width="50%" height="50%"> 
     <br/>
     <br/>
     <h2>Sample Form</h2>
     
     <!-- Sanwaf-ui code - uses the default values from the sanwafuiconfig hiddent element for wrapper & error table -->
     <div id="sanwafuierrorwrapper" style="display: none;">
-      <b>Uses Default Value</b>
+      <b>Errors Detected</b>
       <div id="sanwafuierrortable"></div>
       <input type="button" value="hide errors" onclick="document.getElementById('sanwafuierrorwrapper').style.display='none';"/>
     </div>
@@ -103,7 +103,7 @@
       <input type="button" value="hide errors" onclick="document.getElementById('pageErrors').style.display='none';"/>
     </div>
     
-    <!-- Sanwaf-ui code - STEP 4. add sanwaf attributes (data-sw*) to configure elements;  -->
+    <!-- Sanwaf-ui code - STEP 4. add sanwaf attributes (data-sw-*) to configure elements;  -->
     <form id="testform" method="post" action="./someEndPoint">
       <table class="table-instructions">
         <tr>
@@ -115,7 +115,7 @@
           <!-- Sanwaf-ui code - Note that the label's 'for' attribute is used to set the label association to the input
                                 See next the input below to associate the label using an attribute in the input itself -->	
           <td><label for="telephone">Telephone number</label></td>  
-          <td><input type="text" id="telephone" name="telephone" size="20" data-sw-display="Telephone Number" data-sw-type="f{(###) ###-####}" data-sw-req="true" /></td>
+          <td><input type="text" id="telephone" name="telephone" size="20" data-sw-display="Telephone Number" data-sw-type="f{(###) ###-####}" data-sw-required="true" /></td>
           <td>Required. Format: "(###) ###-####"</td>
         </tr>
         <tr>
@@ -123,7 +123,7 @@
           <!-- Sanwaf-ui code - Note the above label does not use the label's 'for' attribute.  
           						See below the 'data-sw-label-id' attribute that associates a label to the input.
           						Also note the use of using multiple formats in a single format field  -->	
-          <td><input type="text" id="zippostalcode" name="zippostalcode" size="20" data-sw-display="Zip or Postal Code" data-sw-type="f{#####||#####-####||A#A-#A#}" data-sw-label-id="zipPostalCodeLabel" data-sw-req="true" data-sw-err-msg="Format must be 5 digit or 5-4 digit US Zip Code format, or Canadian Postal Code Format"/></td>
+          <td><input type="text" id="zippostalcode" name="zippostalcode" size="20" data-sw-display="Zip or Postal Code" data-sw-type="f{#####||#####-####||A#A-#A#}" data-sw-label-id="zipPostalCodeLabel" data-sw-required="true" data-sw-err-msg="Format must be 5 digit or 5-4 digit US Zip Code format, or Canadian Postal Code Format"/></td>
           <td>Required. format: "##### || #####-#### || A#A-#A#"</td>
         </tr>
         <tr>
@@ -131,14 +131,14 @@
                                 so the associated label will be used instead.  
                                 This also works when using the data-sw-latbel-id attribute (see confirm password below)-->  
           <td><label for="password">Password</label></td>
-          <td><input type="password" id="password" name="password" size="20" data-sw-type="s" data-sw-max="10" data-sw-min="4" /></td>
+          <td><input type="password" id="password" name="password" size="20" data-sw-type="s" data-sw-max-length="30" data-sw-min-length="8" /></td>
           <td>Max = 10 chars, Min = 4 chars. If entered, confirm password must have the same value</td>
         </tr>
         <tr>
           <td><label id="confirmPasswordLabel">Confirm Password</label></td>
           <!-- Sanwaf-ui code - Note the 'data-sw-related' attribute that makes the 'confirmPassword' required if the password element is entered. 
           					    Additionally, the values must equal each other  as the relationship is "=" -->  
-          <td><input type="password" id="confirmPassword" name="confirmPassword" size="20" data-sw-type="s" data-sw-related="password:=" data-sw-max="10" data-sw-min="4" data-sw-label-id="confirmPasswordLabel" /></td>
+          <td><input type="password" id="confirmPassword" name="confirmPassword" size="20" data-sw-type="s" data-sw-related="password:=" data-sw-max-length="30" data-sw-min-length="8" data-sw-label-id="confirmPasswordLabel" /></td>
           <td>Max = 10 chars, Min = 4 chars. Required only if above field entered</td>
         </tr>
         <tr>
@@ -151,7 +151,7 @@
           <td><label for="carModel">Car Model</label></td>
           <!-- Sanwaf-ui code - Note the 'data-sw-related' attribute that makes the 'carModel' element required if the 'haveCar' element have the value of 'Yes'. 
           						Here we are using the element name, but you can use either element name or element id. -->  
-          <td><input type="text" name="carModel" size="20" data-sw-display="Car Model" data-sw-type="s" data-sw-max="30" data-sw-min="0" data-sw-related="haveCar:Yes" data-sw-err-msg="Must be entered if you own a car" /></td>
+          <td><input type="text" name="carModel" size="20" data-sw-display="Car Model" data-sw-type="s" data-sw-max-length="30" data-sw-min-length="0" data-sw-related="haveCar:Yes" data-sw-err-msg="Must be entered if you own a car" /></td>
           <td>If car model =  &quot;yes&quot;, this element is required</td>
         </tr>
         <tr>
@@ -175,21 +175,19 @@
         <!-- Sanwaf-ui code - STEP 5. call sanwaf-ui to validate form: isSanwafUiFormValid(testform)  -->
         <tr>
         	<td></td><td><input type="button" value="Validate" onClick="return isSanwafUiFormValid(testform)"/></td>
-        	<td>To custom manage errors,<br/>call the '<b>getFormErrors(form)</b>' method: <input type="button" value="get errors" onClick="alert(getFormErrors(testform))"/><br/>A json string of errors will be returned &amp; no UI rendering will occur<br/>Use the '<b>getElementErrors(elem)</b>' method to retrieve the json errors for an element</td></tr>
+        	<td>To custom manage errors,<br/>call the '<b>sanwafGetFormErrors(form)</b>' method: <input type="button" value="get errors" onClick="alert(sanwafGetFormErrors(testform))"/><br/>A json string of errors will be returned &amp; no UI rendering will occur<br/>Use the '<b>sanwafGetElementErrors(elem)</b>' method to retrieve the json errors for an element</td></tr>
       </table>
     </form>
     
     <!-- START this code is provided so you can alter the sanwaf-ui  behavior when viewed in a browser.  this is not intended to be an example -->
     <script>
       function togleDisplayType(refresh){
-        var att = document.createAttribute("data-errorActions");
+        var att = document.createAttribute("data-sw-errorActions");
         att.value = "";
         if(document.getElementById("hoverOnLabel").checked){ att.value += "hoverOnLabel,"; }
         if(document.getElementById("hoverShowLabel").checked){ att.value += "hoverShowLabel,"; }
         if(document.getElementById("colorLabel").checked){ att.value += "colorLabel,"; }
         if(document.getElementById("colorInput").checked){ att.value += "colorInput,"; }
-        if(document.getElementById("onFocusDisableColors").checked){ att.value += "onFocusDisableColors,"; }
-        if(document.getElementById("showOnPage").checked){ att.value += "showOnPage,"; }
         if(document.getElementById("showOnPageSanwafTable").checked){ att.value += "showOnPageSanwafTable,"; }
         if(document.getElementById("alertWithPopup").checked){ att.value += "alertWithPopup"; }
         if(!document.getElementById("sanwafUiConfig")){
@@ -200,13 +198,12 @@
         }
         document.getElementById("sanwafUiConfig").setAttributeNode(att);
 
-        att = document.createAttribute("data-blurActions");
+        att = document.createAttribute("data-sw-blurActions");
         att.value = "";
         if(document.getElementById("hoverOnLabel").checked){ att.value += "hoverOnLabel,"; }
         if(document.getElementById("hoverShowLabel").checked){ att.value += "hoverShowLabel,"; }
         if(document.getElementById("colorLabel").checked){ att.value += "colorLabel,"; }
         if(document.getElementById("colorInput").checked){ att.value += "colorInput,"; }
-        if(document.getElementById("onFocusDisableColors").checked){ att.value += "onFocusDisableColors,"; }
         document.getElementById("sanwafUiConfig").setAttributeNode(att);
         if(refresh){
         	isSanwafUiFormValid(testform);
@@ -216,27 +213,14 @@
     <h3>Change Sanwaf-ui Error Behavior</h3>
     <table class="table-compact">
       <tr>
-        <td><b>Validate &amp; Blur</b></td>
-        <td><b>Validate &amp; Blur</b></td>
-        <td><b>Validate</b></td>
-        <td><b>Validate</b></td>
-      </tr>
-      <tr>
         <td><input type="checkbox" id="hoverOnLabel" onClick="togleDisplayType(true)" checked/>hover on Label</td>
         <td><input type="checkbox" id="colorLabel" onClick="togleDisplayType(true)" checked/>color label</td>
-        <td><input type="checkbox" id="showOnPage" onClick="togleDisplayType(true)" />Show errors on page</td>
+        <td><input type="checkbox" id="showOnPageSanwafTable" onClick="togleDisplayType(false)" />Show Error on page</td>
         <td><input type="checkbox" id="alertWithPopup" onClick="togleDisplayType(false)" />alert with popup <br/></td>
       </tr>
       <tr>
         <td><input type="checkbox" id="hoverShowLabel" onClick="togleDisplayType(true)" checked/>hover include label</td>
         <td><input type="checkbox" id="colorInput" onClick="togleDisplayType(true)" checked/>color input</td>
-        <td><input type="checkbox" id="showOnPageSanwafTable" onClick="togleDisplayType(true)" />Show Sanwaf-ui Error Table</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><input type="checkbox" id="onFocusDisableColors" onClick="togleDisplayType(true)" />onFocus remove color</td>
-        <td></td>
         <td></td>
       </tr>
     </table>
@@ -247,8 +231,8 @@
     <h1>Implementing Sanwaf &amp; Sanwaf-ui</h1>
     <table class="table-instructions">
       <tr><td>1.</td><td>Configure Sanwaf-ui on html pages (instruction in this guide)</td></tr>
-      <tr><td>2.</td><td><a href="">Run the Sanwaf-ui-2-server script</a> to generate XML consumed by Sanwaf-Server for server-side validation</td></tr>
-      <tr><td>3.</td><td><a href="https://github.com/bernardo1024/SanWaf">Add Sanwaf-Server</a> to your application</td></tr>
+      <tr><td>2.</td><td><a href="https://github.com/bernardo1024/Sanwaf-UI-2-Server" target="_blank">Run the Sanwaf-ui-2-server script</a> to generate XML consumed by Sanwaf-Server for server-side validation</td></tr>
+      <tr><td>3.</td><td><a href="https://github.com/bernardo1024/SanWaf" target="_blank">Add Sanwaf-Server</a> to your application</td></tr>
     </table>
     <br/>
     <br/>
@@ -256,14 +240,14 @@
     View the source of this page to and search for "Sanwaf-ui code - STEP" to see examples of configuring sanwaf-ui (all 6 steps) 
     <br/>
     <br/>
-    <img src="sanwaf-ui-components.png" class="image"> 
+    <img src="sanwaf-ui-components.png" width="50%" height="50%"> 
     <table class="table-instructions">
       <tr>
         <td>1.</td>
         <td>Import sanwaf-ui.js lib</td>
         <td>
           <table  class="table-instructions-inner">
-            <tr><td></td><td>&lt;script src="<a href="sanwaf-ui.js">sanwaf-ui.js</a>"&gt;&lt;/script&gt;</td></tr>
+            <tr><td></td><td>&lt;script src="<a href="sanwaf-ui.js" target="_blank">sanwaf-ui.js</a>"&gt;&lt;/script&gt;</td></tr>
             <tr><td></td><td>this makes the sanwaf-ui code available for use on your page</td></tr>
           </table>
         </td>
@@ -273,7 +257,7 @@
         <td>import sanwaf-ui CSS (optional)</td>
         <td>
           <table  class="table-instructions-inner">
-            <tr><td></td><td>&lt;link rel="stylesheet" type="text/css" href="<a href="sanwaf-ui.css">sanwaf-ui.css</a>" media="screen" /&gt;</td></tr>
+            <tr><td></td><td>&lt;link rel="stylesheet" type="text/css" href="<a href="sanwaf-ui.css" target="_blank">sanwaf-ui.css</a>" media="screen" /&gt;</td></tr>
             <tr><td></td><td>to specify custom classes see the <a href="#sanwafuiconfig">sanwafuiconfig</a> hidden element</td></tr>
           </table>
         </td>
@@ -297,9 +281,9 @@
             <tr><td>&lt;input</td><td>type="text" id="carModel" size="20" </td></tr>
             <tr><td></td><td><b>data-sw-display</b>="Car Model"</td></tr>
             <tr><td></td><td><b><a href="#sanwafuidatatype">data-sw-type</a></b>="s"</td></tr>
-            <tr><td></td><td><b>data-sw-max</b>="30"</td></tr>
-            <tr><td></td><td><b>data-sw-min</b>="0"</td></tr>
-            <tr><td></td><td><b>data-sw-req</b>="true"</td></tr>
+            <tr><td></td><td><b>data-sw-max-length</b>="30"</td></tr>
+            <tr><td></td><td><b>data-sw-min-length</b>="0"</td></tr>
+            <tr><td></td><td><b>data-sw-required</b>="true"</td></tr>
             <tr><td></td><td><b>data-sw-related</b>="haveCar:Yes"</td></tr>
             <tr><td></td><td><b>data-sw-err-msg</b>="Car Model must be entered if you own a car"</td></tr>
             <tr><td>/&gt;</td><td>&lt;!-- see below for <a href="#sanwafuitags">sanwaf-ui attribute</a> details --&gt;</td></tr>
@@ -321,8 +305,8 @@
         <td>OR Call Sanwaf-ui method to get errors in JSON format</td>
         <td>
           <table  class="table-instructions-inner">
-            <tr><td>getFormErrors(form)</td><td>checks the elements on a form for errors. returns all errors found in JSON format</td></tr>
-            <tr><td>getElementErrors(element)</td><td>performs validate on the element specified, returns errors found in JSON format</td></tr>
+            <tr><td>sanwafGetFormErrors(form)</td><td>checks the elements on a form for errors. returns all errors found in JSON format</td></tr>
+            <tr><td>sanwafGetElementErrors(element)</td><td>performs validate on the element specified, returns errors found in JSON format</td></tr>
           </table>
         </td>
       </tr>
@@ -347,11 +331,11 @@
     <br/>
     <table class="table-instructions">
       <tr><td><b>Attribute</b></td><td><b>Description</b></td></tr>
-      <tr><td>data-numErrorsToDisplay</td><td>Number of error messages to display.  Specify -1 to display all errors<br/><b>Defaults to:</b> -1</td></tr>
-      <tr><td><a href="#sanwafuiactions">data-errorActions</a></td><td>Action(s)s to take when an error is found on a submit<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,<br/>showOnPage,showOnPageSanwafTable,alertWithPopup</td></tr>
-      <tr><td><a href="#sanwafuiactions">data-blurActions</a></td><td>Action(s) to take when a field is blurred<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors</td></tr>
-      <tr><td>data-showOnPageElementId</td><td>Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected<br/><b>Defaults to:</b> sanwafuierrorwrapper</td></tr>
-      <tr><td>data-showOnPageSanwafTableElementId</td><td>Optional element to set a table of sanwaf-ui errors (configurable by css)<br/><b>Defaults to:</b> sanwafuierrortable</td></tr>
+      <tr><td>data-sw-numErrorsToDisplay</td><td>Number of error messages to display.  Specify -1 to display all errors<br/><b>Defaults to:</b> -1</td></tr>
+      <tr><td><a href="#sanwafuiactions">data-sw-errorActions</a></td><td>Action(s)s to take when an error is found on a submit<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput</td></tr>
+      <tr><td><a href="#sanwafuiactions">data-sw-blurActions</a></td><td>Action(s) to take when a field is blurred<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput</td></tr>
+      <tr><td>data-sw-showOnPageElementId</td><td>Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected<br/><b>Defaults to:</b> sanwafuierrorwrapper</td></tr>
+      <tr><td>data-sw-showOnPageSanwafTableElementId</td><td>Optional element to set a table of sanwaf-ui errors (configurable by css)<br/><b>Defaults to:</b> sanwafuierrortable</td></tr>
     </table>
 
     <b>Optional CSS Class Overrides</b>
@@ -359,45 +343,46 @@
     Use your own CSS classes by setting the following attributes to classes defined in your CSS
     <table class="table-compact-1">
       <tr><td><b>Attribute</b></td><td><b>Description</b></td></tr>
-      <tr><td>data-labelClass</td><td>Sets the color for the label of the error'd element</td></tr>
-      <tr><td>data-inputClass</td><td>Sets the color of the input text of the error'd element</td></tr>
-      <tr><td>data-tooltipClass</td><td>The tooltip css class applied to the label</td></tr>
-      <tr><td>data-tooltipTextClass</td><td>Tooltip text css specification</td></tr>
-      <tr><td>data-sanwafErrorTableClass</td><td>When displaying errors on the page, a table in inserted using this css class</td></tr>
-      <tr><td>data-sanwafErrorTableTdKeyClass</td><td>The css class for the key section of the sanwaf-ui error table</td></tr>
-      <tr><td>data-sanwafErrorTableTdDescClass</td><td>The css class for the value section of the sanwaf-ui error table</td></tr>
+      <tr><td>data-sw-labelClass</td><td>Sets the color for the label of the error'd element</td></tr>
+      <tr><td>data-sw-inputClass</td><td>Sets the color of the input text of the error'd element</td></tr>
+      <tr><td>data-sw-tooltipClass</td><td>The tooltip css class applied to the label</td></tr>
+      <tr><td>data-sw-tooltipTextClass</td><td>Tooltip text css specification</td></tr>
+      <tr><td>data-sw-sanwafErrorTableClass</td><td>When displaying errors on the page, a table in inserted using this css class</td></tr>
+      <tr><td>data-sw-sanwafErrorTableTdKeyClass</td><td>The css class for the key section of the sanwaf-ui error table</td></tr>
+      <tr><td>data-sw-sanwafErrorTableTdDescClass</td><td>The css class for the value section of the sanwaf-ui error table</td></tr>
     </table>
     
     <b>Optional Error Message Attributes</b> (default values will be used if not specified)
     <table class="table-compact-1">
       <tr><td><b>Attribute</b></td><td><b>Description</b></td></tr>
-      <tr><td>data-errorPopHeader1</td><td>header line 1 used with pop-up dialog</td></tr>
-      <tr><td>data-errorPopHeader2</td><td>header line 2 used with pop-up dialog</td></tr>
-      <tr><td>data-errorRequired</td><td>Error message for <b>Required</b> violations</td></tr>
-      <tr><td>data-errorMax</td><td>Error message for <b>Max Length</b> violations</td></tr>
-      <tr><td>data-errorMin</td><td>Error message for <b>Min Length</b> violations</td></tr>
-      <tr><td>data-errorMaxMinEqual</td><td>Error message for when Min &amp; Max length are equal</td></tr>
-      <tr><td>data-errorMaxValue</td><td>Error message for <b>Max Value</b> violations</td></tr>
-      <tr><td>data-errorMinValue</td><td>Error message for <b>Min Value</b> violations</td></tr>
-      <tr><td>data-errorRelated</td><td>Error message for <b>Relationship</b> violations</td></tr>
-      <tr><td>data-errorTypeChar</td><td>Error message for <b>Character</b> data type violations</td></tr>
-      <tr><td>data-errorTypeNumeric</td><td>Error message for <b>Numeric</b> data type violations</td></tr>
-      <tr><td>data-errorTypeNumericDelimited</td><td>Error message for <b>Numeric Delimited</b> data type violations</td></tr>
-      <tr><td>data-errorTypeInteger</td><td>Error message for <b>Integer</b> data type violations</td></tr>
-      <tr><td>data-errorTypeIntegerDelimited</td><td>Error message for <b>Integer Delimited</b> data type violations</td></tr>
-      <tr><td>data-errorTypeAlphanumeric</td><td>Error message for <b>Alphanumeric</b> data type violations</td></tr>
-      <tr><td>data-errorTypeAlphanumericAndMore</td><td>Error message for <b>Alphanumeric and more</b> data type violations</td></tr>
-      <tr><td>data-errorTypeConstant</td><td>Error message for <b>Constant</b> data type violations</td></tr>
-      <tr><td>data-errorTypeRegex</td><td>Error message for <b>Regex</b> data type violations</td></tr>
-      <tr><td>data-errorTypeFormat</td><td>Error message for <b>Format</b> violations</td></tr>
-      <tr><td>data-errorTypeDependentFormat</td><td>Error message for <b>Dependent Format</b> violations</td></tr>
+      <tr><td>data-sw-errorPopHeader1</td><td>header line 1 used with pop-up dialog</td></tr>
+      <tr><td>data-sw-errorPopHeader2</td><td>header line 2 used with pop-up dialog</td></tr>
+      <tr><td>data-sw-errorRequired</td><td>Error message for <b>Required</b> violations</td></tr>
+      <tr><td>data-sw-errorMaxLength</td><td>Error message for <b>Max Length</b> violations</td></tr>
+      <tr><td>data-sw-errorMinLength</td><td>Error message for <b>Min Length</b> violations</td></tr>
+      <tr><td>data-sw-errorMaxMinLengthEqual</td><td>Error message for when Min &amp; Max length are equal</td></tr>
+      <tr><td>data-sw-errorMaxValue</td><td>Error message for <b>Max Value</b> violations</td></tr>
+      <tr><td>data-sw-errorMinValue</td><td>Error message for <b>Min Value</b> violations</td></tr>
+      <tr><td>data-sw-errorRelated</td><td>Error message for <b>Relationship</b> violations</td></tr>
+      <tr><td>data-sw-errorTypeChar</td><td>Error message for <b>Character</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeNumeric</td><td>Error message for <b>Numeric</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeNumericDelimited</td><td>Error message for <b>Numeric Delimited</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeInteger</td><td>Error message for <b>Integer</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeIntegerDelimited</td><td>Error message for <b>Integer Delimited</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeAlphanumeric</td><td>Error message for <b>Alphanumeric</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeAlphanumericAndMore</td><td>Error message for <b>Alphanumeric and more</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeConstant</td><td>Error message for <b>Constant</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeRegex</td><td>Error message for <b>Regex</b> data type violations</td></tr>
+      <tr><td>data-sw-errorTypeFormat</td><td>Error message for <b>Format</b> violations</td></tr>
+      <tr><td>data-sw-errorTypeDependentFormat</td><td>Error message for <b>Dependent Format</b> violations</td></tr>
     </table>
     <br/>
-    <h2 id="sanwafuiactions">data-errorActions &amp; data-blurActions</h2>
+    <h2 id="sanwafuiactions">data-sw-errorActions &amp; data-sw-blurActions</h2>
     <table class="table-instructions-inline-block">
       <tr><td>The following error actions can be used individually or cumulatively.</td><td></td></tr>
-      <tr><td>For example:</td><td>to set the display type to have the error message hover on the label and change the labels color:</td></tr>
-      <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;<b>displayType="hoverlabel,colorlabel"</b></td></tr>
+      <tr><td>For example:</td><td>to set the error actions to have the error message hover on the label and change the labels color:</td></tr>
+      <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;<b>data-sw-errorActions="hoverlabel,colorlabel"</b></td></tr>
+      <tr><td></td><td>&nbsp;&nbsp;&nbsp;&nbsp;<b>data-sw-blurActions="hoverlabel,colorlabel"</b></td></tr>
     </table>
     <table class="table-instructions">
       <tr><td><b>Action</b></td><td><b>Description</b></td></tr>
@@ -405,7 +390,6 @@
       <tr><td>hoverShowLabel</td><td>Include the associated label text in the hover message</td></tr>
       <tr><td>colorLabel</td><td>Change the color of the label to the value specified in the .sanwafuiLabel css configuration in the sanwaf-ui.css file</td></tr>
       <tr><td>colorInput</td><td>Change the color of the input element to the value specified in the .sanwafinput css configuration in the sanwaf-ui.css file</td></tr>
-      <tr><td>onFocusDisableColors</td><td>When an element gets focus, remove all error coloring (element &amp; label)</td></tr>
       <tr><td>showOnPage</td><td>Element id to be made visible if an error is detected (to provide custom message)</td></tr>
       <tr><td>showOnPageSanwafTable</td><td>Element id to insert the Sanwaf-ui table of errors</td></tr>
       <tr><td>alertWithPopup</td><td>Show an alert dialog containing the Sanwaf-ui errors</td></tr>
@@ -418,9 +402,9 @@
       <tr><td>data-sw-display</td><td>Name Associated with the widget that will be used for display in error messages.</td></tr>
       <tr><td>data-sw-label-id</td><td>Id of Label associated with the element that will be used for errors (change color & tooltips).<br/>if not provided, Sanwaf uses the label's 'for' attribute.</td></tr>
       <tr><td><a href="#sanwafuidatatype">data-sw-type</a></td><td>Data type of the element</td></tr>
-      <tr><td>data-sw-req</td><td>Makes the element a mandatory field</td></tr>
-      <tr><td>data-sw-max</td><td>Maximum character limit</td></tr>
-      <tr><td>data-sw-min</td><td>Minimum character limit</td></tr>
+      <tr><td>data-sw-required</td><td>Makes the element a mandatory field</td></tr>
+      <tr><td>data-sw-max-length</td><td>Maximum character limit</td></tr>
+      <tr><td>data-sw-min-length</td><td>Minimum character limit</td></tr>
       <tr><td>data-sw-max-value</td><td>Maximum value for the given type</td></tr>
       <tr><td>data-sw-min-value</td><td>Minimum value for the given type</td></tr>
       <tr><td><a href="#data-sw-related">data-sw-related</a></td><td>Relate fields. format: [related-to-element:type] where type is '=' or 'value'</td></tr>
@@ -622,12 +606,12 @@
       <tr><td>A Format is way to best fit a user's entry into a mask</td><td></td></tr>
       <tr><td>Sanwaf-ui automatically sets an oninput event handler to elements that have the format data type.  the event handler formats as the user enters data</td><td></td></tr>
       <tr><td>Four special characters are provided to be used in formats:</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;#</td><td> - accepts a number</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;#[]</td><td> - accepts a number within a range: #[1-12]<br/> - accepts a number meeting a specified set of values: #[4,5,6]<br/> - accepts a number bound by date settings: #[yy-yy(+10)]<br/>&nbsp;&nbsp;&nbsp;Supported date variables include: yy, yyyy, mm, dd<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Format: #[ variable( <+/-> # ) ]<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example: #[ yy( -10 ) - yy( +10 ) ]  - accepts a year in 'yy' format in the range of up to 10 years old to 10 years in the future</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;A</td><td> - accepts an Uppercase Alphabetic character</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;a</td><td> - accepts a lowercase Alphabetic character</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;c</td><td> - accepts an Alphabetic character of any case</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;x</td><td> - accepts any character of any case</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b>#</b></td><td> - accepts a number</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b>#[ ]</b></td><td> - accepts a number within a range: #[1-12]<br/> - accepts a number meeting a specified set of values: #[4,5,6]<br/> - accepts a number bound by date settings: #[yy-yy(+10)]<br/>&nbsp;&nbsp;&nbsp;Supported date variables include: yy, yyyy, mm, dd<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Format: #[ variable( <+/-> # ) ]<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example: #[ yy( -10 ) - yy( +10 ) ]  - accepts a year in 'yy' format in the range of up to 10 years old to 10 years in the future</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b>A</b></td><td> - accepts an Uppercase Alphabetic character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b>a</b></td><td> - accepts a lowercase Alphabetic character</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b>c</b></td><td> - accepts an Alphabetic character of any case</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b>x</b></td><td> - accepts any character of any case</td><td></td></tr>
       <tr><td>Use a combination of the special and non-special characters to create formats</td><td></td></tr>
       <tr><td>To use the four special characters in the format itself, you will need to escape them:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;\#  \A  \a  \c \x \[ \] \|</td><td></td></tr>
@@ -739,10 +723,10 @@
     </table>
     <table class="table-instructions-no-border">
       <tr><td><b>Value</b></td><td><b>Description</b></td></tr>
-      <tr><td>none</td><td>":relationshipSpecificationPart" NOT specified makes the element required if the RelatedToElementPart has any value<br/>&nbsp;&nbsp;for example: data-sw_related="someElement"</td></tr>
-      <tr><td>=</td><td>Makes the element required if the RelatedToElementPart is populated; values must equal each other<br/>&nbsp;&nbsp;for example: data-sw_related="password <b>:</b> ="<br/>&nbsp;&nbsp;Note if you want to disallow cut &amp; paste operations use the html attribute: onpaste="return false;" ondrop="return false;"</td></tr>
-      <tr><td>value</td><td>Makes the element required if the RelatedToElementPart.value equals the value specified<br/>&nbsp;&nbsp;for example: data-sw_related="someElement <b>:</b> someValue"</td></tr>
-      <tr><td>value1||value2</td><td>Makes the element required if the RelatedToElementPart.value equals any of the value specified<br>&nbsp;&nbsp;for example: data-sw_related="someElement <b>:</b> value1 || value2"</td></tr>
+      <tr><td>none</td><td>":relationshipSpecificationPart" NOT specified makes the element required if the RelatedToElementPart has any value<br/>&nbsp;&nbsp;for example: data-sw-related="someElement"</td></tr>
+      <tr><td>=</td><td>Makes the element required if the RelatedToElementPart is populated; values must equal each other<br/>&nbsp;&nbsp;for example: data-sw-related="password <b>:</b> ="<br/>&nbsp;&nbsp;Note if you want to disallow cut &amp; paste operations use the html attribute: onpaste="return false;" ondrop="return false;"</td></tr>
+      <tr><td>value</td><td>Makes the element required if the RelatedToElementPart.value equals the value specified<br/>&nbsp;&nbsp;for example: data-sw-related="someElement <b>:</b> someValue"</td></tr>
+      <tr><td>value1||value2</td><td>Makes the element required if the RelatedToElementPart.value equals any of the value specified<br>&nbsp;&nbsp;for example: data-sw-related="someElement <b>:</b> value1 || value2"</td></tr>
     </table>
     <table class="table-instructions-inline-block">
       <tr><td>For complex relationships, encapsulate the 2 part format with parenthesis's "( RelatedToElementPart <b>:</b> RelationshipSpecificationPart )" and specify the &amp;&amp; and/or the || operators</td><td></td></tr>
@@ -758,9 +742,9 @@
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="pass1">Password</label></td>
-                <td><input type="password" id="pass1" name="pass1" size="20" data-sw-display="Password" data-sw-type="s" data-sw-min="4" data-sw-max="10"/></td>
+                <td><input type="password" id="pass1" name="pass1" size="20" data-sw-display="Password" data-sw-type="s" data-sw-min-length="4" data-sw-max-length="10"/></td>
                 <td><label for="pass2">Confirm Password</label></td>
-                <td><input type="password" id="pass2" name="pass2" size="20" data-sw-display="Confirm Password" data-sw-type="s" data-sw-related="pass1:=" data-sw-min="4" data-sw-max="10" />  <input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemopassword)"/></td>
+                <td><input type="password" id="pass2" name="pass2" size="20" data-sw-display="Confirm Password" data-sw-type="s" data-sw-related="pass1:=" data-sw-min-length="4" data-sw-max-length="10" />  <input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemopassword)"/></td>
               </tr>
             </table>
           </form>
@@ -779,7 +763,7 @@
                 <td><label for="allergies">Do you have food allergies</label></td>
                 <td><select size="1" id="allergies"><option value="Yes">Yes</option><option value="No">No</option></select></td>
                 <td><label for="foodsallergicto">foods allergic to</label></td>
-                <td><input type="text" id="foodsallergicto" name="foodsallergicto" data-sw-display="Foods allergic to" data-sw-type="s" data-sw-max="30" data-sw-min="0" data-sw-related="allergies:Yes"/> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemoEqualValue)"/></td>
+                <td><input type="text" id="foodsallergicto" name="foodsallergicto" data-sw-display="Foods allergic to" data-sw-type="s" data-sw-max-length="30" data-sw-min-length="0" data-sw-related="allergies:Yes"/> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemoEqualValue)"/></td>
               </tr>
             </table>
           </form>
@@ -800,7 +784,7 @@
                 <td><label for="weights">Lift weights</label></td>
                 <td><select size="1" id="weights"><option value="Yes">Yes</option><option value="No">No</option></select></td>
                 <td><label for="duration">Duration Exercising</label></td>
-                <td><input type="text" id="duration" name="duration" data-sw-display="Duration of all exersizes" data-sw-type="s" data-sw-max="30" data-sw-min="0" data-sw-related="(jog:Yes)||(weights:Yes)"/></td>
+                <td><input type="text" id="duration" name="duration" data-sw-display="Duration of all exersizes" data-sw-type="s" data-sw-max-length="30" data-sw-min-length="0" data-sw-related="(jog:Yes)||(weights:Yes)"/></td>
                 <td></td><td><input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemoOrCondition)"/></td><td></td>
               </tr>
             </table>
