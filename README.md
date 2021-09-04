@@ -76,11 +76,11 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 		type="text" id="carModel" name="carModel"
 		data-sw-display="Car Model"
 		data-sw-type="s"
-		data-sw-max="30"
+		data-sw-max-length="30"
 		data-sw-max-value="100"
-		data-sw-min="0"
+		data-sw-min-length="0"
 		data-sw-min-value="0"
-		data-sw-req="true"
+		data-sw-required="true"
 		data-sw-related="haveCar:Yes"
 		data-sw-err-msg="Car Model must be entered if you own a car"
         />
@@ -129,9 +129,9 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   	numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
 					  Defaults to: -1
   	errorActions                  	- Action(s)s to take when an error is found on a submit.  
-					  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors,showOnPage,showOnPageSanwafTable,alertWithPopup
+					  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup
 	blurActions                  	- Action(s) to take when a field is blurred.  
-	 				  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput,onFocusDisableColors 
+	 				  Defaults to: hoverOnLabel,hoverShowLabel,colorLabel,colorInput 
   	showOnPageElementId             - Optional element to wrap the sanwaf-ui errors that will be made visible if errors are detected. 
 					  Defaults to: sanwafuierrorwrapper
   	showOnPageSanwafTableElementId  - Optional element to set a table of sanwaf-ui errors (configurable by css).  
@@ -155,8 +155,8 @@ Use your own CSS classes by setting the following attributes to classes defined 
 	data-errorPopHeader1 			- header line 1 used with pop-up dialog
 	data-errorPopHeader2 			- header line 2 used with pop-up dialog
 	data-errorRequired 			- Error message for **Required** violations
-	data-errorMax 				- Error message for **Max Length** violations
-	data-errorMin 				- Error message for **Min Length** violations
+	data-errorMaxLength			- Error message for **Max Length** violations
+	data-errorMinLength			- Error message for **Min Length** violations
 	data-errorMaxMinEqual 			- Error message for when Min & Max length are equal
 	data-errorMaxValue 			- Error message for **Max Value** violations
 	data-errorMinValue 			- Error message for **Min Value** violations
@@ -192,7 +192,6 @@ to set the display type to have the error message hover on the label and change 
 	hoverShowLabel 		- Include the associated label text in the hover message
 	colorLabel 		- Change the color of the label 
 	colorInput 		- Change the color of the input element 
-	onFocusDisableColors 	- When an element gets focus, remove all error coloring (element & label)
 	showOnPage 		- Element id to be made visible if an error is detected (to provide custom message)
 	showOnPageSanwafTable 	- Element id to insert the Sanwaf-ui table of errors
 	alertWithPopup 		- Show an alert dialog containing the Sanwaf-ui errors
@@ -206,9 +205,9 @@ Sanwaf-ui Elements Attributes
 
 	data-sw-display 	- Name Associated with the widget that will be used for display in error messages.
 	data-sw-type 		- Data type of the element
-	data-sw-req 		- Makes the element a mandatory field
-	data-sw-max 		- Maximum character limit
-	data-sw-min 		- Minimum character limit
+	data-sw-required	- Makes the element a mandatory field
+	data-sw-max-length	- Maximum character limit
+	data-sw-min-length	- Minimum character limit
 	data-sw-max-value 	- Maximum value for the given type
 	data-sw-min-value 	- Minimum value for the given type
 	data-sw-related		- Relate fields. format: \[related-to-element:type\] where type is '=' or 'value'
