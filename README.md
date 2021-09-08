@@ -258,7 +258,7 @@ data-sw-type (data types)
 						Example: "Hello this string does not contain a XSS payload"
 
 	Open (o)				Open value.  
-                      				Any string provided, no regex's will run against this datatype        
+						Any string provided, no regex's will run against this datatype        
 					        Example: "Hello this string does contain a XSS payload <script>alert(1)</script>"
 
 	Constant (k{})				Constant, must be equal to one of the values specified
