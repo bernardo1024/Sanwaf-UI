@@ -204,7 +204,8 @@ to set the error actions to have the error message hover on the label and change
 Sanwaf-ui Elements Attributes
 -----------------------------
 
-	data-sw-display 	- Name Associated with the widget that will be used for display in error messages.
+	data-sw-actions	 	- For Sanwaf-Server, specify the form actions/URIs associated with the elements (use the ::: seperator to specify multiple actions/URIs)
+	data-sw-display 	- Name Associated with the widget that will be used for display in error messages
 	data-sw-type 		- Data type of the element
 	data-sw-required	- Makes the element a mandatory field
 	data-sw-mask-err	- The a value you want to mask the entered value with for when you want to hide it from being displayed in an error message (passwords...)
