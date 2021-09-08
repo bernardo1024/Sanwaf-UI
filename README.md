@@ -257,7 +257,7 @@ data-sw-type (data types)
 						Format: s
 						Example: "Hello this string does not contain a XSS payload"
 
-	Open (o)				Open value.  
+	Open (o)				Open value
 						Any string provided, no regex's will run against this datatype        
 					        Example: "Hello this string does contain a XSS payload <script>alert(1)</script>"
 
