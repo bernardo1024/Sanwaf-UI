@@ -274,7 +274,7 @@ data-sw-type (data types)
 						Format	f{(###) ###-####}
 						Example	using f{(###) ###-####, (555) 123-4567 is valid
 
-	Dependent Format (f{})			Tries to best fit the data entered into the supplied mask that is derived from an elements value
+	Dependent Format (d{})			Tries to best fit the data entered into the supplied mask that is derived from an elements value
 						Format	d{element:value1=format1;value2=format2;...}
 						Example	using d{countr:USA=#####;Canada=A#A-#A#}, 55555 is valid if the element with id or name is equal to USA
 
