@@ -207,6 +207,7 @@ Sanwaf-ui Elements Attributes
 	data-sw-display 	- Name Associated with the widget that will be used for display in error messages.
 	data-sw-type 		- Data type of the element
 	data-sw-required	- Makes the element a mandatory field
+	data-sw-mask-err	- The a value you want to mask the entered value with for when you want to hide it from being displayed in an error message (passwords...)
 	data-sw-max-length	- Maximum character limit
 	data-sw-min-length	- Minimum character limit
 	data-sw-max-value 	- Maximum value for the given type
@@ -255,6 +256,10 @@ data-sw-type (data types)
 						All server side regex's in the autoRunPatterns are executed against the string
 						Format: s
 						Example: "Hello this string does not contain a XSS payload"
+
+	Open (o)				Open value.  
+                      				Any string provided, no regex's will run against this datatype        
+					        Example: "Hello this string does contain a XSS payload <script>alert(1)</script>"
 
 	Constant (k{})				Constant, must be equal to one of the values specified
 						Format: k{<comma separated list of strings>}
