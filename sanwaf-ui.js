@@ -452,6 +452,9 @@ function loadTags(e) {
     e.swReq = true;
   }
   e.swReqIsInError = false;
+  
+  e.swMaskErr = getAttribute(e, "data-sw-mask-err", "");
+  
   if (e.swType.startsWith('f{')) {
     e.swFormat = e.swType.substring(2, e.swType.length - 1);
   } else if (e.swType.startsWith('d{')) {
@@ -1481,7 +1484,7 @@ function isElementValid(e, err) {
     isAlphanumericValid(e, err);
   } else if (type == 'a{') {
     isAlphanumericAndAdditionalValid(e, err);
-  } else if (type == 's') {
+  } else if (type == 's' || type == 'o') {
     isStringValid(e, err);
   } else if (type == 'k{') {
     isConstantValid(e, err);

@@ -127,18 +127,20 @@
           <td>Required. format: "##### || #####-#### || A#A-#A#"</td>
         </tr>
         <tr>
-          <!-- Sanwaf-ui code - Note that password field does not set the data-sw-display attribute, 
+          <!-- Sanwaf-ui code - Password fields should use the type 'o' (OPEN) to allow any characters.  
+                                Type 's' will run regex's on the server that might interfere with a password.
+                                Note that password field does not set the data-sw-display attribute, 
                                 so the associated label will be used instead.  
                                 This also works when using the data-sw-latbel-id attribute (see confirm password below)-->  
           <td><label for="password">Password</label></td>
-          <td><input type="password" id="password" name="password" size="20" data-sw-type="s" data-sw-max-length="30" data-sw-min-length="8" /></td>
+          <td><input type="password" id="password" name="password" size="20" data-sw-type="o" data-sw-max-length="30" data-sw-min-length="8" /></td>
           <td>Max = 10 chars, Min = 4 chars. If entered, confirm password must have the same value</td>
         </tr>
         <tr>
           <td><label id="confirmPasswordLabel">Confirm Password</label></td>
           <!-- Sanwaf-ui code - Note the 'data-sw-related' attribute that makes the 'confirmPassword' required if the password element is entered. 
           					    Additionally, the values must equal each other  as the relationship is "=" -->  
-          <td><input type="password" id="confirmPassword" name="confirmPassword" size="20" data-sw-type="s" data-sw-related="password:=" data-sw-max-length="30" data-sw-min-length="8" data-sw-label-id="confirmPasswordLabel" /></td>
+          <td><input type="password" id="confirmPassword" name="confirmPassword" size="20" data-sw-type="o" data-sw-related="password:=" data-sw-max-length="30" data-sw-min-length="8" data-sw-label-id="confirmPasswordLabel" /></td>
           <td>Max = 10 chars, Min = 4 chars. Required only if above field entered</td>
         </tr>
         <tr>
@@ -403,6 +405,7 @@
       <tr><td>data-sw-label-id</td><td>Id of Label associated with the element that will be used for errors (change color & tooltips).<br/>if not provided, Sanwaf uses the label's 'for' attribute.</td></tr>
       <tr><td><a href="#sanwafuidatatype">data-sw-type</a></td><td>Data type of the element</td></tr>
       <tr><td>data-sw-required</td><td>Makes the element a mandatory field</td></tr>
+      <tr><td>data-sw-mask-err</td><td>The a value you want to mask the entered value with for when you want to hide it from being displayed in an error message (passwords...)</td></tr>
       <tr><td>data-sw-max-length</td><td>Maximum character limit</td></tr>
       <tr><td>data-sw-min-length</td><td>Minimum character limit</td></tr>
       <tr><td>data-sw-max-value</td><td>Maximum value for the given type</td></tr>
@@ -492,6 +495,16 @@
             <tr><td>Description</td><td>Any string<br/>All regex's in the autoRunPatterns are executed against the string</td></tr>
             <tr><td>Format</td><td><b>s</b></td></tr>
             <tr><td>Example</td><td>"Hello this string does not contain a XSS payload"</td></tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>Open (o)</td>
+        <td>
+          <table>
+            <tr><td>Description</td><td>Open value<br/>Any string provided, no regex's will run against this data type<br/>designed for password fields where you don't want any restrictions</td></tr>
+            <tr><td>Format</td><td><b>o</b></td></tr>
+            <tr><td>Example</td><td>"Hello this string does contain a XSS payload &lt;script&gt;alert(1)&lt;/script&gt;"</td></tr>
           </table>
         </td>
       </tr>
