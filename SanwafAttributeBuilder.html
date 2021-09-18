@@ -1,0 +1,669 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <script src="sanwaf-ui-min-latest.js"></script>
+    <link rel="stylesheet" type="text/css" href="sanwaf-ui.css" media="screen" />
+    
+    <style>
+      * {Background: #322f2f; color: #d3d0d0; font-family: Arial;}
+      body {font-size: 1em;}
+    </style>
+  </head>
+  
+  <body>
+    <h1 id="top">Sanwaf Copy Code &amp; Attribute Builder Utility (beta)</h1>
+    <h2>Copy Code Fragments (steps 1-3, 5-6)</h2>
+    <label for="showfragshort">Short form</label><input type="checkbox" id="showfragshort" onchange="toggleFrags()" checked />
+    <label for="showfraglong">Long form</label><input type="checkbox" id="showfraglong" onchange="toggleFrags()" />
+    
+    <div id="fragmentShort">
+      <table>
+        <tr><td>
+          <input type="button" value="1. Import Sanwaf-UI JS" onclick="copyToClipboard('<script src=\'sanwaf-ui-min-latest.js\'></script>\n')"/>&nbsp;
+          <input type="button" value="2. Import Sanwaf-UI CSS" onclick="copyToClipboard('<link rel=\'stylesheet\' type=\'text/css\' href=\'sanwaf-ui.css\' media=\'screen\'/>\n')"/>&nbsp;
+          <input type="button" value="3. sanwafuiconfig div" onclick="copyToClipboard('<div id=\'sanwafUiConfig\' style=\'display:none\'\n\tdata-sw-numErrorsToDisplay=\'-1\'\n\tdata-sw-errorActions=\'hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup\'\n\tdata-sw-blurActions=\'hoverOnLabel,hoverShowLabel,colorLabel,colorInput\'\n\tdata-sw-showOnPageElementId=\'pageErrors\'\n\tdata-sw-showOnPageSanwafTableElementId=\'sanwafUiErrors\'\n\n\tdata-sw-labelClass=\'customLabel\'\n\tdata-sw-inputClass=\'customInput\'\n\tdata-sw-tooltipClass=\'customTooltip\'\n\tdata-sw-tooltipTextClass=\'customTooltiptext\'\n\tdata-sw-sanwafErrorTableClass=\'customErrorTable\'\n\tdata-sw-sanwafErrorTableTdKeyClass=\'customErrorTableTdKey\'\n\tdata-sw-sanwafErrorTableTdDescClass=\'customErrorTableTdDesc\'\n\n\tdata-sw-errorPopHeader1=\'Please Correct the Following Items (local)\'\n\tdata-sw-errorPopHeader2=\'------------------------------------------------------------------------------------ (local)\'\n\tdata-sw-errorMaxLength = \'Must be less than %1 characters (local)\'\n\tdata-sw-errorMinLength = \'Must be more than %1 characters (local)\'\n\tdata-sw-errorMaxMinLengthEqual = \'Must be %1 chars (local)\';\n\tdata-sw-errorRequired = \'Is a Required Field (local)\'\n\tdata-sw-errorMinValue = \'Must be more than %1 (local)\'\n\tdata-sw-errorMaxValue = \'Must be less than %1 (local)\'\n\tdata-sw-errorRelated = \'Must be entered when %1 is entered (local)\'\n\tdata-sw-errorRelatedNotEqual = \'%1 must have the same value as %2 (local)\'\n\n\tdata-sw-errorTypeChar = \'Character (local)\';\n\tdata-sw-errorTypeNumeric = \'Must be numeric (local)\';\n\tdata-sw-errorTypeNumericDelimited = \'Must be numeric delimited by %1 (local)\';\n\tdata-sw-errorTypeInteger = \'Must be an integer (local)\';\n\tdata-sw-errorTypeIntegerDelimited = \'Must be an integer delimited by %1 (local)\';\n\tdata-sw-errorTypeAlphanumeric = \'Must be alphanumeric (local)\';\n\tdata-sw-errorTypeAlphanumericAndMore = \'Must be alphanumeric or one of the following (%1) characters (local)\';\n\tdata-sw-errorTypeConstant = \'Must be one of the following: %1 (local)\';\n\tdata-sw-errorTypeRegex = \'Must match the regex (local)\';\n\tdata-sw-errorTypeFormat = \'Must match the format (local)\';\n\tdata-sw-errorTypeDependentFormat = \'Must match the dependent format (local)\';\n></div>\n')"/>&nbsp;
+          <input type="button" value="5. Validate form" onclick="copyToClipboard('isSanwafUiFormValid(form)')"/>&nbsp;
+          <input type="button" value="6. Initialize Sanwaf-UI" onclick="copyToClipboard('<script>initSanwafui()</script>\n')"/>&nbsp;&nbsp;&nbsp;
+          <input type="button" value="Copy Steps 1, 2, 4, 6" onclick="copyToClipboard('<script src=\'sanwaf-ui-min-latest.js\'></script>\n<link rel=\'stylesheet\' type=\'text/css\' href=\'sanwaf-ui.css\' media=\'screen\'/>\nisSanwafUiFormValid(form)\n<script>initSanwafui()</script>\n')"/>        </td></tr>
+      </table>
+    </div>
+    <div id="fragmentLong" style="display: none">
+      <table>
+        <tr><td>1.</td><td>Import Sanwaf-UI.js</td><td><input type="button" value="copy" onclick="copyToClipboard('<script src=\'sanwaf-ui-min-latest.js\'></script>')"/></td></tr>
+        <tr><td>2.</td><td>Import Sanwaf-UI.css</td><td><input type="button" value="copy" onclick="copyToClipboard('<link rel=\'stylesheet\' type=\'text/css\' href=\'sanwaf-ui.css\' media=\'screen\'/>')"/></td></tr>
+        <tr><td>3.</td><td>sanwafuiconfig div</td><td><input type="button" value="copy" onclick="copyToClipboard('<div id=\'sanwafUiConfig\' style=\'display:none\'\n\tdata-sw-numErrorsToDisplay=\'-1\'\n\tdata-sw-errorActions=\'hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup\'\n\tdata-sw-blurActions=\'hoverOnLabel,hoverShowLabel,colorLabel,colorInput\'\n\tdata-sw-showOnPageElementId=\'pageErrors\'\n\tdata-sw-showOnPageSanwafTableElementId=\'sanwafUiErrors\'\n\n\tdata-sw-labelClass=\'customLabel\'\n\tdata-sw-inputClass=\'customInput\'\n\tdata-sw-tooltipClass=\'customTooltip\'\n\tdata-sw-tooltipTextClass=\'customTooltiptext\'\n\tdata-sw-sanwafErrorTableClass=\'customErrorTable\'\n\tdata-sw-sanwafErrorTableTdKeyClass=\'customErrorTableTdKey\'\n\tdata-sw-sanwafErrorTableTdDescClass=\'customErrorTableTdDesc\'\n\n\tdata-sw-errorPopHeader1=\'Please Correct the Following Items (local)\'\n\tdata-sw-errorPopHeader2=\'------------------------------------------------------------------------------------ (local)\'\n\tdata-sw-errorMaxLength = \'Must be less than %1 characters (local)\'\n\tdata-sw-errorMinLength = \'Must be more than %1 characters (local)\'\n\tdata-sw-errorMaxMinLengthEqual = \'Must be %1 chars (local)\';\n\tdata-sw-errorRequired = \'Is a Required Field (local)\'\n\tdata-sw-errorMinValue = \'Must be more than %1 (local)\'\n\tdata-sw-errorMaxValue = \'Must be less than %1 (local)\'\n\tdata-sw-errorRelated = \'Must be entered when %1 is entered (local)\'\n\tdata-sw-errorRelatedNotEqual = \'%1 must have the same value as %2 (local)\'\n\n\tdata-sw-errorTypeChar = \'Character (local)\';\n\tdata-sw-errorTypeNumeric = \'Must be numeric (local)\';\n\tdata-sw-errorTypeNumericDelimited = \'Must be numeric delimited by %1 (local)\';\n\tdata-sw-errorTypeInteger = \'Must be an integer (local)\';\n\tdata-sw-errorTypeIntegerDelimited = \'Must be an integer delimited by %1 (local)\';\n\tdata-sw-errorTypeAlphanumeric = \'Must be alphanumeric (local)\';\n\tdata-sw-errorTypeAlphanumericAndMore = \'Must be alphanumeric or one of the following (%1) characters (local)\';\n\tdata-sw-errorTypeConstant = \'Must be one of the following: %1 (local)\';\n\tdata-sw-errorTypeRegex = \'Must match the regex (local)\';\n\tdata-sw-errorTypeFormat = \'Must match the format (local)\';\n\tdata-sw-errorTypeDependentFormat = \'Must match the dependent format (local)\';\n></div>')"/></tr>
+        <tr><td>4a.</td><td>method to validate form</td><td><input type="button" value="copy" onclick="copyToClipboard('isSanwafUiFormValid(form)')"/></td></tr>
+        <tr><td>4b.</td><td>method to Blur element</td><td><input type="button" value="copy" onclick="copyToClipboard('sanwafUiBlurElement(element)')"/></td></tr>
+        <tr><td>4c.</td><td>method to validate element</td><td><input type="button" value="copy" onclick="copyToClipboard('isSanwafUiElementValid(form)')"/></td></tr>
+        <tr><td>4d.</td><td>method to get form errors (json)</td><td><input type="button" value="copy" onclick="copyToClipboard('sanwafGetFormErrors(form)')"/></td></tr>
+        <tr><td>4e.</td><td>method to get element errors (json)</td><td><input type="button" value="copy" onclick="copyToClipboard('sanwafGetElementErrors(element)')"/></td></tr>
+        <tr><td>6.</td><td>method to initialize sanwaf-ui </td><td><input type="button" value="copy" onclick="copyToClipboard('<script>initSanwafui()</script>')"/></td></tr>
+      </table>
+    </div>
+    
+    <h2>Build Custom Sanwaf-UI Attributes (step 4)</h2>
+    <form id="testForm">
+      <table>
+        <tr>
+          <td><label for="displayname">Display Name:</label></td>
+          <td><input type="text" id="displayname" name="displayname" size="18" onchange="updateAttributes()"/></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label for="placeholder">placeholder:</label></td>
+          <td><input type="text" id="placeholder" name="placeholder" size="18" onchange="updateAttributes()"/></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label for="labelid">Label Id</label></td>
+          <td><input type="text" id="labelid" name="labelid" size="18" onchange="updateAttributes()"/></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><Label for="errmsg">Error Msg</Label></td>
+          <td><input type="text" id="errmsg" name="errmsg" size="80" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;"><Label for="datatype">Data Type </Label></td>
+          <td>
+            <table>
+              <tr>
+                <td style="vertical-align: top;">
+                  <select name="datatype" id="datatype" onchange="updateAttributes()">
+                      <option value="Character">Character</option>
+                      <option value="Numeric">Numeric</option>
+                      <option value="NumericDelimited">Numeric Delimited</option>
+                      <option value="Integer">Integer</option>
+                      <option value="IntegerDelimited">Integer Delimited</option>
+                      <option value="Alphanumeric">Alphanumeric</option>
+                      <option value="AlphanumericAndMore">Alphanumeric &amp; more</option>
+                      <option value="String">String</option>
+                      <option value="Open">Open</option>
+                      <option value="Constant">Constant</option>
+                      <option value="Regex">Regex</option>
+                      <option value="Format">Format</option>
+                      <option value="DependentFormat">Dependent Format</option>
+                  </select>
+                </td>
+                <td>
+                  <div id="delimiter" style="display: none">
+                    <label> Delimiter: </label> <input type="text" id="delimiterdata" name="delimiterdata" size="1" onchange="updateAttributes()" />
+                  </div>
+                  <div id="additionalchars" style="display: none">
+                    <label> Additional Chars: </label> <input type="text" id="additionalcharsdata" name="additionalcharsdata" size="10" onchange="updateAttributes()" />
+                  </div>
+                  <div id="constantvalues" style="display: none">
+                    <label> Comma separated list of values: </label> <input type="text" id="constantvaluesdata" name="constantvaluesdata" size="30" onchange="updateAttributes()" />
+                  </div>
+                  <div id="regexvalue" style="display: none">
+                    <label id="regexvalue"> Regex: </label> <input type="text" id="regexvaluedata" name="regexvaluedata" size="30" onchange="updateAttributes()" />
+                  </div>
+                  <div id="format" style="display: none">
+                    <table style="margin:25px 0;min-width:700px;box-shadow:0 0 20px rgba(0, 0, 0, 0.15);border-spacing:10px;margin-left:10px;">
+                      <tr>
+                        <td>
+                          <div id="dformat"  style="display: none">
+                            <label id="dformatlabelparent" for="dformatparent"> Parent name or ID:</label> 
+                            <input type="text" id="dformatparent" name="dformatparent" size="21" onchange="updateAttributes()" />
+                            <label id="dformatlabelparent" for="dformatparenttrigger">, Trigger value:</label> 
+                            <input type="text" id="dformatparenttrigger" name="dformatparenttrigger" size="10" onchange="updateAttributes()" />
+                            <input type="button" value="New Trigger Value" onClick="addItemToFormat('newTrigger'); updateAttributes();"/>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <label id="formatlabel" for="formatdata"> Format:</label> <textarea id="formatdata" name="formatdata" rows="1" cols="40"></textarea>
+                          <input type="button" onclick="document.getElementById('formatdata').value = ''; document.getElementById('testformatdata').value = ''; updateAttributes();" value="clear"/>
+                          <label id="testFormatlabel" for="testformatdata">, Test:</label> <input type="text" id="testformatdata" name="testformatdata" size="20" data-sw-display="Test Format"/>
+                          <input type="button" onclick="" value="test" onClick="return isSanwafUiFormValid(testForm)"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;<b>Format Builder</b></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="." style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '.';addItemToFormat('isConstant')"/>
+                          <input type="button" value="," style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = ',';addItemToFormat('isConstant')"/>
+                          <input type="button" value=":" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = ':';addItemToFormat('isConstant')"/>
+                          <input type="button" value=";" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = ';';addItemToFormat('isConstant')"/>
+                          <input type="button" value="-" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '-';addItemToFormat('isConstant')"/>
+                          <input type="button" value="_" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '_';addItemToFormat('isConstant')"/>
+                          <input type="button" value="/" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '/';addItemToFormat('isConstant')"/>
+                          <input type="button" value="\s" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = ' ';addItemToFormat('isConstant')"/>
+                          <input type="button" value="~" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '~';addItemToFormat('isConstant')"/>
+                          <input type="button" value="!" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '!';addItemToFormat('isConstant')"/>
+                          <input type="button" value="@" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '@';addItemToFormat('isConstant')"/>
+                          <input type="button" value="$" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '$';addItemToFormat('isConstant')"/>
+                          <input type="button" value="%" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '%';addItemToFormat('isConstant')"/>
+                          <input type="button" value="&" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '&';addItemToFormat('isConstant')"/>
+                          <input type="button" value="*" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '*';addItemToFormat('isConstant')"/>
+                          <input type="button" value="+" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '+';addItemToFormat('isConstant')"/>
+                          <input type="button" value="=" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '=';addItemToFormat('isConstant')"/>
+                          <input type="button" value="?" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '?';addItemToFormat('isConstant')"/>
+                          <input type="button" value="|" style="font-size:20px;font-weight:bold;" onclick="document.getElementById('isConstantValue').value = '|';addItemToFormat('isConstant')"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isConstant')"/>&nbsp;<label>Fixed Value:</label>
+                          <input type="text" id="isConstantValue" name="isConstantValue" size="5"/>
+                          &nbsp;<input type="button" value="clear" onclick="document.getElementById('isConstantValue').value = ''"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>&nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isAny')"/>&nbsp;<label>Any Character</label></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isAlpha')"/>&nbsp;<label>Alphabetic (any case)</label>&nbsp;&nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isAlphaLower')"/>&nbsp;<label>Alphabetic (lower case)</label>&nbsp;&nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isAlphaUpper')"/>&nbsp;<label>Alphabetic (upper case)</label>&nbsp;&nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isNumeric')"/>&nbsp;<label>Numeric</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isNumericRange')"/>&nbsp;<label>Numeric Range</label>
+                          <label for="isNumericMin">, Min: </label><input type="text" id="isNumericMin" name="isNumericMin" size="2" data-sw-type="i" data-sw-min-value="0"/>
+                          <label for="isNumericMax">, Max: </label><input type="text" id="isNumericMax" name="isNumericMax" size="2" data-sw-type="i" data-sw-min-value="0"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isNumericValue')"/>&nbsp;<label>Numeric List of Values:</label>
+                          <input type="text" id="isNumericValue" name="isNumericValue" size="10" data-sw-type="i{,}" />
+                          (comma separated)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isNumericDateRange')"/>&nbsp;<label>Numeric Date Range</label>
+                          <label for="isNumericDateMin">, Min: </label>
+                          <select name="isNumericMinDatePlus" id="isNumericMinDatePlus">
+                            <option value="plus">+</option>
+                            <option value="minus">-</option>
+                          </select>
+                          <input type="text" id="isNumericDateMin" name="isNumericDateMin" size="3" data-sw-type="i" data-sw-min-value="0"/>
+                          <select name="isNumericMinDate" id="isNumericMinDate">
+                            <option value="dd">dd</option>
+                            <option value="mm">mm</option>
+                            <option value="yy">yy</option>
+                            <option value="yyyy">yyyy</option>
+                          </select>
+                          <label for="isNumericDateMax">, Max: </label>
+                          <select name="isNumericMaxDatePlus" id="isNumericMaxDatePlus">
+                            <option value="plus">+</option>
+                            <option value="minus">-</option>
+                          </select>
+                          <input type="text" id="isNumericDateMax" name="isNumericDateMax" size="3" data-sw-type="i" data-sw-min-value="0"/>
+                          <select name="isNumericMaxDate" id="isNumericMaxDate">
+                            <option value="dd">dd</option>
+                            <option value="mm">mm</option>
+                            <option value="yy">yy</option>
+                            <option value="yyyy">yyyy</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          &nbsp;&nbsp;<input type="button" value="Add" onclick="addOrToFormat(); updateAttributes();"/>&nbsp;<label>Another Format</label>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="maskerror">Mask Error with</label></td>
+          <td><input type="text" id="maskerror" name="maskerror" size="10"onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label for="isrequired">Required</label></td>
+          <td><input type="checkbox" id="isrequired" name="isrequired" value="isrequired" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label for="onpaste">Disable Paste</label></td>
+          <td><input type="checkbox" id="onpaste" name="onpaste" value="onpaste" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><label for="ondrop">Disable Drop</label></td>
+          <td><input type="checkbox" id="ondrop" name="ondrop" value="ondrop" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><Label for="minlen">Min Length</Label></td>
+          <td><input type="text" id="minlen" name="minlen" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><Label for="maxlen">Max Length</Label></td>
+          <td><input type="text" id="maxlen" name="maxlen" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><Label for="minvalue">Min Value</Label></td>
+          <td><input type="text" id="minvalue" name="minvalue" size="3" data-sw-type="n" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><Label for="maxvalue">Max Value</Label></td>
+          <td><input type="text" id="maxvalue" name="maxvalue" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;"><Label for="related">Related to</Label></td>
+          <td>
+
+
+
+            Element: <input type="text" id="relatedElement" name="relatedElement" size="18" /> 
+            <label for="relIsEqual"> By Equality</label><input type="checkbox" id="relIsEqual" name="relIsEqual" value="relIsEqual" onchange="relatedEqualClicked()" />
+            
+            <div id="relAndOr">
+              Value: <input type="text" id="relatedVal" name="relatedVal" size="18" onchange="updateAttributes()" />
+              <input type="button" value="OR" onclick="relatedAndOrClicked('||')" />
+              <input type="button" value="OR Group" onclick="relatedAndOrClicked(')||(')" />
+              <input type="button" value="AND" onclick="relatedAndOrClicked('&&')" />
+              <input type="button" value="AND Group" onclick="relatedAndOrClicked(')&&(')" />
+            </div>
+            <br/>
+            <input type="text" id="related" name="related" size="80" onchange="updateAttributes()" /> 
+            <input type="button" value="clear" onclick="document.getElementById('related').value=''" />
+
+            
+          
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="button" value="Clear Attribute Values" onclick="resetatts()" /></td>
+        </tr>
+      </table>
+    </form>
+    <br/>
+    <h3>Result</h3>
+    <table>
+      <tr>
+        <td><textarea id="result" name="result" rows="5" cols="100"></textarea></td>
+        <td><input type="button" value="copy" onclick="copy()"/>&nbsp;<input type="button" value="rebuild" onclick="updateAttributes()" /></td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h4>Test</h4>
+            <form id="testform" method="post" action="./someEndPoint">
+            <table>
+              <tr>
+                <td><label for="element" id="label">Label</label></td>
+                <td><input type="text" id="element" name="element" size="90"/></td>
+                <td><input type="button" value="validate" onClick="return isSanwafUiFormValid(testform)" />
+              </tr>
+            </table>
+          </form>
+        </td>
+        </tr>
+    </table>
+  
+  
+    <script>
+      function relatedEqualClicked(){
+        if(!document.getElementById('relIsEqual').checked){
+          document.getElementById('relAndOr').style.display='block'
+        } else { 
+          document.getElementById('relAndOr').style.display='none';
+          document.getElementById('related').value = document.getElementById('relatedElement').value + ":=";
+        }
+      }
+    
+      function relatedAndOrClicked(andOr){
+        var related = document.getElementById('related').value;
+        if(related && related.length > 0){
+          related = related + andOr;
+        }
+        else{
+          related = "";
+        }
+        document.getElementById('related').value = related + document.getElementById('relatedElement').value + ":" + document.getElementById('relatedVal').value;;
+      }
+      
+      function hideAllExtraFields(){
+        document.getElementById("delimiter").style.display = "none";
+        document.getElementById("additionalchars").style.display = "none";
+        document.getElementById("constantvalues").style.display = "none";
+        document.getElementById("regexvalue").style.display = "none";
+        document.getElementById("format").style.display = "none";
+        document.getElementById("dformat").style.display = "none";
+      }
+  
+      function clearFormatFields(){
+        document.getElementById("dformatparent").value = "";
+        document.getElementById("dformatparenttrigger").value = "";
+        document.getElementById("formatdata").value = "";
+        document.getElementById("testformatdata").value = "";
+        document.getElementById("isNumericMin").value = "";
+        document.getElementById("isNumericMax").value = "";
+        document.getElementById("isNumericDateMin").value = "";
+        document.getElementById("isNumericDateMax").value = "";
+        document.getElementById("isConstantValue").value = "";
+      }
+  
+      function updateAttributes() {
+        var attributeString = "";
+        var datatype = document.getElementById("datatype").value;
+       
+        hideAllExtraFields();
+  
+        if (datatype == "Character") {
+          swtype = "c";
+        } else if (datatype == "Numeric") {
+          swtype = "n";
+        } else if (datatype == "NumericDelimited") {
+          document.getElementById("delimiter").value = "";
+          document.getElementById("delimiter").style.display = "block";
+          swtype = "n{" + document.getElementById("delimiterdata").value + "}";
+        } else if (datatype == "Integer") {
+          swtype = "i";
+        } else if (datatype == "IntegerDelimited") {
+          document.getElementById("delimiter").value = "";
+          document.getElementById("delimiter").style.display = "block";
+          swtype = "i{" + document.getElementById("delimiterdata").value + "}";
+        } else if (datatype == "Alphanumeric") {
+          swtype = "a";
+        } else if (datatype == "AlphanumericAndMore") {
+          document.getElementById("additionalchars").value = "";
+          document.getElementById("additionalchars").style.display = "block";
+          swtype = "a{" + document.getElementById("additionalcharsdata").value + "}";
+        } else if (datatype == "String") {
+          swtype = "s";
+        } else if (datatype == "Open") {
+          swtype = "o";
+        } else if (datatype == "Constant") {
+          document.getElementById("constantvalues").value = "";
+          document.getElementById("constantvalues").style.display = "block";
+          swtype = "k{" + document.getElementById("constantvaluesdata").value + "}";
+        } else if (datatype == "Regex") {
+          document.getElementById("regexvalue").value = "";
+          document.getElementById("regexvalue").style.display = "block";
+          swtype = "r{" + document.getElementById("regexvaluedata").value + "}";
+        } else if (datatype == "Format") {
+          //clearFormatFields();
+          document.getElementById("format").style.display = "block";
+          swtype = "f{" + document.getElementById("formatdata").value + "}";
+        } else if (datatype == "DependentFormat") {
+          //clearFormatFields();
+          document.getElementById("format").style.display = "block";
+          document.getElementById("dformat").style.display = "block";
+          swtype = "d{" + document.getElementById("formatdata").value + "}";
+        }
+        attributeString += setTheAttribute("element", "data-sw-type", swtype);
+  
+        if (document.getElementById("isrequired").checked) {
+          attributeString += setTheAttribute("element", "data-sw-required", "true");
+        }
+  
+        attributeString += setTheAttribute("element", "data-sw-display", document.getElementById("displayname").value);
+        attributeString += setTheAttribute("element", "placeholder", document.getElementById("placeholder").value);
+        attributeString += setTheAttribute("element", "data-sw-label-id", document.getElementById("labelid").value);
+        attributeString += setTheAttribute("element", "data-sw-min-length", document.getElementById("minlen").value);
+        attributeString += setTheAttribute("element", "data-sw-max-length", document.getElementById("maxlen").value);
+        attributeString += setTheAttribute("element", "data-sw-min-value", document.getElementById("minvalue").value);
+        attributeString += setTheAttribute("element", "data-sw-max-value", document.getElementById("maxvalue").value);
+        attributeString += setTheAttribute("element", "data-sw-related", document.getElementById("related").value);
+        attributeString += setTheAttribute("element", "data-sw-mask-err", document.getElementById("maskerror").value);
+        
+        attributeString += setTheAttribute("element", "data-sw-err-msg", document.getElementById("errmsg").value);
+  
+        if (document.getElementById("onpaste").checked) {
+          attributeString += setTheAttribute("element", "onpaste", "return false");
+        }
+        if (document.getElementById("ondrop").checked) {
+          attributeString += setTheAttribute("element", "ondrop", "return false");
+        }
+        document.getElementById("result").value = attributeString;
+      }
+  
+      function setTheAttribute(element, key, value) {
+        if (value && value.length > 0) {
+          var att = document.createAttribute(key);
+          att.value = value;
+          document.getElementById(element).setAttributeNode(att);
+          return " " + key + '="' + value + '"';
+        }
+        return "";
+      }
+      
+      function addItemToFormat(datatype){
+        var newValue = "";
+        if(datatype == "isAny"){
+          newValue = "x";
+        } else if(datatype == "isAlpha"){
+          newValue = "c";
+        } else if(datatype == "isAlphaUpper"){
+          newValue = "A";
+        } else if(datatype == "isAlphaLower"){
+          newValue = "a";
+        } else if(datatype == "isNumeric"){
+          newValue = "#";
+        } else if(datatype == "isNumericRange"){
+          var min = document.getElementById("isNumericMin").value;
+          var max = document.getElementById("isNumericMax").value;
+          newValue = "#[" + min + "-" + max + "]";
+        } else if(datatype == "isNumericValue"){
+          var value = document.getElementById("isNumericValue").value;
+          newValue = "#[" + value + "]";
+        } else if(datatype == "isNumericDateRange"){
+          var minPlusMinus = document.getElementById("isNumericMinDatePlus").value;
+          if(minPlusMinus == "plus"){
+            minPlusMinus = "+";
+          }
+          else{
+            minPlusMinus = "-";
+          }
+          var min = document.getElementById("isNumericDateMin").value;
+          var mindmy = document.getElementById("isNumericMinDate").value;
+  
+          var maxPlusMinus = document.getElementById("isNumericMaxDatePlus").value;
+          if(maxPlusMinus == "plus"){
+            maxPlusMinus = "+";
+          }
+          else{
+            maxPlusMinus = "-";
+          }
+          var max = document.getElementById("isNumericDateMax").value;
+          var maxdmy = document.getElementById("isNumericMaxDate").value;
+  
+          if(min && min.length > 0){
+            min = "(" + minPlusMinus + min + ")" 
+          }
+          if(max && max.length > 0){
+            max = "(" + maxPlusMinus + max + ")" 
+          }
+          newValue = "#[" + mindmy + min + "-" + maxdmy + max + "]"; 
+        } else if(datatype == "isConstant"){
+          newValue = escapeSpecialChars(document.getElementById("isConstantValue").value);
+        }
+  
+        var oldVal = document.getElementById("formatdata").value;
+        if(!oldVal){
+          oldVal = "";
+        }
+        
+        var formatData = oldVal + newValue; 
+        var dependentFormatString = formatData;
+  
+        if(datatype == "newTrigger"){
+          //check if depending format is enabled
+          if(document.getElementById("datatype").value == "DependentFormat"){
+            var parent = document.getElementById("dformatparent").value;
+            var trigger = document.getElementById("dformatparenttrigger").value;
+            if(parent && parent.length > 0 && trigger && trigger.length > 0){
+              //is this the first or subsequent dependent entry?
+              var index = formatData.indexOf(":");
+              if(index > 0 && formatData.charAt(index - 1) != "\\"){
+                dependentFormatString = formatData + ";" + parent+ ":" + trigger + "=";
+              }
+              else{
+                dependentFormatString = parent+ ":" + trigger + "=" + formatData;
+              }
+            }
+          }
+        }
+        
+        document.getElementById("formatdata").value = dependentFormatString;
+        setTheAttribute("testformatdata", "data-sw-type", "f{" + oldVal + newValue + "}");
+        initSanwafui();
+      }
+      
+      function copy(text){
+        if(text && text.length > 0){
+          
+        }
+        var copyText = document.getElementById("result");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+      }
+      
+      function copyToClipboard(text) {
+        if (window.clipboardData && window.clipboardData.setData) {
+            // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+            return window.clipboardData.setData("Text", text);
+  
+        }
+        else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = text;
+            textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            }
+            catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                return false;
+            }
+            finally {
+                document.body.removeChild(textarea);
+            }
+        }
+      }
+
+      function escapeSpecialChars(s){
+        s = s.replaceAll("#", "\\#");
+        s = s.replaceAll("A", "\\A");
+        s = s.replaceAll("a", "\\a");
+        s = s.replaceAll("c", "\\c");
+        s = s.replaceAll("[", "\\[");
+        s = s.replaceAll("]", "\\]");
+        s = s.replaceAll("|", "\\|");
+        s = s.replaceAll("x", "\\x");
+    	  return s;
+      }
+    
+      function addOrToFormat(){
+        document.getElementById("formatdata").value += "||";
+      }
+      
+	  function toggleFrags(){
+	    if(document.getElementById("showfragshort").checked){
+        	document.getElementById("fragmentShort").style.display = "block";
+    	}
+    	else{
+        	document.getElementById("fragmentShort").style.display = "none";
+    	}
+
+	    if(document.getElementById("showfraglong").checked){
+        	document.getElementById("fragmentLong").style.display = "block";
+    	}
+	    else{
+        	document.getElementById("fragmentLong").style.display = "none";
+    	}
+	  }
+	  
+	  function resetatts(){
+	    document.getElementById("displayname").value = "";
+	    document.getElementById("placeholder").value = "";
+	    document.getElementById("labelid").value = "";
+	    document.getElementById("errmsg").value = "";
+	    document.getElementById("datatype").value = "Character";
+	    document.getElementById("delimiterdata").value = "";
+	    document.getElementById("additionalcharsdata").value = "";
+	    document.getElementById("constantvaluesdata").value = "";
+	    document.getElementById("regexvaluedata").value = "";
+	    document.getElementById("dformatparent").value = "";
+	    document.getElementById("dformatparenttrigger").value = "";
+	    document.getElementById("formatdata").value = "";
+	    document.getElementById("testformatdata").value = "";
+	    document.getElementById("isNumericMin").value = "";
+	    document.getElementById("isNumericMax").value = "";
+	    document.getElementById("isNumericValue").value = "";
+
+
+	    document.getElementById("isNumericMinDatePlus").value = "plus";
+	    document.getElementById("isNumericDateMin").value = "";
+	    document.getElementById("isNumericMinDate").value = "dd";
+
+	    document.getElementById("isNumericMaxDatePlus").valuel = "plus";
+	    document.getElementById("isNumericDateMax").value = "";
+	    document.getElementById("isNumericMaxDate").value = "dd";
+
+	    document.getElementById("maskerror").value = "";
+	    document.getElementById("isrequired").checked = false;
+	    document.getElementById("onpaste").checked = false;
+	    document.getElementById("ondrop").checked = false;
+	    document.getElementById("minlen").value = "";
+	    document.getElementById("maxlen").value = "";
+	    document.getElementById("minvalue").value = "";
+	    document.getElementById("maxvalue").value = "";
+	    document.getElementById("relatedElement").value = "";
+	    document.getElementById("relIsEqual").checked = false;
+	    document.getElementById("relatedVal").value = "";
+	    document.getElementById("related").value = "";
+	    document.getElementById("result").value = "";
+	    document.getElementById("element").value = "";	    
+	  }
+
+    </script>
+  
+  
+    <br/>
+    <br/>
+    <br/>
+    <h6 id="top">Version: 0.0.1 - &copy; 2021 Bernardo Sanchez (bernardo.toronto@owasp.org)</h6>
+    <script>initSanwafui();</script>
+  </body>
+</html>

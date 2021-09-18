@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="sanwaf-ui-demo.css" media="screen" />  
     <!-- Sanwaf-ui code - STEP 1. import sanwaf-ui.js -->
-    <script src="sanwaf-ui-0.1.1.min.js"></script>
+    <script src='sanwaf-ui-min-latest.js'></script>
 
     <!-- Sanwaf-ui code - STEP 2. import sanwaf-ui.css (optional see STEP 2a. below) -->
     <link rel="stylesheet" type="text/css" href="sanwaf-ui.css" media="screen" />  
@@ -30,7 +30,7 @@
     <!-- Sanwaf-ui code - 2nd block below - override default class's used by sanwaf-ui -->
     <!-- Sanwaf-ui code - 3rd block below - override sanwaf-ui default attribute error messages -->
     <!-- Sanwaf-ui code - 4th block below - override default data type error messages -->
-	<!--    
+	<!-- 
     <div id="sanwafUiConfig" style="display:none"
       data-sw-numErrorsToDisplay="-1" 
       data-sw-errorActions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup"
@@ -184,7 +184,7 @@
     <script>
       function togleDisplayType(refresh){
         var att = document.createAttribute("data-sw-errorActions");
-        att.value = "";
+        att.value = " ";
         if(document.getElementById("hoverOnLabel").checked){ att.value += "hoverOnLabel,"; }
         if(document.getElementById("hoverShowLabel").checked){ att.value += "hoverShowLabel,"; }
         if(document.getElementById("colorLabel").checked){ att.value += "colorLabel,"; }
@@ -200,7 +200,7 @@
         document.getElementById("sanwafUiConfig").setAttributeNode(att);
 
         att = document.createAttribute("data-sw-blurActions");
-        att.value = "";
+        att.value = " ";
         if(document.getElementById("hoverOnLabel").checked){ att.value += "hoverOnLabel,"; }
         if(document.getElementById("hoverShowLabel").checked){ att.value += "hoverShowLabel,"; }
         if(document.getElementById("colorLabel").checked){ att.value += "colorLabel,"; }
@@ -214,14 +214,14 @@
     <h3>Change Sanwaf-ui Error Behavior</h3>
     <table class="table-compact">
       <tr>
-        <td><input type="checkbox" id="hoverOnLabel" onClick="togleDisplayType(true)" checked/>hover on Label</td>
-        <td><input type="checkbox" id="colorLabel" onClick="togleDisplayType(true)" checked/>color label</td>
-        <td><input type="checkbox" id="showOnPageSanwafTable" onClick="togleDisplayType(false)" />Show Error on page</td>
-        <td><input type="checkbox" id="alertWithPopup" onClick="togleDisplayType(false)" />alert with popup <br/></td>
+        <td><input type="checkbox" id="hoverOnLabel" onClick="togleDisplayType(true)" checked/><label for="hoverOnLabel">hover on Label</label></td>
+        <td><input type="checkbox" id="colorLabel" onClick="togleDisplayType(true)" checked/><label for="colorLabel">color label</label></td>
+        <td><input type="checkbox" id="showOnPageSanwafTable" onClick="togleDisplayType(false)" /><label for="showOnPageSanwafTable">Show Error on page</label></td>
+        <td><input type="checkbox" id="alertWithPopup" onClick="togleDisplayType(false)" /><label for="alertWithPopup">alert with popup</label><br/></td>
       </tr>
       <tr>
-        <td><input type="checkbox" id="hoverShowLabel" onClick="togleDisplayType(true)" checked/>hover include label</td>
-        <td><input type="checkbox" id="colorInput" onClick="togleDisplayType(true)" checked/>color input</td>
+        <td><input type="checkbox" id="hoverShowLabel" onClick="togleDisplayType(true)" checked/><label for="hoverShowLabel">hover include label</label></td>
+        <td><input type="checkbox" id="colorInput" onClick="togleDisplayType(true)" checked/><label for="colorInput">color input</label></td>
         <td></td>
       </tr>
     </table>
@@ -773,7 +773,7 @@
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="allergies">Do you have food allergies</label></td>
-                <td><select size="1" id="allergies"><option value="Yes">Yes</option><option value="No">No</option></select></td>
+                <td><select size="1" id="allergies"><option value="Yes">Yes</option><option value="No" selected="selected">No</option></select></td>
                 <td><label for="foodsallergicto">foods allergic to</label></td>
                 <td><input type="text" id="foodsallergicto" name="foodsallergicto" data-sw-display="Foods allergic to" data-sw-type="s" data-sw-max-length="30" data-sw-min-length="0" data-sw-related="allergies:Yes"/> <input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemoEqualValue)"/></td>
               </tr>
@@ -792,9 +792,9 @@
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="jog">Do you jog</label></td>
-                <td><select size="1" id="jog"><option value="Yes">Yes</option><option value="No">No</option></select></td>
+                <td><select size="1" id="jog"><option value="Yes">Yes</option><option value="No" selected="selected">No</option></select></td>
                 <td><label for="weights">Lift weights</label></td>
-                <td><select size="1" id="weights"><option value="Yes">Yes</option><option value="No">No</option></select></td>
+                <td><select size="1" id="weights"><option value="Yes">Yes</option><option value="No" selected="selected">No</option></select></td>
                 <td><label for="duration">Duration Exercising</label></td>
                 <td><input type="text" id="duration" name="duration" data-sw-display="Duration of all exersizes" data-sw-type="s" data-sw-max-length="30" data-sw-min-length="0" data-sw-related="(jog:Yes)||(weights:Yes)"/></td>
                 <td></td><td><input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemoOrCondition)"/></td><td></td>

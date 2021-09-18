@@ -148,7 +148,7 @@ function doLabelAndHover(e, err, msgs, actions) {
       hovertxt += buildMsgFromArray(msgs, "<br/>");
     }
 
-    if (actions.includes("colorLabel") && !actions.includes("hoverOnLabel")) {
+    if (!actions.includes("hoverOnLabel")) {
       label.innerHTML = labeltxt;
     } else {
       label.innerHTML = "<div id='sanwafuierrordisplay' class='" + err.tooltipClass + "'>" + labeltxt + "<span id='sanwafuispan' class='"
@@ -433,6 +433,7 @@ function getAttribute(elem, att, def) {
 }
 
 function loadTags(e) {
+  loadHtml5Tags(e);
   e.swDisplay = getAttribute(e, "data-sw-display", e.swDisplay);
   e.swLabelId = getElementByIdOrName(getAttribute(e, "data-sw-label-id", e.swLabelId));
 
@@ -444,7 +445,10 @@ function loadTags(e) {
   e.swMin = getAttribute(e, "data-sw-min-length", e.swMin);
   e.swMinIsInError = false;
   
-  e.swReq = getAttribute(e, "data-sw-required", false);
+  if(!e.swReq){
+    e.swReq = getAttribute(e, "data-sw-required", false);
+  }
+  
   var s = e.swReq + "";
   if (s.toLowerCase() == "false") {
     e.swReq = false;
@@ -467,6 +471,75 @@ function loadTags(e) {
   e.swMinValueIsInError = false;
   e.swRelated = removeRelatedSpace(getAttribute(e, "data-sw-related", e.swRelated));
   e.swRelatedIsInError = false;
+}
+
+function loadHtml5Tags(e) {
+  if (e.type == "email") {
+    e.swType = 'r{[^@\\s]+@[^@\\s]+\\.[^@\\s]+}';
+    e.swErrMsg = "Invalid Email Entered";
+    e.isHtml5 = true;
+  } else if (e.type == "number") {
+    e.swType = 'n';
+    e.isHtml5 = true;
+  } else if (e.type == "url") {
+    e.swType = 'r{https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)}';
+    e.swErrMsg = "Invalid URL Entered";
+    e.isHtml5 = true;
+  } else if (e.type == "tel") {
+    e.swType = 'r{\\(?(\\d{3})\\)?[-\\.\\s]?(\\d{3})[-\\.\\s]?(\\d{4})}';
+    e.swErrMsg = "Invalid Telephone Number Entered";
+    e.isHtml5 = true;
+  } 
+  
+  var pattern = getAttribute(e, "pattern", "");
+  if (pattern && pattern.length > 0) {
+    e.swType = 'r{' + pattern + '}';
+    e.isHtml5 = true;
+  } 
+
+  e.swMin = getAttribute(e, "minlength", "");
+  if(e.minlength && e.minlength.length > 0){
+    e.isHtml5 = true;
+  }
+
+  e.swMax = getAttribute(e, "maxlength", "");
+  if(e.maxlength && e.maxlength.length > 0){
+    e.isHtml5 = true;
+  }
+
+  e.swReq = e.getAttribute("required");
+  if(e.swReq == ""){
+    e.swReq = true;
+    e.isHtml5 = true;
+  }
+  else{
+    e.swReq = false;
+  }
+
+  e.swMaxValue = getAttribute(e, "max", "");
+  if(e.swMaxValue && e.swMaxValue.length > 0){
+    e.swType = 'n';
+    e.isHtml5 = true;
+  }
+
+  e.swMinValue = getAttribute(e, "min", "");
+  if(e.swMinValue && e.swMinValue.length > 0){
+    e.swType = 'n';
+    e.isHtml5 = true;
+  }
+}
+
+function setHtml5AttributeValue(e, val){
+  var att = document.createAttribute("data-sw-html5-is-neg");
+  att.value = val;
+  e.setAttributeNode(att);
+}
+
+  
+function setHtml5Attribute(e){
+  var att = document.createAttribute("data-sw-html5-value");
+  att.value = e.value;
+  e.setAttributeNode(att);
 }
 
 function loadGlobalErrorSettings(forElementOnly) {
@@ -1199,6 +1272,18 @@ function isCharValid(e, err) {
   return true;
 }
 function isNumberValid(e, err, isInt) {
+  //some browsers dont return the value for numeric items if they arent numeric
+  if(e.isHtml5){
+    if(e.value.length == 0){
+      var last = getAttribute(e, "data-sw-html5-value", "");
+      var neg = getAttribute(e, "data-sw-html5-is-neg", "");
+      if(neg == "-" && last == ""){
+        return;
+      }
+      e.value = last;
+      return;
+    }
+  }
   if ((!e || e.value.length == 0) && !e.swReq) {
     return true;
   }
@@ -1244,6 +1329,9 @@ function isNumberValid(e, err, isInt) {
   if ((min != Number.MIN_VALUE && value < min) || (max != Number.MAX_VALUE && value > max)) {
     e.swTypeIsInError = true;
     return false;
+  }
+  if(e.isHtml5){
+    setHtml5Attribute(e);
   }
   cleanErrorElement(e, err);
   return true;
@@ -1559,6 +1647,10 @@ var deleteKeyDetected = false;
 function sanwafUiOnInput(e) {
   e.onkeydown = function() {
     var key = event.keyCode || event.charCode;
+    if(key == 109 || key == 173){
+      setHtml5AttributeValue(e, "-");
+    }
+    
     if (key != 8 && key != 46) {
       deleteKeyDetected = false;
       return true;
@@ -1640,7 +1732,8 @@ function initSanwafui() {
         }
       }
 
-      if (e.getAttribute("data-sw-type")) {
+      if (e.getAttribute("data-sw-type") || (e.type == "email" || e.type == "number" || e.type == "url" || e.type == "tel" || e.getAttribute("minlength") || e.getAttribute("maxlength")
+          || e.getAttribute("pattern") || e.getAttribute("required") == "" || e.getAttribute("max") || e.getAttribute("min")) ) {
         if (setAttributeForEventListener(e, "sanwaf-input-listener", "true")) {
           e.addEventListener("input", function(e) {
             sanwafUiOnInput(e.target);
