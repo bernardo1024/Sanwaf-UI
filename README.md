@@ -35,7 +35,7 @@ When Sanwaf-UI is used with Sanwaf-Server, they provide a code-free declarative 
 
 ![](sanwaf-ui.png)  
   
-**See [sanwaf-ui-demo.html](https://bernardo1024.github.io/) for examples**
+**See [sanwaf-ui-guide.html](https://bernardo1024.github.io/) for examples**
 
 Implementing Sanwaf-ui & Sanwaf-server
 ===============================
