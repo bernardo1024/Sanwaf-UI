@@ -5,7 +5,8 @@
     <meta content="utf-8" http-equiv="encoding">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
-    <link rel="stylesheet" type="text/css" href="sanwaf-ui-demo.css" media="screen" />  
+    <link rel="stylesheet" type="text/css" href="sanwaf-ui-guide.css" media="screen" />
+    
     <!-- Sanwaf-ui code - STEP 1. import sanwaf-ui.js -->
     <script src='sanwaf-ui-min-latest.js'></script>
 
@@ -401,7 +402,7 @@
     <table class="table-instructions">
       <tr><td><b>Attribute</b></td><td><b>Description</b></td></tr>
       <tr><td>data-sw-display</td><td>Name Associated with the widget that will be used for display in error messages.</td></tr>
-      <tr><td>data-sw-label-id</td><td>Id of Label associated with the element that will be used for errors (change color & tooltips).<br/>if not provided, Sanwaf uses the label's 'for' attribute.</td></tr>
+      <tr><td>data-sw-label-id</td><td>Id of Label associated with the element that will be used for errors (change color &amp; tooltips).<br/>if not provided, Sanwaf uses the label's 'for' attribute.</td></tr>
       <tr><td><a href="#sanwafuidatatype">data-sw-type</a></td><td>Data type of the element</td></tr>
       <tr><td>data-sw-required</td><td>Makes the element a mandatory field</td></tr>
       <tr><td>data-sw-mask-err</td><td>The a value you want to mask the entered value with for when you want to hide it from being displayed in an error message (passwords...)</td></tr>
@@ -619,7 +620,7 @@
       <tr><td>Sanwaf-ui automatically sets an oninput event handler to elements that have the format data type.  the event handler formats as the user enters data</td><td></td></tr>
       <tr><td>Four special characters are provided to be used in formats:</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b>#</b></td><td> - accepts a number</td><td></td></tr>
-      <tr><td>&nbsp;&nbsp;<b>#[ ]</b></td><td> - accepts a number within a range: #[1-12]<br/> - accepts a number meeting a specified set of values: #[4,5,6]<br/> - accepts a number bound by date settings: #[yy-yy(+10)]<br/>&nbsp;&nbsp;&nbsp;Supported date variables include: yy, yyyy, mm, dd<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Format: #[ variable( <+/-> # ) ]<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example: #[ yy( -10 ) - yy( +10 ) ]  - accepts a year in 'yy' format in the range of up to 10 years old to 10 years in the future</td><td></td></tr>
+      <tr><td>&nbsp;&nbsp;<b>#[ ]</b></td><td> - accepts a number within a range: #[1-12]<br/> - accepts a number meeting a specified set of values: #[4,5,6]<br/> - accepts a number bound by date settings: #[yy-yy(+10)]<br/>&nbsp;&nbsp;&nbsp;Supported date variables include: yy, yyyy, mm, dd<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Format: #[ variable( &lt;+/-> # ) ]<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example: #[ yy( -10 ) - yy( +10 ) ]  - accepts a year in 'yy' format in the range of up to 10 years old to 10 years in the future</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b>A</b></td><td> - accepts an Uppercase Alphabetic character</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b>a</b></td><td> - accepts a lowercase Alphabetic character</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b>c</b></td><td> - accepts an Alphabetic character of any case</td><td></td></tr>
@@ -674,7 +675,7 @@
       </tr>
       <tr><td> </td><td></td></tr>
       <tr><td>You can also have <b>multiple formats</b> combined into one format field using the 'OR' opperator (||)</td><td></td></tr>
-      <tr><td>For example to use a single field to capture US Zip codes in short & long form, along with the Canadian Postal Code format</td><td></td></tr>
+      <tr><td>For example to use a single field to capture US Zip codes in short &amp; long form, along with the Canadian Postal Code format</td><td></td></tr>
       <tr><td>&nbsp;&nbsp;<b><a href="#sanwafuidatatype">data-sw-type</a>="f{##### || #####-#### || A#A-#A#}"</b></td><td></td></tr>
       <tr>
         <td>
@@ -817,7 +818,7 @@
                 <input type="checkbox" id="hobby" name="hobby"/><label for="hobby">hobbies:</label>,&nbsp;&nbsp;
                 <input type="checkbox" id="sports" name="sports"/><label for="sports">Sports</label>,&nbsp;&nbsp;
                 <input type="checkbox" id="music" name="music"/><label for="music">Music</label>,&nbsp;&nbsp;
-                <label for="duration1">Duration</label><input type="text" id="duration1" nameid="duration1" data-sw-display="Duration" data-sw-type="n" data-sw-related=" ( sports : true ) || ( music : true ) && ( hobby : true ) "/>&nbsp;&nbsp;
+                <label for="duration1">Duration</label><input type="text" id="duration1" name="duration1" data-sw-display="Duration" data-sw-type="n" data-sw-related=" ( sports : true ) || ( music : true ) && ( hobby : true ) "/>&nbsp;&nbsp;
                 <input type="button" value="Validate" onClick="return isSanwafUiFormValid(reldemoOrOrAndCondition)"/>
                 </td>
               </tr>
