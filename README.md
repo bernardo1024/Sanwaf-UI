@@ -37,10 +37,10 @@ When Sanwaf-UI is used with Sanwaf-Server, they provide a code-free declarative 
   
 **See [sanwaf-ui-guide.html](https://bernardo1024.github.io/) for examples**
 
-Implementing Sanwaf-ui & Sanwaf-server
+Implementing Sanwaf-UI & Sanwaf-Server
 ===============================
 
-1. Configure Sanwaf-ui on html pages
+1. Configure Sanwaf-UI on html pages
 
 2. Run the Sanwaf-ui-2-server script to generate XML consumed by Sanwaf-Server for server-side validation
 
