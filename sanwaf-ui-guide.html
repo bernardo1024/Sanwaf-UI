@@ -82,7 +82,7 @@
       <tr><td>when used together, they provide a code-free declarative validation system on both the client &amp; server</td></tr>
       <tr><td></td></tr>
     </table>
-    <img src="sanwaf-ui.png" width="50%" height="50%"> 
+    <img src="sanwaf-ui.png" width="55%" height="55%"> 
     <br/>
     <br/>
     <h2>Sample Form</h2>
@@ -229,6 +229,7 @@
     <!-- END this code is provided so you can alter the sanwaf-ui  behavior when viewed in a browser.  this is not intended to be an example -->
     
     <br/>
+    Sanwaf data type documentation can be found <a href="#sanwafuidatatype">here</a>
     <br/>
     <h1>Implementing Sanwaf-Server &amp; Sanwaf-UI</h1>
     <table class="table-instructions">
@@ -237,12 +238,11 @@
       <tr><td>3.</td><td><a href="https://github.com/bernardo1024/SanWaf" target="_blank">Add Sanwaf-Server</a> to your application</td></tr>
     </table>
     <br/>
-    <br/>
     <h2>Configuring Sanwaf-UI</h2>
     View the source of this page to and search for "Sanwaf-UI code - STEP" to see examples of configuring Sanwaf-UI (all 6 steps) 
     <br/>
     <br/>
-    <img src="sanwaf-ui-components.png" width="50%" height="50%"> 
+    <img src="sanwaf-ui-components.png" width="55%" height="55%"> 
     <table class="table-instructions">
       <tr>
         <td>1.</td>
@@ -751,7 +751,7 @@
           <form id="reldemopassword" method="post" action="./someEndPoint">
             Password must equal each other
             <br/>
-            Set the attribute <b>data-sw-related="pass1:="</b> on pass2 (confirm password)
+            Set the attribute <b>data-sw-related="pass1 : ="</b> on pass2 (confirm password)
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="pass1">Password</label></td>
@@ -770,7 +770,7 @@
           <form id="reldemoEqualValue" method="post" action="./someEndPoint">
             If you have food allergies, you need to enter what foods you're are allergic to
             <br/>
-            Set the attribute <b>data-sw-related="allergies:Yes"</b> on the foodsAllergicTo element
+            Set the attribute <b>data-sw-related="allergies : Yes"</b> on the foodsAllergicTo element
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="allergies">Do you have food allergies</label></td>
@@ -789,7 +789,7 @@
           <form id="reldemoOrCondition" method="post" action="./someEndPoint">
             If you have an element that needs data based on 2 items
             <br/>
-            set the attribute <b>data-sw-related="(jog:Yes)||(weights:Yes)"</b> on the duration element
+            set the attribute <b>data-sw-related="(jog : Yes) || (weights : Yes)"</b> on the duration element
             <table class="table-compact-normal-font">
               <tr>
                 <td><label for="jog">Do you jog</label></td>
@@ -811,7 +811,7 @@
           <form id="reldemoOrOrAndCondition" method="post" action="./someEndPoint">
             If you have an element that needs data based on 2 items
             <br/>
-            set the attribute <b>data-sw-related="(sports:true)||(music:true)&amp;&amp;(hobby:true)"</b> on the duration element
+            set the attribute <b>data-sw-related="(sports : true) || (music : true) &amp;&amp; (hobby : true)"</b> on the duration element
             <table class="table-compact-normal-font">
               <tr>
                 <td>
