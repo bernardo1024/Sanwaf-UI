@@ -115,7 +115,7 @@
           <!-- Sanwaf-UI code - Note that the label's 'for' attribute is used to set the label association to the input
                                 See next the input below to associate the label using an attribute in the input itself -->	
           <td><label for="telephone">Telephone number</label></td>  
-          <td><input type="text" id="telephone" name="telephone" size="20" data-sw-display="Telephone Number" data-sw-type="f{(###) ###-####}" data-sw-required="true" /></td>
+          <td><input type="text" id="telephone" name="telephone" size="20" data-sw-type="f{(###) ###-####}" data-sw-required="true" /></td>
           <td>Required. Format: "(###) ###-####"</td>
         </tr>
         <tr>
@@ -134,14 +134,14 @@
                                 This also works when using the data-sw-latbel-id attribute (see confirm password below)-->  
           <td><label for="password">Password</label></td>
           <td><input type="password" id="password" name="password" size="20" data-sw-type="o" data-sw-max-length="30" data-sw-min-length="8" /></td>
-          <td>Max = 10 chars, Min = 4 chars. If entered, confirm password must have the same value</td>
+          <td>Max = 30 chars, Min = 8 chars. If entered, confirm password must have the same value</td>
         </tr>
         <tr>
           <td><label id="confirmPasswordLabel">Confirm Password</label></td>
           <!-- Sanwaf-UI code - Note the 'data-sw-related' attribute that makes the 'confirmPassword' required if the password element is entered. 
           					    Additionally, the values must equal each other  as the relationship is "=" -->  
           <td><input type="password" id="confirmPassword" name="confirmPassword" size="20" data-sw-type="o" data-sw-related="password:=" data-sw-max-length="30" data-sw-min-length="8" data-sw-label-id="confirmPasswordLabel" /></td>
-          <td>Max = 10 chars, Min = 4 chars. Required only if above field entered</td>
+          <td>Max = 30 chars, Min = 8 chars. Required only if above field entered</td>
         </tr>
         <tr>
           <td><label for="haveCar">Do you own a car?</label></td>

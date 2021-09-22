@@ -410,6 +410,8 @@
           swtype = "s";
         } else if (datatype == "Open") {
           swtype = "o";
+          document.getElementById("maskerror").value = "****";
+          
         } else if (datatype == "Constant") {
           document.getElementById("constantvalues").value = "";
           document.getElementById("constantvalues").style.display = "block";
@@ -654,7 +656,10 @@
 	    document.getElementById("relatedVal").value = "";
 	    document.getElementById("related").value = "";
 	    document.getElementById("result").value = "";
-	    document.getElementById("element").value = "";	    
+	    document.getElementById("element").value = "";
+	    
+      	setTheAttribute("element", "placeholder", " ");
+
 	  }
 
     </script>
