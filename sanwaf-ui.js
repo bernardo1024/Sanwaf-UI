@@ -82,9 +82,11 @@ function cleanAllErrorElements(err) {
 
 function cleanErrorElement(e, err) {
   var label = getLabel(e);
-  var labeltxt = label.getAttribute("sanwafuilabeltxt");
-  if (labeltxt) {
-    label.innerHTML = labeltxt;
+  if(label){
+    var labeltxt = label.getAttribute("sanwafuilabeltxt");
+    if (labeltxt) {
+      label.innerHTML = labeltxt;
+    }
   }
 
   if (e.classList.contains(err.inputClass)) {

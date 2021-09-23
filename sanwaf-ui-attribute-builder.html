@@ -5,7 +5,7 @@
     <meta content="utf-8" http-equiv="encoding">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
-    <script src="sanwaf-ui-min-latest.js"></script>
+    <script src="sanwaf-ui.js"></script>
     <link rel="stylesheet" type="text/css" href="sanwaf-ui.css" media="screen" />
     
     <style>
@@ -50,22 +50,30 @@
       <table>
         <tr>
           <td><label for="displayname">Display Name:</label></td>
-          <td><input type="text" id="displayname" name="displayname" size="18" onchange="updateAttributes()"/></td>
+          <td><input type="text" id="displayname" name="displayname" size="30" onchange="updateAttributes()"/>
+              <input type="button" value="x" onclick="document.getElementById('displayname').value='';" />
+          </td>
           <td></td>
         </tr>
         <tr>
           <td><label for="placeholder">placeholder:</label></td>
-          <td><input type="text" id="placeholder" name="placeholder" size="18" onchange="updateAttributes()"/></td>
+          <td><input type="text" id="placeholder" name="placeholder" size="30" onchange="updateAttributes()"/>
+              <input type="button" value="x" onclick="document.getElementById('placeholder').value='';" />
+          </td>
           <td></td>
         </tr>
         <tr>
           <td><label for="labelid">Label Id</label></td>
-          <td><input type="text" id="labelid" name="labelid" size="18" onchange="updateAttributes()"/></td>
+          <td><input type="text" id="labelid" name="labelid" size="30" onchange="updateAttributes()"/>
+              <input type="button" value="x" onclick="document.getElementById('labelid').value='';" />
+          </td>
           <td></td>
         </tr>
         <tr>
           <td><Label for="errmsg">Error Msg</Label></td>
-          <td><input type="text" id="errmsg" name="errmsg" size="80" onchange="updateAttributes()" /></td>
+          <td><input type="text" id="errmsg" name="errmsg" size="80" onchange="updateAttributes()" />
+              <input type="button" value="x" onclick="document.getElementById('errmsg').value='';" />
+          </td>
           <td></td>
         </tr>
         <tr>
@@ -112,16 +120,17 @@
                             <input type="text" id="dformatparent" name="dformatparent" size="21" onchange="updateAttributes()" />
                             <label id="dformatlabelparent" for="dformatparenttrigger">, Trigger value:</label> 
                             <input type="text" id="dformatparenttrigger" name="dformatparenttrigger" size="10" onchange="updateAttributes()" />
-                            <input type="button" value="New Trigger Value" onClick="addItemToFormat('newTrigger'); updateAttributes();"/>
+                            <input type="button" value="New Trigger Value" onclick="addItemToFormat('newTrigger'); updateAttributes();"/>
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <label id="formatlabel" for="formatdata"> Format:</label> <textarea id="formatdata" name="formatdata" rows="1" cols="40"></textarea>
-                          <input type="button" onclick="document.getElementById('formatdata').value = ''; document.getElementById('testformatdata').value = ''; updateAttributes();" value="clear"/>
+                          <input type="button" onclick="document.getElementById('formatdata').value = ''; document.getElementById('testformatdata').value = ''; updateAttributes();" value="x"/>
                           <label id="testFormatlabel" for="testformatdata">, Test:</label> <input type="text" id="testformatdata" name="testformatdata" size="20" data-sw-display="Test Format"/>
-                          <input type="button" onclick="" value="test" onClick="return isSanwafUiFormValid(testForm)"/>
+                          <input type="button" value="test" onclick="return isSanwafUiFormValid(testForm)"/>
+                          <input type="button" value="x" onclick="document.getElementById('testformatdata').value=''"/>
                         </td>
                       </tr>
                       <tr>
@@ -154,7 +163,7 @@
                         <td>
                           &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isConstant')"/>&nbsp;<label>Fixed Value:</label>
                           <input type="text" id="isConstantValue" name="isConstantValue" size="5"/>
-                          &nbsp;<input type="button" value="clear" onclick="document.getElementById('isConstantValue').value = ''"/>
+                          &nbsp;<input type="button" value="x" onclick="document.getElementById('isConstantValue').value = ''"/>
                         </td>
                       </tr>
                       <tr>
@@ -184,14 +193,17 @@
                         <td>
                           &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isNumericRange')"/>&nbsp;<label>Numeric Range</label>
                           <label for="isNumericMin">, Min: </label><input type="text" id="isNumericMin" name="isNumericMin" size="2" data-sw-type="i" data-sw-min-value="0"/>
+                          <input type="button" value="x" onclick="document.getElementById('isNumericMin').value=''"/>
                           <label for="isNumericMax">, Max: </label><input type="text" id="isNumericMax" name="isNumericMax" size="2" data-sw-type="i" data-sw-min-value="0"/>
+                          <input type="button" value="x" onclick="document.getElementById('isNumericMax').value=''"/>
                         </td>
                       </tr>
                       <tr>
                         <td>
                           &nbsp;&nbsp;<input type="button" value="Add" onclick="addItemToFormat('isNumericValue')"/>&nbsp;<label>Numeric List of Values:</label>
                           <input type="text" id="isNumericValue" name="isNumericValue" size="10" data-sw-type="i{,}" />
-                          (comma separated)
+                          <input type="button" value="x" onclick="document.getElementById('isNumericValue').value=''"/>
+                           (comma separated)
                         </td>
                       </tr>
                       <tr>
@@ -237,7 +249,9 @@
         </tr>
         <tr>
           <td><label for="maskerror">Mask Error with</label></td>
-          <td><input type="text" id="maskerror" name="maskerror" size="10"onchange="updateAttributes()" /></td>
+          <td><input type="text" id="maskerror" name="maskerror" size="10"onchange="updateAttributes()" />
+              <input type="button" value="x" onclick="document.getElementById('maskerror').value='';" />
+          </td>
           <td></td>
         </tr>
         <tr>
@@ -257,22 +271,30 @@
         </tr>
         <tr>
           <td><Label for="minlen">Min Length</Label></td>
-          <td><input type="text" id="minlen" name="minlen" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td><input type="text" id="minlen" name="minlen" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" />
+              <input type="button" value="x" onclick="document.getElementById('minlen').value=''" />
+          </td>
           <td></td>
         </tr>
         <tr>
           <td><Label for="maxlen">Max Length</Label></td>
-          <td><input type="text" id="maxlen" name="maxlen" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td><input type="text" id="maxlen" name="maxlen" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" />
+              <input type="button" value="x" onclick="document.getElementById('maxlen').value=''" />
+          </td>
           <td></td>
         </tr>
         <tr>
           <td><Label for="minvalue">Min Value</Label></td>
-          <td><input type="text" id="minvalue" name="minvalue" size="3" data-sw-type="n" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td><input type="text" id="minvalue" name="minvalue" size="3" data-sw-type="n" data-sw-min-value="0" onchange="updateAttributes()" />
+              <input type="button" value="x" onclick="document.getElementById('minvalue').value=''" />
+          </td>
           <td></td>
         </tr>
         <tr>
           <td><Label for="maxvalue">Max Value</Label></td>
-          <td><input type="text" id="maxvalue" name="maxvalue" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" /></td>
+          <td><input type="text" id="maxvalue" name="maxvalue" size="3" data-sw-type="i" data-sw-min-value="0" onchange="updateAttributes()" />
+              <input type="button" value="x" onclick="document.getElementById('maxvalue').value=''" />
+          </td>
           <td></td>
         </tr>
         <tr>
@@ -296,7 +318,7 @@
             </div>
             <br/>
             <input type="text" id="related" name="related" size="80" onchange="updateAttributes()" /> 
-            <input type="button" value="clear" onclick="document.getElementById('related').value=''" />
+            <input type="button" value="x" onclick="document.getElementById('related').value='';document.getElementById('relatedVal').value='';document.getElementById('relatedElement').value=''" />
 
             
           
@@ -308,12 +330,12 @@
         </tr>
         <tr>
           <td></td>
-          <td><input type="button" value="Clear Attribute Values" onclick="resetatts()" /></td>
+          <td><input type="button" value="x Attribute Values" onclick="resetatts()" /></td>
         </tr>
       </table>
     </form>
     <br/>
-    <h3>Result</h3>
+    <h3>Generated Attributes</h3>
     <table>
       <tr>
         <td><textarea id="result" name="result" rows="5" cols="100"></textarea></td>
@@ -323,13 +345,15 @@
       </tr>
       <tr>
         <td>
-          <h4>Test</h4>
+          <h4>Test Generated Attributes</h4>
             <form id="testform" method="post" action="./someEndPoint">
             <table>
               <tr>
                 <td><label for="element" id="label">Label</label></td>
                 <td><input type="text" id="element" name="element" size="90"/></td>
-                <td><input type="button" value="validate" onClick="return isSanwafUiFormValid(testform)" />
+                <td><input type="button" value="validate" onClick="return isSanwafUiFormValid(testform)" />&nbsp;
+                <input type="button" value="x" onClick="document.getElementById('element').value = ''" />
+                </td>
               </tr>
             </table>
           </form>
@@ -633,16 +657,12 @@
 	    document.getElementById("isNumericMin").value = "";
 	    document.getElementById("isNumericMax").value = "";
 	    document.getElementById("isNumericValue").value = "";
-
-
 	    document.getElementById("isNumericMinDatePlus").value = "plus";
 	    document.getElementById("isNumericDateMin").value = "";
 	    document.getElementById("isNumericMinDate").value = "dd";
-
 	    document.getElementById("isNumericMaxDatePlus").valuel = "plus";
 	    document.getElementById("isNumericDateMax").value = "";
 	    document.getElementById("isNumericMaxDate").value = "dd";
-
 	    document.getElementById("maskerror").value = "";
 	    document.getElementById("isrequired").checked = false;
 	    document.getElementById("onpaste").checked = false;
@@ -659,7 +679,6 @@
 	    document.getElementById("element").value = "";
 	    
       	setTheAttribute("element", "placeholder", " ");
-
 	  }
 
     </script>
