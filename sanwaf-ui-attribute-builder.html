@@ -28,7 +28,7 @@
           <input type="button" value="3. sanwafuiconfig div" onclick="copyToClipboard('<div id=\'sanwafUiConfig\' style=\'display:none\'\n\tdata-sw-numErrorsToDisplay=\'-1\'\n\tdata-sw-errorActions=\'hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup\'\n\tdata-sw-blurActions=\'hoverOnLabel,hoverShowLabel,colorLabel,colorInput\'\n\tdata-sw-showOnPageElementId=\'pageErrors\'\n\tdata-sw-showOnPageSanwafTableElementId=\'sanwafUiErrors\'\n\n\tdata-sw-labelClass=\'customLabel\'\n\tdata-sw-inputClass=\'customInput\'\n\tdata-sw-tooltipClass=\'customTooltip\'\n\tdata-sw-tooltipTextClass=\'customTooltiptext\'\n\tdata-sw-sanwafErrorTableClass=\'customErrorTable\'\n\tdata-sw-sanwafErrorTableTdKeyClass=\'customErrorTableTdKey\'\n\tdata-sw-sanwafErrorTableTdDescClass=\'customErrorTableTdDesc\'\n\n\tdata-sw-errorPopHeader1=\'Please Correct the Following Items (local)\'\n\tdata-sw-errorPopHeader2=\'------------------------------------------------------------------------------------ (local)\'\n\tdata-sw-errorMaxLength = \'Must be less than %1 characters (local)\'\n\tdata-sw-errorMinLength = \'Must be more than %1 characters (local)\'\n\tdata-sw-errorMaxMinLengthEqual = \'Must be %1 chars (local)\';\n\tdata-sw-errorRequired = \'Is a Required Field (local)\'\n\tdata-sw-errorMinValue = \'Must be more than %1 (local)\'\n\tdata-sw-errorMaxValue = \'Must be less than %1 (local)\'\n\tdata-sw-errorRelated = \'Must be entered when %1 is entered (local)\'\n\tdata-sw-errorRelatedNotEqual = \'%1 must have the same value as %2 (local)\'\n\n\tdata-sw-errorTypeChar = \'Character (local)\';\n\tdata-sw-errorTypeNumeric = \'Must be numeric (local)\';\n\tdata-sw-errorTypeNumericDelimited = \'Must be numeric delimited by %1 (local)\';\n\tdata-sw-errorTypeInteger = \'Must be an integer (local)\';\n\tdata-sw-errorTypeIntegerDelimited = \'Must be an integer delimited by %1 (local)\';\n\tdata-sw-errorTypeAlphanumeric = \'Must be alphanumeric (local)\';\n\tdata-sw-errorTypeAlphanumericAndMore = \'Must be alphanumeric or one of the following (%1) characters (local)\';\n\tdata-sw-errorTypeConstant = \'Must be one of the following: %1 (local)\';\n\tdata-sw-errorTypeRegex = \'Must match the regex (local)\';\n\tdata-sw-errorTypeFormat = \'Must match the format (local)\';\n\tdata-sw-errorTypeDependentFormat = \'Must match the dependent format (local)\';\n></div>\n')"/>&nbsp;
           <input type="button" value="5. Validate form" onclick="copyToClipboard('isSanwafUiFormValid(form)')"/>&nbsp;
           <input type="button" value="6. Initialize Sanwaf-UI" onclick="copyToClipboard('<script>initSanwafui()</script>\n')"/>&nbsp;&nbsp;&nbsp;
-          <input type="button" value="Copy Steps 1, 2, 4, 6" onclick="copyToClipboard('<script src=\'sanwaf-ui-min-latest.js\'></script>\n<link rel=\'stylesheet\' type=\'text/css\' href=\'sanwaf-ui.css\' media=\'screen\'/>\nisSanwafUiFormValid(form)\n<script>initSanwafui()</script>\n')"/>        </td></tr>
+          <input type="button" value="Copy Steps 1, 2, 5, 6" onclick="copyToClipboard('<script src=\'sanwaf-ui-min-latest.js\'></script>\n<link rel=\'stylesheet\' type=\'text/css\' href=\'sanwaf-ui.css\' media=\'screen\'/>\nisSanwafUiFormValid(form)\n<script>initSanwafui()</script>\n')"/>        </td></tr>
       </table>
     </div>
     <div id="fragmentLong" style="display: none">
@@ -97,8 +97,7 @@
                       <option value="Format">Format</option>
                       <option value="DependentFormat">Dependent Format</option>
                   </select>
-                </td>
-                <td>
+
                   <div id="delimiter" style="display: none">
                     <label> Delimiter: </label> <input type="text" id="delimiterdata" name="delimiterdata" size="1" onchange="updateAttributes()" />
                   </div>
@@ -118,19 +117,22 @@
                           <div id="dformat"  style="display: none">
                             <label id="dformatlabelparent" for="dformatparent"> Parent name or ID:</label> 
                             <input type="text" id="dformatparent" name="dformatparent" size="21" onchange="updateAttributes()" />
+                            <input type="button" value="x" onclick="document.getElementById('dformatparent').value=''"/>
                             <label id="dformatlabelparent" for="dformatparenttrigger">, Trigger value:</label> 
                             <input type="text" id="dformatparenttrigger" name="dformatparenttrigger" size="10" onchange="updateAttributes()" />
-                            <input type="button" value="New Trigger Value" onclick="addItemToFormat('newTrigger'); updateAttributes();"/>
+                            <input type="button" value="x" onclick="document.getElementById('dformatparenttrigger').value=''"/>
+                            <input type="button" value="Add New" onclick="addItemToFormat('newTrigger'); updateAttributes();"/>
                           </div>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <label id="formatlabel" for="formatdata"> Format:</label> <textarea id="formatdata" name="formatdata" rows="1" cols="40"></textarea>
+                          <label id="formatlabel" for="formatdata"> Format:</label> <textarea id="formatdata" name="formatdata" rows="1" cols="33"></textarea>
                           <input type="button" onclick="document.getElementById('formatdata').value = ''; document.getElementById('testformatdata').value = ''; updateAttributes();" value="x"/>
+                          <input type="button" value="rebuild" onclick="addItemToFormat('')"/>
                           <label id="testFormatlabel" for="testformatdata">, Test:</label> <input type="text" id="testformatdata" name="testformatdata" size="20" data-sw-display="Test Format"/>
-                          <input type="button" value="test" onclick="return isSanwafUiFormValid(testForm)"/>
                           <input type="button" value="x" onclick="document.getElementById('testformatdata').value=''"/>
+                          <input type="button" value="test" onclick="return isSanwafUiFormValid(testForm)"/>
                         </td>
                       </tr>
                       <tr>
@@ -221,6 +223,7 @@
                             <option value="yy">yy</option>
                             <option value="yyyy">yyyy</option>
                           </select>
+                          <input type="button" value="x" onclick="document.getElementById('isNumericMinDatePlus').value='plus';document.getElementById('isNumericDateMin').value='';document.getElementById('isNumericMinDate').value='dd'"/>
                           <label for="isNumericDateMax">, Max: </label>
                           <select name="isNumericMaxDatePlus" id="isNumericMaxDatePlus">
                             <option value="plus">+</option>
@@ -233,6 +236,7 @@
                             <option value="yy">yy</option>
                             <option value="yyyy">yyyy</option>
                           </select>
+                          <input type="button" value="x" onclick="document.getElementById('isNumericMaxDatePlus').value='plus';document.getElementById('isNumericDateMax').value='';document.getElementById('isNumericMaxDate').value='dd'"/>
                         </td>
                       </tr>
                       <tr>
@@ -242,13 +246,14 @@
                       </tr>
                     </table>
                   </div>
+                  
                 </td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td><label for="maskerror">Mask Error with</label></td>
+          <td><label for="maskerror">Mask value (error)</label></td>
           <td><input type="text" id="maskerror" name="maskerror" size="10"onchange="updateAttributes()" />
               <input type="button" value="x" onclick="document.getElementById('maskerror').value='';" />
           </td>
@@ -330,7 +335,7 @@
         </tr>
         <tr>
           <td></td>
-          <td><input type="button" value="x Attribute Values" onclick="resetatts()" /></td>
+          <td><input type="button" value="Reset Settings" onclick="resetatts()" /></td>
         </tr>
       </table>
     </form>
@@ -351,8 +356,9 @@
               <tr>
                 <td><label for="element" id="label">Label</label></td>
                 <td><input type="text" id="element" name="element" size="90"/></td>
-                <td><input type="button" value="validate" onClick="return isSanwafUiFormValid(testform)" />&nbsp;
-                <input type="button" value="x" onClick="document.getElementById('element').value = ''" />
+                <td>
+                  <input type="button" value="x" onClick="document.getElementById('element').value = ''" />
+                  <input type="button" value="validate" onClick="return isSanwafUiFormValid(testform)" />
                 </td>
               </tr>
             </table>
@@ -679,6 +685,7 @@
 	    document.getElementById("element").value = "";
 	    
       	setTheAttribute("element", "placeholder", " ");
+      	updateAttributes();
 	  }
 
     </script>
