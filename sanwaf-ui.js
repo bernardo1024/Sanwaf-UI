@@ -854,15 +854,21 @@ function isFormatValid(e, err, isDepFormat) {
       if (f == "" && (c > '9' || c < '0')) {
         var b = i;
         var zeroPadCount = 0;
+        var startBlockPos = i;
+        while(true){
+          if(blocks[startBlockPos] != ''){
+            break;
+          }
+          startBlockPos--;
+        }
         while (true) {
-          var cc = formatsCurrentValue[formatCount].charAt(b);
           if (blocks[b] == "") {
-            formatsCurrentValue[formatCount] = "0" + formatsCurrentValue[formatCount];
+            formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0,startBlockPos) + "0" + formatsCurrentValue[formatCount].substring(startBlockPos,formatsCurrentValue[formatCount].length);
             zeroPadCount++;
           } else {
             break;
           }
-          b--;
+          b++;
         }
         continue;
       } else if (f == "") {
@@ -871,7 +877,7 @@ function isFormatValid(e, err, isDepFormat) {
 
       if (!f) {
         formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, blocks.length);
-        return;
+        break;
       }
 
       if (f.startsWith("#[")) {
@@ -912,6 +918,7 @@ function isFormatValid(e, err, isDepFormat) {
   }
 
   if (formatWithMaxSize) {
+    console.log("e.value="+formatWithMaxSize+", maxSize="+maxSize+", formatInError="+formatInError);
     e.value = formatWithMaxSize;
   } else {
     e.value = "";
@@ -986,8 +993,15 @@ function doNumRangePart(c, f, blocks, formatsCurrentValue, formatsInError, forma
     } else {
       var numBeforeAddingZeros = parseInt(cNewMin.substring(0, cNewMin.length - numAddedZeros));
       if (numBeforeAddingZeros < maxNum && numBeforeAddingZeros >= minNum) {
-        formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i + maxLenDynamic - 1) + "0"
-            + formatsCurrentValue[formatCount].substring(i + maxLenDynamic - 1, formatsCurrentValue[formatCount].length);
+        var startBlockPos = i;
+        while(true){
+          if(blocks[startBlockPos] != ''){
+            break;
+          }
+          startBlockPos--;
+        }
+        formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, startBlockPos) + "0"
+            + formatsCurrentValue[formatCount].substring(startBlockPos, formatsCurrentValue[formatCount].length);
       } else {
         if (iNewMax < minNum || iNewMin > maxNum) {
           formatsCurrentValue[formatCount] = formatsCurrentValue[formatCount].substring(0, i + maxLenDynamic - 1);
