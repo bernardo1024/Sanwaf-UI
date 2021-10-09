@@ -37,6 +37,9 @@ When Sanwaf-UI is used with Sanwaf-Server, they provide a code-free declarative 
   
 **See [sanwaf-ui-guide.html](https://bernardo1024.github.io/) for examples**
 
+**See [sanwaf-ui-attribute-builder.html](https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html) to help build Sanwaf Attributes**
+
+
 Implementing Sanwaf-UI & Sanwaf-Server
 ===============================
 
