@@ -85,7 +85,7 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 		data-sw-err-msg="Car Model must be entered if you own a car"
         />
 
-    see [sanwaf-ui attribute](#sanwaf-ui-attributes) for details
+see [sanwaf-ui attribute](#sanwaf-ui-attributes) for details
 
 5a. Call Sanwaf-ui method to validate a form
 
