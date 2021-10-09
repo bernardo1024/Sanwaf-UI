@@ -97,7 +97,7 @@ see [sanwaf-ui attribute](#sanwaf-ui-attributes) for details
 
         	sanwafUiBlurElement(element)
 	
-	**See [sanwaf-ui-demo.html](https://bernardo1024.github.io/) for examples**
+**see [sanwaf-ui-demo.html](https://bernardo1024.github.io/) for examples**
 
 5b. OR Call Sanwaf-ui method to get errors in JSON format
 
