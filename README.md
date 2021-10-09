@@ -56,13 +56,13 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
 
 1. Import sanwaf-ui.js lib
 
-        <script src="[sanwaf-ui.js](sanwaf-ui.js)"></script>
+        <script src="sanwaf-ui.js"></script>
         
       this makes the sanwaf-ui code available for use on your page
 
 2. import sanwaf-ui CSS (optional)
 
-        <link rel="stylesheet" type="text/css" href="[sanwaf-ui.css](sanwaf-ui.css)" media="screen" />
+        <link rel="stylesheet" type="text/css" href="sanwaf-ui.css" media="screen" />
         
     to specify custom classes see the [sanwafuiconfig](#sanwaf-ui-config) hidden element
 
@@ -206,6 +206,7 @@ Sanwaf-ui Elements Attributes
 
 	data-sw-actions	 	- For Sanwaf-Server, specify the form actions/URIs associated with the elements (use the ::: seperator to specify multiple actions/URIs)
 	data-sw-display 	- Name Associated with the widget that will be used for display in error messages
+	data-sw-label-id	- Id of Label associated with the element that will be used for errors (change color & tooltips). if not provided, Sanwaf uses the label's 'for' attribute.
 	data-sw-type 		- Data type of the element
 	data-sw-required	- Makes the element a mandatory field
 	data-sw-mask-err	- The a value you want to mask the entered value with for when you want to hide it from being displayed in an error message (passwords...)
