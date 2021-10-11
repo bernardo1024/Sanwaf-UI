@@ -207,7 +207,8 @@ to set the error actions to have the error message hover on the label and change
 Sanwaf-ui Elements Attributes
 -----------------------------
 
-	data-sw-actions	 	- For Sanwaf-Server, specify the form actions/URIs associated with the elements (use the ::: seperator to specify multiple actions/URIs)
+	data-sw-actions	 	- Used by Sanwaf-Server endpoints, specify the form actions/URIs to trigger server-side validation associated with the elements 
+				  Use the ::: separator to specify multiple actions/URIs
 	data-sw-display 	- Name Associated with the widget that will be used for display in error messages
 	data-sw-label-id	- Id of Label associated with the element that will be used for errors (change color & tooltips). if not provided, Sanwaf uses the label's 'for' attribute.
 	data-sw-type 		- Data type of the element
