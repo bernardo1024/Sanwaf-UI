@@ -216,8 +216,8 @@ Sanwaf-ui Elements Attributes
 	data-sw-mask-err	- The a value you want to mask the entered value with for when you want to hide it from being displayed in an error message (passwords...)
 	data-sw-max-length	- Maximum character limit
 	data-sw-min-length	- Minimum character limit
-	data-sw-max-value 	- Maximum value for the given type
-	data-sw-min-value 	- Minimum value for the given type
+	data-sw-max-value 	- Maximum value for the given type.  User will not be able to enter a value greater
+	data-sw-min-value 	- Minimum value for the given type.  User will be able to enter a lower value (as you need to enter a '1' then a '0' for 10...), however, upon leaving focus, an error condition will be triggered if less than the min setting
 	data-sw-related		- Relate fields. format: \[related-to-element:type\] where type is '=' or 'value'
 	data-sw-err-msg 	- Custom error message (overrides global msgs)
  
@@ -231,22 +231,26 @@ data-sw-type (data types)
 
 	Numeric (n)				Any positive or negative numeric value
 					  	('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces; one '.' allowed)
+						Note: 000001 is considered a valid number
 					  	Format: n
 					  	Example: 1000, -321.123, 0.0001
 
 	Delimited list of numbers (n{}) 	A character separated list of numbers
 						Format: n{<separator char>}  
 						Note: the min & max settings applies per delimited value
+						Note: 000001 is considered a valid number
 						Example: using n{,}, -321.123,0.000,123,45
 
 	Integer (i)				Any positive or negative integer value
 					  	('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces)
+						Note: 000001 is considered a valid number
 					  	Format: i
 					  	Example: 1000, -321, 10
 
 	Delimited list of integers (i{}) 	A character separated list of integers
 						Format: i{<separator char>}  
 						Note: the min & max settings applies per delimited value
+						Note: 000001 is considered a valid number
 						Example: using i{,}, -321,0,123,45
 
 	Alphanumeric (a)			Valid chars are A-Z, a-z, 0-9
