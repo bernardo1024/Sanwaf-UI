@@ -57,6 +57,8 @@ View the source of this page to and search for "Sanwaf-ui code - STEP" to see ex
   
 ![](sanwaf-ui-components.png)
 
+**See [sanwaf-ui-attribute-builder.html](https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html) to copy code fragments**
+
 1. Import sanwaf-ui.js lib
 
         <script src="sanwaf-ui.js"></script>
@@ -205,6 +207,8 @@ to set the error actions to have the error message hover on the label and change
   
   
 # sanwaf-ui-attributes
+
+**See [sanwaf-ui-attribute-builder.html](https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html) to help build Sanwaf Attributes**
 
 Sanwaf-ui Elements Attributes
 -----------------------------
