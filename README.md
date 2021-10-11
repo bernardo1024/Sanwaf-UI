@@ -129,6 +129,8 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   
 **Optional Control Attributes**  
 
+	data-sw-actions	 			- Used by Sanwaf-Server endpoints, specify the form actions/URIs to trigger server-side validation associated with the elements 
+				  		  Use the ::: separator to specify multiple actions/URIs
   	data-sw-numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
 						  Defaults to: -1
   	data-sw-errorActions                  	- Action(s)s to take when an error is found on a submit.  
@@ -207,8 +209,6 @@ to set the error actions to have the error message hover on the label and change
 Sanwaf-ui Elements Attributes
 -----------------------------
 
-	data-sw-actions	 	- Used by Sanwaf-Server endpoints, specify the form actions/URIs to trigger server-side validation associated with the elements 
-				  Use the ::: separator to specify multiple actions/URIs
 	data-sw-display 	- Name Associated with the widget that will be used for display in error messages
 	data-sw-label-id	- Id of Label associated with the element that will be used for errors (change color & tooltips). if not provided, Sanwaf uses the label's 'for' attribute.
 	data-sw-type 		- Data type of the element
