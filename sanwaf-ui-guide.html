@@ -245,10 +245,10 @@
     View the source of this page to and search for "Sanwaf-UI code - STEP" to see examples of configuring Sanwaf-UI (all 6 steps) 
     <br/>
     <br/>
- <!--   <img src="sanwaf-ui-components.png" width="53%" height="53%">--> 
-    
     <img src="sanwaf-ui-components.png" style="scale{height:1em; width:1em}" > 
-    
+    <br/>
+    <br/>
+    Copy code fragments using the Sanwaf <a href="https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html">Attribute Builder</a>
     
     <table class="table-instructions">
       <tr>
@@ -340,6 +340,7 @@
     <br/>
     <table class="table-instructions">
       <tr><td><b>Attribute</b></td><td><b>Description</b></td></tr>
+      <tr><td>data-sw-actions</td><td>Used by Sanwaf-Server endpoints, specify the form actions/URIs to trigger server-side validation associated with the elements.  Use the ':::' separator to specify multiple actions/URIs) </td></tr>
       <tr><td>data-sw-numErrorsToDisplay</td><td>Number of error messages to display.  Specify -1 to display all errors<br/><b>Defaults to:</b> -1</td></tr>
       <tr><td><a href="#sanwafuiactions">data-sw-errorActions</a></td><td>Action(s)s to take when an error is found on a submit<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput</td></tr>
       <tr><td><a href="#sanwafuiactions">data-sw-blurActions</a></td><td>Action(s) to take when a field is blurred<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput</td></tr>
@@ -406,6 +407,7 @@
     <br/>
     <br/>
     <h2 id="sanwafuitags">Sanwaf-UI Elements Attributes</h2>
+    Create custom Sanwaf attributes with the <a href="https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html">Attribute Builder</a>
     <table class="table-instructions">
       <tr><td><b>Attribute</b></td><td><b>Description</b></td></tr>
       <tr><td>data-sw-display</td><td>Name Associated with the widget that will be used for display in error messages.</td></tr>
@@ -415,14 +417,15 @@
       <tr><td>data-sw-mask-err</td><td>The a value you want to mask the entered value with for when you want to hide it from being displayed in an error message (passwords...)</td></tr>
       <tr><td>data-sw-max-length</td><td>Maximum character limit</td></tr>
       <tr><td>data-sw-min-length</td><td>Minimum character limit</td></tr>
-      <tr><td>data-sw-max-value</td><td>Maximum value for the given type</td></tr>
-      <tr><td>data-sw-min-value</td><td>Minimum value for the given type</td></tr>
+      <tr><td>data-sw-max-value</td><td>Maximum value for the given type.  User will not be able to enter a value greater</td></tr>
+      <tr><td>data-sw-min-value</td><td>Minimum value for the given type.  User will be able to enter a lower value (as you need to enter a '1' then a '0' for 10...), however, upon leaving focus, an error condition will be triggered if less than the min setting</td></tr>
       <tr><td><a href="#data-sw-related">data-sw-related</a></td><td>Relate fields. format: [related-to-element:type] where type is '=' or 'value'</td></tr>
       <tr><td>data-sw-err-msg</td><td>Custom error message (overrides global msgs)</td></tr>
     </table>
     <br/>
     <br/>
     <h2 id="sanwafuidatatype">data-sw-type (data types)</h2>
+    Create custom Sanwaf attributes with the <a href="https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html">Attribute Builder</a>
     <table class="table-instructions">
       <tr><td><b>Data Type</b></td><td><b>Description</b></td></tr>
       <tr>
@@ -439,7 +442,7 @@
         <td>Numeric (n)</td>
         <td>
           <table>
-            <tr><td>Description</td><td>Any positive or negative numeric value<br/>('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces; one '.' allowed)</td></tr>
+            <tr><td></td><td>Any positive or negative numeric value<br/>('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces; one '.' allowed)<br/>Note: 00001 is a valid number</td></tr>
             <tr><td>Format</td><td><b>n</b></td></tr>
             <tr><td>Example</td><td>1000, -321.123, 0.0001</td></tr>
           </table>
@@ -449,8 +452,8 @@
         <td>Delimited list of numbers (n{})</td>
         <td>
           <table>
-            <tr><td>Description</td><td>A character separated list of numbers</td></tr>
-            <tr><td>Format</td><td><b>n{&lt;separator char&gt;}</b><br/>Note: the min &amp; max settings applies per delimited value</td></tr>
+            <tr><td></td><td>A character separated list of numbers</td></tr>
+            <tr><td>Format</td><td><b>n{&lt;separator char&gt;}</b><br/>Note: the min &amp; max settings applies per delimited value<br/>Note: 00001 is a valid number</td></tr>
             <tr><td>Example</td><td>using n{,}, -321.123,0.000,123,45</td></tr>
           </table>
         </td>
@@ -459,7 +462,7 @@
         <td>Integer (i)</td>
         <td>
           <table>
-            <tr><td>Description</td><td>Any positive or negative integer value<br/>('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces)</td></tr>
+            <tr><td>Description</td><td>Any positive or negative integer value<br/>('+' sign NOT allowed; one '-' sign allowed @start of value; no spaces)<br/>Note: 00001 is a valid number</td></tr>
             <tr><td>Format</td><td><b>i</b></td></tr>
             <tr><td>Example</td><td>1000, -321, 1</td></tr>
           </table>
@@ -470,7 +473,7 @@
         <td>
           <table>
             <tr><td>Description</td><td>A character separated list of integers</td></tr>
-            <tr><td>Format</td><td><b>i{&lt;separator char&gt;}</b><br/>Note: the min &amp; max settings applies per delimited value</td></tr>
+            <tr><td>Format</td><td><b>i{&lt;separator char&gt;}</b><br/>Note: the min &amp; max settings applies per delimited value<br/>Note: 00001 is a valid number</td></tr>
             <tr><td>Example</td><td>using i{,}, -321,0,123,45</td></tr>
           </table>
         </td>
@@ -621,6 +624,7 @@
       </table>
     </form>
     <h3 id="format-data-type">Format Data Type</h3>
+    Create custom Sanwaf attributes with the <a href="https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html">Attribute Builder</a>
     <table class="table-instructions-inline-block">
       <tr><td>The Format data type sets the element to use a Format</td><td></td></tr>
       <tr><td>A Format is way to best fit a user's entry into a mask</td><td></td></tr>
@@ -701,6 +705,7 @@
 	<br/>
 
     <h3 id="dependent-format-data-type">Dependent Format Data Type</h3>
+    Create custom Sanwaf attributes with the <a href="https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html">Attribute Builder</a>
     <table class="table-instructions-inline-block">
       <tr><td>The Dependent Format data type sets the element to use a Format when a different element equals a specific value</td><td></td></tr>
       <tr><td>Sanwaf-UI automatically sets an oninput event handler to elements that have the dependent format data type.  the event handler formats as the user enters data</td><td></td></tr>
@@ -732,6 +737,7 @@
 	<br/>
 
     <h3 id="data-sw-related">Sanwaf-UI Attribute 'data-sw-related' - Element Relationships</h3>
+    Create custom Sanwaf attributes with the <a href="https://bernardo1024.github.io/sanwaf-ui-attribute-builder.html">Attribute Builder</a>
     <table class="table-instructions-inline-block">
       <tr><td>The "data-sw-related" attribute sets element relationships.  Use this attribute to specify which fields are mandatory based on other related elements</td><td></td></tr>
       <tr><td>For example, if you want 2 password fields, pass1 &amp; pass2, to equal each other, you would set the "data-sw-related" attribute in pass2 as such:</td><td></td></tr>
