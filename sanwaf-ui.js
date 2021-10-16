@@ -46,12 +46,12 @@ function associateLabels() {
 }
 
 function cleanAllErrorElements(err) {
-  var d = getElementByIdOrName(err.showOnPageElementId);
+  var d = getElementByIdOrName(err.showonpageElementId);
   if (err.errorActions.includes("showdiv")) {
     d.style.display = "none";
   }
-  if (err.showOnPageSanwafTableElementId) {
-    var display = getElementByIdOrName(err.showOnPageSanwafTableElementId);
+  if (err.showonpageSanwafTableElementId) {
+    var display = getElementByIdOrName(err.showonpageSanwafTableElementId);
     if (display) {
       display.innerHTML = "";
     }
@@ -132,11 +132,11 @@ function doLabelAndHover(e, err, msgs, actions) {
       att.value = label.innerHTML;
       label.setAttributeNode(att);
     }
-    if (actions.includes("colorLabel")) {
+    if (actions.includes("colorlabel")) {
       labeltxt = "<span id='sanwafuispan' class='" + err.labelClass + "'>" + labeltxt + "</span>";
     }
 
-    if (actions.includes("hoverOnLabel")) {
+    if (actions.includes("hoveronlabel")) {
       if(err.showlabel){
         if(e.swDisplay && e.swDisplay.length > 0){
           hovertxt += '"' + e.swDisplay + '"<br/>';
@@ -150,14 +150,14 @@ function doLabelAndHover(e, err, msgs, actions) {
       hovertxt += buildMsgFromArray(msgs, "<br/>");
     }
 
-    if (!actions.includes("hoverOnLabel")) {
+    if (!actions.includes("hoveronlabel")) {
       label.innerHTML = labeltxt;
     } else {
       label.innerHTML = "<div id='sanwafuierrordisplay' class='" + err.tooltipClass + "'>" + labeltxt + "<span id='sanwafuispan' class='"
           + err.tooltipTextClass + "'>" + hovertxt + "</span></div>";
     }
   }
-  if (actions.includes("colorInput")) {
+  if (actions.includes("colorinput")) {
     field.classList.add(err.inputClass);
   } else {
     if (field.classList.contains(err.inputClass)) {
@@ -404,20 +404,20 @@ function handleErrors(err, doBlurActions, suppressRender) {
     return;
   }
 
-  if (actions.includes("showOnPage")) {
-    var d = getElementByIdOrName(err.showOnPageElementId);
+  if (actions.includes("showonpage")) {
+    var d = getElementByIdOrName(err.showonpageElementId);
     if (d) {
       d.style.display = "block";
     }
-    if (err.errorActions.includes("showOnPageSanwafTable")) {
-      var e = getElementByIdOrName(err.showOnPageSanwafTableElementId);
+    if (err.errorActions.includes("showonpagesanwaftable")) {
+      var e = getElementByIdOrName(err.showonpageSanwafTableElementId);
       if (e) {
         e.innerHTML = buildErrorMsg(e, err, "html");
       }
     }
   }
-  if (err.msgarray.length > 0 && actions.includes("alertWithPopup")) {
-    alert(buildErrorMsg(e, err, "alertWithPopup"));
+  if (err.msgarray.length > 0 && actions.includes("alertwithpopup")) {
+    alert(buildErrorMsg(e, err, "alertwithpopup"));
   }
 }
 
@@ -545,64 +545,66 @@ function setHtml5Attribute(e){
 }
 
 function loadGlobalErrorSettings(forElementOnly) {
-  var config = getElementByIdOrName("sanwafUiConfig");
+  var config = getElementByIdOrName("sanwaf-ui-config");
   var err = new Object;
   err.count = 0;
   err.elements = [];
   err.msgarray = [];
 
-  err.numErrorsToDisplay = getAttribute(config, "data-sw-numErrorsToDisplay");
+  err.numErrorsToDisplay = getAttribute(config, "data-sw-num-errors-to-display");
   if (err.numErrorsToDisplay == "") {
     err.numErrorsToDisplay = -1;
   }
 
-  err.errorActions = getAttribute(config, "data-sw-errorActions", "");
+  err.errorActions = getAttribute(config, "data-sw-error-actions", "");
   if (err.errorActions == "") {
-    err.errorActions = "hoverOnLabel,hoverShowLabel,colorLabel,colorInput";
+    err.errorActions = "hoveronlabel,hovershowlabel,colorlabel,colorinput";
   }
+  err.errorActions = err.errorActions.toLowerCase();
 
-  err.blurActions = getAttribute(config, "data-sw-blurActions", "");
+  err.blurActions = getAttribute(config, "data-sw-blur-actions", "");
   if (err.blurActions == "") {
-    err.blurActions = "hoverOnLabel,hoverShowLabel,colorLabel,colorInput";
+    err.blurActions = "hoveronlabel,hovershowlabel,colorlabel,colorinput";
   }
+  err.blurActions = err.blurActions.toLowerCase();
+  
+  err.labelClass = getAttribute(config, "data-sw-label-class", "sanwafuiLabel");
+  err.inputClass = getAttribute(config, "data-sw-input-class", "sanwafuiInput");
+  err.tooltipClass = getAttribute(config, "data-sw-tooltip-class", "sawafuiTooltip");
+  err.tooltipTextClass = getAttribute(config, "data-sw-tooltip-text-class", "tooltiptext");
+  err.sanwafErrorTableClass = getAttribute(config, "data-sw-sanwaf-error-table-class", "sanwafuiErrorTable");
+  err.sanwafErrorTableTdKeyClass = getAttribute(config, "data-sw-sanwaf-error-table-td-key-class", "sanwafuiErrorTableTdKey");
+  err.sanwafErrorTableTdDescClass = getAttribute(config, "data-sw-sanwaf-error-table-td-desc-class", "sanwafuiErrorTableTdDesc");
 
-  err.labelClass = getAttribute(config, "data-sw-labelClass", "sanwafuiLabel");
-  err.inputClass = getAttribute(config, "data-sw-inputClass", "sanwafuiInput");
-  err.tooltipClass = getAttribute(config, "data-sw-tooltipClass", "sawafuiTooltip");
-  err.tooltipTextClass = getAttribute(config, "data-sw-tooltipTextClass", "tooltiptext");
-  err.sanwafErrorTableClass = getAttribute(config, "data-sw-sanwafErrorTableClass", "sanwafuiErrorTable");
-  err.sanwafErrorTableTdKeyClass = getAttribute(config, "data-sw-sanwafErrorTableTdKeyClass", "sanwafuiErrorTableTdKey");
-  err.sanwafErrorTableTdDescClass = getAttribute(config, "data-sw-sanwafErrorTableTdDescClass", "sanwafuiErrorTableTdDesc");
-
-  err.showOnPageElementId = getAttribute(config, "data-sw-showOnPageElementId", "sanwafuierrorwrapper");
-  err.showOnPageSanwafTableElementId = getAttribute(config, "data-sw-showOnPageSanwafTableElementId", "sanwafuierrortable");
-  if (err.errorActions.includes("hoverShowLabel")) {
+  err.showonpageElementId = getAttribute(config, "data-sw-show-on-page-element-id", "sanwafuierrorwrapper");
+  err.showonpageSanwafTableElementId = getAttribute(config, "data-sw-show-on-page-sanwaf-element-id", "sanwafuierrortable");
+  if (err.errorActions.includes("hovershowlabel")) {
     err.showlabel = true;
   } else {
     err.showlabel = false;
   }
 
-  err.popheader1 = getAttribute(config, "data-sw-errorPopHeader1", "Please correct the following errors");
-  err.popheader2 = getAttribute(config, "data-sw-errorPopHeader2", "---------------------------------------------------------------------------");
-  err.min = getAttribute(config, "data-sw-errorMinLength", "Must be between %1 and %2 chars");
-  err.max = getAttribute(config, "data-sw-errorMaxLength", "Must be between %1 and %2 chars");
-  err.maxMinEqualMsg = getAttribute(config, "data-sw-errorMaxMinLengthEqual", "Must be %1 chars");
-  err.required = getAttribute(config, "data-sw-errorRequired", "Is a Required Field");
-  err.minVal = getAttribute(config, "data-sw-errorMinValue", "Must be between %1 and %2");
-  err.maxVal = getAttribute(config, "data-sw-errorMaxValue", "Must be between %1 and %2");
-  err.rel = getAttribute(config, "data-sw-errorRelated", "Is required when %1 is entered");
-  err.relNotEqual = getAttribute(config, "data-sw-errorRelatedNotEqual", "%1 must have the same value as %2");
-  err.type_c = getAttribute(config, "data-sw-errorTypeChar", "Must be a single character");
-  err.type_n = getAttribute(config, "data-sw-errorTypeNumeric", "Must be numeric");
-  err.type_nn = getAttribute(config, "data-sw-errorTypeNumericDelimited", "Must be a list of numeric value(s) delimted by %1");
-  err.type_i = getAttribute(config, "data-sw-errorTypeInteger", "Must be an integer");
-  err.type_ii = getAttribute(config, "data-sw-errorTypeIntegerDelimited", "Must be a list of integer value(s) delimted by %1");
-  err.type_a = getAttribute(config, "data-sw-errorTypeAlphanumeric", "Must be alphanumeric");
-  err.type_aa = getAttribute(config, "data-sw-errorTypeAlphanumericAndMore", "Must be alphanumeric or the following: %1");
-  err.type_k = getAttribute(config, "data-sw-errorTypeConstant", "Must be must be one of the following: \"%1\"");
-  err.type_r = getAttribute(config, "data-sw-errorTypeRegex", "Must be must match the regex: \"%1\"");
-  err.type_f = getAttribute(config, "data-sw-errorTypeFormat", "Must have the format: %1");
-  err.type_d = getAttribute(config, "data-sw-errorTypeDependentFormat", "Must have the format: %1");
+  err.popheader1 = getAttribute(config, "data-sw-error-pop-header1", "Please correct the following errors");
+  err.popheader2 = getAttribute(config, "data-sw-error-pop-header2", "---------------------------------------------------------------------------");
+  err.min = getAttribute(config, "data-sw-error-min-length", "Must be between %1 and %2 chars");
+  err.max = getAttribute(config, "data-sw-error-max-length", "Must be between %1 and %2 chars");
+  err.maxMinEqualMsg = getAttribute(config, "data-sw-error-maxmin-length-equal", "Must be %1 chars");
+  err.required = getAttribute(config, "data-sw-error-required", "Is a Required Field");
+  err.minVal = getAttribute(config, "data-sw-error-min-value", "Must be between %1 and %2");
+  err.maxVal = getAttribute(config, "data-sw-error-max-value", "Must be between %1 and %2");
+  err.rel = getAttribute(config, "data-sw-error-related", "Is required when %1 is entered");
+  err.relNotEqual = getAttribute(config, "data-sw-error-related-not-equal", "%1 must have the same value as %2");
+  err.type_c = getAttribute(config, "data-sw-error-type-char", "Must be a single character");
+  err.type_n = getAttribute(config, "data-sw-error-type-numeric", "Must be numeric");
+  err.type_nn = getAttribute(config, "data-sw-error-type-numeric-delimited", "Must be a list of numeric value(s) delimted by %1");
+  err.type_i = getAttribute(config, "data-sw-errortype-integer", "Must be an integer");
+  err.type_ii = getAttribute(config, "data-sw-error-type-integer-delimited", "Must be a list of integer value(s) delimted by %1");
+  err.type_a = getAttribute(config, "data-sw-error-type-alphanumeric", "Must be alphanumeric");
+  err.type_aa = getAttribute(config, "data-sw-error-type-alphanumeric-and-more", "Must be alphanumeric or the following: %1");
+  err.type_k = getAttribute(config, "data-sw-error-type-constant", "Must be must be one of the following: \"%1\"");
+  err.type_r = getAttribute(config, "data-sw-error-type-regex", "Must be must match the regex: \"%1\"");
+  err.type_f = getAttribute(config, "data-sw-error-type-format", "Must have the format: %1");
+  err.type_d = getAttribute(config, "data-sw-error-type-dependent-format", "Must have the format: %1");
 
   associateLabels();
   if (!forElementOnly) {
@@ -918,7 +920,6 @@ function isFormatValid(e, err, isDepFormat) {
   }
 
   if (formatWithMaxSize) {
-    console.log("e.value="+formatWithMaxSize+", maxSize="+maxSize+", formatInError="+formatInError);
     e.value = formatWithMaxSize;
   } else {
     e.value = "";
