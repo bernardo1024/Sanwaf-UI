@@ -430,13 +430,17 @@ For example:
 	/bar?name 	- name can be configured to have a length = 30
 
 Endpoints do not apply to Sanwaf-UI but need to be specified on any form where you dynamically set the action attribute. 
+
 if not specified, the form's action attribute will be used which wont work if the action is dynamically set. 
+
 To overcome this, you will need to specify all the possible form actions by adding the data-sw-actions attribute to the form element.
 
 For a given form, add the data-sw-action attribute and specify the URIs you want Sanwaf-Server to protect.
+
 Use the ":::" separator to specify more than one URI.
 
 For Example:
+
 	Using the form's action attribute: <form action="/foo">
 	Not using the form's action attribute: <form data-sw-actions="/foo:::/bar">
 
