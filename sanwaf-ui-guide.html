@@ -16,9 +16,9 @@
     <!-- Sanwaf-UI code - STEP 2a. to use a use custom css see <div id="sanwaf-ui-config" .../> for how to override settings
     	                           for this example we define a  custom.css file to be used instead of the sanwaf-ui.css file
     	                           to use this custom file, uncomment the div sanwaf-ui-config below and review the 2nd block -->
-     
+     <!--
     <link rel="stylesheet" type="text/css" href="custom.css" media="screen" />  
-    
+     -->
  
     <style> 
       * { Background : #322f2f; color: #d3d0d0;font-family: Arial; } 
@@ -35,7 +35,6 @@
     <!-- Sanwaf-UI code - 4th block below - override default data type error messages -->
     <!--	
     <div id="sanwaf-ui-config" style="display:none"
-      data-sw-actions="" 
       data-sw-num-errors-to-display="-1" 
       data-sw-error-actions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput,showOnPage,showOnPageSanwafTable,alertWithPopup"
       data-sw-blur-actions="hoverOnLabel,hoverShowLabel,colorLabel,colorInput"
@@ -106,8 +105,11 @@
       <input type="button" value="hide errors" onclick="document.getElementById('pageErrors').style.display='none';"/>
     </div>
     
-    <!-- Sanwaf-UI code - STEP 4. add sanwaf attributes (data-sw-*) to configure elements;  -->
-    <form id="testform" method="post" action="./someEndPoint">
+    <!-- Sanwaf-UI code - STEP 4. add sanwaf attributes (data-sw-*) to configure elements;
+          Note that if you set form actions dynamically, and you want to you endpoint protection, 
+            you will need to include the Sanwaf Form attribute data-sw-actions="action1:::action2:::action3..." 
+    -->
+    <form id="testform" method="post" action="./someEndPoint" data-sw-actions="./someEndPoint">
       <table class="table-instructions">
         <tr>
           <td><b>Item</b></td>
@@ -341,7 +343,6 @@
     <br/>
     <table class="table-instructions">
       <tr><td><b>Attribute</b></td><td><b>Description</b></td></tr>
-      <tr><td>data-sw-actions</td><td>Used by Sanwaf-Server endpoints, specify the form actions/URIs to trigger server-side validation associated with the elements.  Use the ':::' separator to specify multiple actions/URIs) </td></tr>
       <tr><td>data-sw-num-errors-to-display</td><td>Number of error messages to display.  Specify -1 to display all errors<br/><b>Defaults to:</b> -1</td></tr>
       <tr><td><a href="#sanwafuiactions">data-sw-error-actions</a></td><td>Action(s)s to take when an error is found on a submit<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput</td></tr>
       <tr><td><a href="#sanwafuiactions">data-sw-blur-actions</a></td><td>Action(s) to take when a field is blurred<br/><b>Defaults to:</b> hoverOnLabel,hoverShowLabel,colorLabel,colorInput</td></tr>
@@ -842,7 +843,38 @@
           </td>
        </tr>
     </table>
+    <br/>
+    <h2 id="sanwaf-endpoints">Sanwaf-Server Endpoints &amp; Form Element data-sw-actions Attribute</h2>
+    <table class="table-instructions">
+      <tr><td>Sanwaf-Server has 2 options for protecting parameters.  Global and Endpoint</td></tr>
+      <tr><td>Global parameter protection protects named parameters globally regardless request URI origin</td></tr>
+      <tr><td>Endpoint parameter protection protects named parameters for a specified set of URIs</td></tr>
+      <tr><td>Endpoints are used by Sanwaf-UI-2-Server when you include the --endpoint option to create the Sanwaf-Server XML file</td></tr>
+      <tr><td>You add the data-sw-actions attribute to specify what endpoints you want related to the form.  If not provided, the form's action attribute will be used</td></tr>
+      <tr><td></td></tr>
+      <tr><td><b>For example:</b></td></tr>
+      <tr><td>&nbsp;&nbsp;You have 2 URIs: /foo &amp; /bar</td></tr>
+      <tr><td>&nbsp;&nbsp;(1) Global parameter protection for &quot;name&quot;.<br/>&nbsp;&nbsp;Regardless of request origin (URI), Sanwaf-Server will ensure the parameter is secured based on the data-sw-* attributes specified</td></tr>
+      <tr><td>&nbsp;&nbsp;(2) Endpoint parameter protection for &quot;name&quot; for URI /foo.<br/>&nbsp;&nbsp;Sanwaf-Server will ensure the parameter is secured based on the data-sw-* attributes specified only if the URI matches</td></tr>
+      <tr><td></td></tr>
+      <tr><td>Endpoints allow you to have different data-sw-* attribute configurations for identically named parameters in differing URIs</td></tr>
+      <tr><td><b>For example:</b></td></tr>
+      <tr><td>&nbsp;&nbsp;/foo?name - can be configured to have a length of 5</td></tr>
+      <tr><td>&nbsp;&nbsp;/bar?name - can be configured to have a length of 30</td></tr>
+      <tr><td></td></tr>
 
+      <tr><td>Endpoints do not apply to Sanwaf-UI but need to be specified on any form where you dynamically set the action attribute</td></tr>
+      <tr><td>If not specified, the form's action attribute will be used which wont work if the action is dynamically set</td></tr>
+      <tr><td>To overcome this, you will need to specify all the possible form actions using the <b>data-sw-actions</b> attribute</td></tr>
+      <tr><td></td></tr>
+      <tr><td>For a given form add the data-sw-action attribute and specify the URIs you want Sanwaf-Server to protect</td></tr>
+      <tr><td>Use the &quot;:::&quot; separator to specify more than one URI</td></tr>
+      <tr><td><b>For Example:</b></td></tr>
+      <tr><td>&nbsp;&nbsp;Using the form's action attribute: &lt;form action=&quot;/foo&quot;&gt;</td></tr>
+      <tr><td>&nbsp;&nbsp;Not using the form's action attribute: &lt;form data-sw-actions=&quot;/foo:::/bar&quot;&gt;</td></tr>
+      <tr><td></td></tr>
+      <tr><td>See the <a href="https://github.com/bernardo1024/Sanwaf-Server">Sanwaf-Server</a> documentation for more information</td></tr>
+    </table>
     <br/>
     <h2>Configuring how Sanwaf-UI Looks: Sanwaf-UI.css</h2>
     Use the Sanwaf-UI.css file to configure the look and feel of Sanwaf-UI in your application
@@ -865,7 +897,7 @@
     <h6 id="top">Version: 0.0.1 - &copy; 2021 Bernardo Sanchez (bernardo.toronto@owasp.org)</h6>
     
     <!-- sanwaf-ui code - STEP 6. initialize sanwaf-ui (sets event listeners) -->
-    <script> initSanwafui(); </script>
+    <script>initSanwafui()</script>
     
   </body>
 </html>
