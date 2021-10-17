@@ -131,8 +131,6 @@ A hidden "**sanwafuiconfig**" element is used to configure the Sanwaf-ui behavio
   
 **Optional Control Attributes**  
 
-	data-sw-actions	 			- Used by Sanwaf-Server endpoints, specify the form actions/URIs to trigger server-side validation associated with the elements 
-				  		  Use the ::: separator to specify multiple actions/URIs
   	data-sw-numErrorsToDisplay  		- Number of error messages to display. Specify -1 to display all errors. 
 						  Defaults to: -1
   	data-sw-errorActions                  	- Action(s)s to take when an error is found on a submit.  
@@ -408,7 +406,7 @@ Sanwaf-Server Endpoints & Form Element data-sw-actions Attribute
 Sanwaf-Server has 2 options for protecting parameters. Global and Endpoint.
 
 	Global parameter protection 	- protects named parameters globally regardless request URI origin
-	Endpoint parameter protection 	- protects named parameters for a specifed set of URIs
+	Endpoint parameter protection 	- protects named parameters for a specified set of URIs
 
 Endpoints are used by Sanwaf-UI-2-Server when you include the --endpoint option to create the Sanwaf-Server XML file.
 
