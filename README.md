@@ -405,13 +405,17 @@ For example:
 Sanwaf-Server Endpoints & Form Element data-sw-actions Attribute
 ----------------------------------------------
 
-Sanwaf-Server has 2 options for protecting parameters. Global and Endpoint
-Global parameter protection protects named parameters globally regardless request URI origin
-Endpoint parameter protection protects named parameters for a specifed set of URIs
+Sanwaf-Server has 2 options for protecting parameters. Global and Endpoint.
+
+	Global parameter protection protects named parameters globally regardless request URI origin
+	Endpoint parameter protection protects named parameters for a specifed set of URIs
+
 Endpoints are used by Sanwaf-UI-2-Server when you include the --endpoint option to create the Sanwaf-Server XML file
+
 You add the data-sw-actions attribute to specify what endpoints you want related to the form. If not provided, the form's action attribute will be used
 
 For example:
+
 	You have 2 URIs: /foo & /bar
 	(1) Global parameter protection for "name". Regardless of request origin (URI), Sanwaf-Server will ensure the parameter is secured based on the data-sw-* attributes specified
 	(2) Endpoint parameter protection for "name" for URI /foo. Sanwaf-Server will ensure the parameter is secured based on the data-sw-* attributes specified only if the URI matches
@@ -419,10 +423,12 @@ For example:
 Endpoints allow you have different data-sw-* attribute configurations for identically named parameters in differing URIs
 
 For example: 
+
 	/foo?name - can be configured to have a length of 5; whereas /bar?name can be configured to 30...
 
 Endpoints do not apply to Sanwaf-UI but need to be specified on any form where you dynamically set the action attribute. if not specified, the form's action attribute will be used which wont work if the action is dynamically set. To overcome this, you will need to specify all the possible form actions using the data-sw-actions attribute
-for a given form add the data-sw-action attribute and specify the URIs you want Sanwaf-Server to protect the submission for
+
+For a given form add the data-sw-action attribute and specify the URIs you want Sanwaf-Server to protect the submission for
 Use the ":::" separator to specify more than one URI
 
 For Example:
@@ -430,7 +436,6 @@ For Example:
 	Not using the form's action attribute: <form data-sw-actions="/foo:::/bar">
 
 See the Sanwaf-Server documentation for more information
-
 
 
 Configuring how Sanwaf-ui Looks: Sanwaf-ui.css
