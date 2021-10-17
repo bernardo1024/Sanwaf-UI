@@ -441,8 +441,8 @@ Use the ":::" separator to specify more than one URI.
 
 For Example:
 
-	Using the form's action attribute: <form action="/foo">
-	Not using the form's action attribute: <form data-sw-actions="/foo:::/bar">
+	Using the form's action attribute: 	<form action="/foo">
+	Not using the form's action attribute: 	<form data-sw-actions="/foo:::/bar">
 
 See the Sanwaf-Server documentation for more information
 
